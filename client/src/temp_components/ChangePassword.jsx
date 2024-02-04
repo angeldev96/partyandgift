@@ -37,4 +37,4 @@ function ChangePassword() {
   );
 }
 
-export default LoginForm;
+export default ChangePassword;
