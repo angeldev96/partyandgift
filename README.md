@@ -2,14 +2,14 @@
 
 ### Nombre del proyecto: party and gift
 ### Tecnologías a utilizar:
-## Frontend: 
+#### Frontend: 
 - [React](https://react.dev/)
 - [Tailwind](https://tailwindcss.com/)   
-## Backend:
+#### Backend:
 - [NodeJS](https://nodejs.org/en)
 - [Express](https://expressjs.com/)
-## Base de datos:
+#### Base de datos:
 - [PostgresSQL](https://www.postgresql.org/)
-## Servicio en la nube:
+#### Servicio en la nube:
 - [Azure](https://azure.microsoft.com/en-us)
 
