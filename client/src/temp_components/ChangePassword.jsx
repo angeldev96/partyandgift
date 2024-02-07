@@ -41,7 +41,7 @@ function ChangePassword() {
                 onChange={handleChange}
                 onBlur={validateInput}
               />
-              {errorMessage && <div className="text-red-500 mt-2">{errorMessage}</div>}
+              {errorMessage && <div className="text-red-500 mt-2 text-sm">{errorMessage}</div>}
             </div>
           </div>
 
