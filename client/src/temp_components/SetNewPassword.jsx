@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
-import { IconEye, IconEyeOff } from '@tabler/icons-react'; // Importa los iconos
+import  { useState } from 'react';
+import { IconEye, IconEyeOff } from '@tabler/icons-react'; 
 
 
 const PasswordResetComponent = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+  const [error, setError] = useState(''); 
+
 
   
 
@@ -19,13 +20,7 @@ const PasswordResetComponent = () => {
     setConfirmPassword(event.target.value);
   };
 
-  const validateInput = () => {
-    if (newPassword !== confirmPassword) {
-      setErrorMessage('Las contraseñas no coinciden');
-    } else {
-      setErrorMessage('');
-    }
-  };
+ 
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -35,6 +30,15 @@ const PasswordResetComponent = () => {
     setConfirmPasswordVisible(!confirmPasswordVisible);
   };
 
+  const validateAndSubmit = (event) => {
+    event.preventDefault();
+    if (newPassword !== confirmPassword) {
+      setError('Las contraseñas no coinciden');
+    } else {
+      setError('');
+    }
+  };
+
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -42,7 +46,9 @@ const PasswordResetComponent = () => {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" action="#" method="POST">
+        <form className="space-y-6" action="#" method="POST"  onSubmit={validateAndSubmit}>
+        {error && <p className="text-red-500">{error}</p>}
+
           <div>
             <label htmlFor="newPassword" className="block text-sm font-medium leading-6 text-gray-900">Nueva Contraseña</label>
             <div className="relative mt-2">
@@ -55,7 +61,6 @@ const PasswordResetComponent = () => {
         className="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-400 sm:text-sm sm:leading-6"
         value={newPassword}
         onChange={handleNewPasswordChange}
-        onBlur={validateInput}
       />
       <div className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
         {passwordVisible ? (
@@ -79,7 +84,6 @@ const PasswordResetComponent = () => {
         className="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-400 sm:text-sm sm:leading-6"
         value={confirmPassword}
         onChange={handleConfirmPasswordChange}
-        onBlur={validateInput}
       />
       <div className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
         {confirmPasswordVisible ? (
