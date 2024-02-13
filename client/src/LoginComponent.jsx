@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { Navigate } from 'react-router-dom';
+
 
 export default function LoginComponent() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -22,16 +24,20 @@ export default function LoginComponent() {
         throw new Error('Correo electrónico o contraseña incorrectos');
       }
 
-      setSuccess(true);
+      localStorage.setItem('isLoggedIn', 'true');
+      setIsLoggedIn(true);
     } catch (error) {
       setError(error.message);
       console.error(error);
     }
   };
 
+  if (isLoggedIn) {
+    return <Navigate to="/dashboard" />;
+  }
+
   return (
     <>
-      {success && <p className="text-green-500">Inicio de sesión exitoso</p>}
       {error && <p className="text-red-500">{error}</p>}
       <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
