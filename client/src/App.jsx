@@ -2,7 +2,8 @@
 // import DashboardComponent from "./DashboardComponent";
 // import  { useState } from 'react';
 // import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import SignUpComponent from "./SignUpComponent";
+import LoginComponent from "./LoginComponent";
+// import SignUpComponent from "./SignUpComponent";
 
 
 function App() {
@@ -33,8 +34,7 @@ function App() {
   //     {/* Otras rutas */}
   //   </Switch>
   // </Router>
-  <SignUpComponent/>
-    
+    <LoginComponent />    
   );
 }
 

@@ -3,7 +3,8 @@ const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
-const db = require('./db'); // Módulo para interactuar con la base de datos
+const db = require('./db'); 
+const cors = require('cors');
 
 // Crear una instancia de Express
 const app = express();
@@ -16,9 +17,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Middleware para manejar sesiones de usuario
 app.use(session({
-  secret: 'supersecreto', // Cambia esta clave por una segura en un entorno de producción
+  secret: 'maiden', // Cambia esta clave por una segura en un entorno de producción
   resave: false,
   saveUninitialized: false
+}));
+
+app.use(cors({
+  origin: 'http://localhost:5173'
 }));
 
 // Ruta para el inicio de sesión

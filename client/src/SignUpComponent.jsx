@@ -10,13 +10,14 @@ export default function SignUpComponent() {
     event.preventDefault();
 
     try {
-      const response = await fetch('/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      const response = await fetch('http://localhost:3001/register', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({ email, password }),
+});
+
 
       if (!response.ok) {
         throw new Error('Error al registrar usuario');
