@@ -3,7 +3,7 @@ const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
-const db = require('./db'); 
+const db = require('./utils/database'); 
 const cors = require('cors');
 
 // Crear una instancia de Express
