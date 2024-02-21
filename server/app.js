@@ -51,6 +51,7 @@ app.post('/register', async (req, res) => {
   if (existingUser) {
     return res.status(400).send('El correo electrónico ya está en uso');
   }
+  
   // Crea un nuevo usuario
   const hashedPassword = bcrypt.hashSync(password, 10);
   await db.createUser(email, hashedPassword);
@@ -66,4 +67,37 @@ app.post('/logout', (req, res) => {
 // Iniciar el servidor en el puerto 3001
 app.listen(3001, () => {
   console.log('Servidor iniciado en el puerto 3001');
+});
+
+// Ruta de registro empleado
+app.post('/register/empleado', async (req, res) => {
+  const { email, password, nombre, apellido, cargo } = req.body;
+
+  // Comprueba si el empleado ya existe en la base de datos
+  const existingEmpleado = await db.getEmpleadoByEmail(email);
+  if (existingEmpleado) {
+    return res.status(400).send('El correo electrónico ya está en uso');
+  }
+
+  // Crea un nuevo empleado
+  const hashedPassword = bcrypt.hashSync(password, 10);
+  await db.createEmpleado(email, hashedPassword, nombre, apellido, cargo);
+  return res.send('Empleado registrado exitosamente');
+});
+
+// Ruta para el inicio de sesión de empleados
+app.post('/login/empleado', async (req, res) => {
+  const { email, password } = req.body;
+  // Busca el empleado en la base de datos
+  const empleado = await db.getEmpleadoByEmail(email);
+  if (!empleado) {
+    return res.status(401).send('Empleado no encontrado');
+  }
+  // Comprueba la contraseña
+  if (bcrypt.compareSync(password, empleado.password)) {
+    req.session.empleadoId = empleado.id;
+    return res.send('Inicio de sesión de empleado exitoso');
+  } else {
+    return res.status(401).send('Correo electrónico o contraseña incorrectos');
+  }
 });

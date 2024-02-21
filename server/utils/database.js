@@ -37,6 +37,17 @@ const createUser = async (email, password) => {
   }
 };
 
+// Función para crear un nuevo empleado
+const createemployee = async (nombre, apellido, email, cargo, fecha_contratacion, activo) => {
+  try {
+    const query = 'INSERT INTO employee (nombre, apellido, email, cargo, fecha_contratacion, activo) VALUES ($1, $2, $3, $4, $5, $6)';
+    await pool.query(query, [nombre, apellido, email, cargo, fecha_contratacion, activo]);
+  } catch (error) {
+    console.error('Error al crear un nuevo empleado:', error);
+    throw error;
+  }
+};
+
 module.exports = {
   getUserByEmail,
   createUser
