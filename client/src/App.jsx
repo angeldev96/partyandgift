@@ -3,6 +3,7 @@ import { useState } from 'react';
 import DashboardComponent from './DashboardComponent';
 import LoginComponent from './LoginComponent';
 import SignUpComponent from './SignUpComponent';
+import Register_Employee from './Register_Employee';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true');
@@ -43,6 +44,7 @@ function App() {
           <Route path="/dashboard" element={<DashboardComponent />} />
           <Route path="/login" element={<LoginComponent />} />
           <Route path="/signup" element={<SignUpComponent />} />
+          <Route path="/signup_employee" element={<Register_Employee/>} />
           <Route path="/logout" element={<Navigate to="/dashboard" />} />
         </Routes>
       </div>
