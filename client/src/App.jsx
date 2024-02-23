@@ -4,6 +4,8 @@ import DashboardComponent from './DashboardComponent';
 import LoginComponent from './LoginComponent';
 import SignUpComponent from './SignUpComponent';
 import Register_Employee from './Register_Employee';
+import Navbar from './Navbar';
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true');
@@ -17,28 +19,13 @@ function App() {
     return <Navigate to="/login" />;
   };
 
+  
+
   return (
     <Router>
       <div>
-        {isLoggedIn ? (
-          <nav className="flex justify-end p-4 bg-gray-200">
-            <Link to="/dashboard" className="mx-2">
-              Dashboard
-            </Link>
-            <button onClick={handleLogout} className="mx-2">
-              Cerrar Sesión
-            </button>
-          </nav>
-        ) : (
-          <nav className="flex justify-end p-4 bg-gray-200">
-            <Link to="/login" className="mx-2">
-              Iniciar Sesión
-            </Link>
-            <Link to="/signup" className="mx-2">
-              Registrarse
-            </Link>
-          </nav>
-        )}
+            <Navbar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
+
         <Routes>
           <Route path="/" element={<Navigate to="/dashboard" />} />
           <Route path="/dashboard" element={<DashboardComponent />} />
