@@ -81,7 +81,7 @@ app.post('/register/empleado', async (req, res) => {
 
   // Crea un nuevo empleado
   const hashedPassword = bcrypt.hashSync(password, 10);
-  await db.createEmpleado(email, hashedPassword, nombre, apellido, cargo);
+  await db.createemployee(email, hashedPassword, nombre, apellido, cargo);
   return res.send('Empleado registrado exitosamente');
 });
 
