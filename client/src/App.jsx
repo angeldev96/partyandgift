@@ -35,7 +35,6 @@ function App() {
           <Route path="/signup" element={<SignUpComponent />} />
           <Route path="/signup_employee" element={<Register_Employee/>} />
           <Route path="/logout" element={<Navigate to="/dashboard" />} />
-          <Route path="/user_settings" element={<UserSettings />} />
           <PrivateRoute path="/user_settings" element={<UserSettings />} />
         </Routes>
       </div>
