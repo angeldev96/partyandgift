@@ -2,11 +2,13 @@ import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 
 
-export default function LoginComponent() {
+// eslint-disable-next-line react/prop-types
+export default function LoginComponent({setIsLoggedIn}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedInLocally, setIsLoggedInLocally] = useState(false);
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -26,6 +28,7 @@ export default function LoginComponent() {
 
       const data = await response.json();
       localStorage.setItem('token', data.token);
+      setIsLoggedInLocally(true);
       setIsLoggedIn(true);
     } catch (error) {
       setError(error.message);
@@ -33,9 +36,11 @@ export default function LoginComponent() {
     }
   };
 
-  if (isLoggedIn) {
+  if (isLoggedInLocally) {
     return <Navigate to="/dashboard" />;
   }
+
+  
 
   return (
     <>
