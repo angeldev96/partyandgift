@@ -88,6 +88,13 @@ app.post('/login/empleado', async (req, res) => {
 });
 
 
+const authenticateToken = require('./middleware/auth');
+
+app.get('/user_settings', authenticateToken, (req, res) => {
+  res.json({ message: 'This is a protected route' });
+});
+
+
 // Iniciar el servidor en el puerto 3001
 app.listen(3001, () => {
   console.log('Servidor iniciado en el puerto 3001');

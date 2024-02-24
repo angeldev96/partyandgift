@@ -24,7 +24,8 @@ export default function LoginComponent() {
         throw new Error('Correo electrónico o contraseña incorrectos');
       }
 
-      localStorage.setItem('isLoggedIn', 'true');
+      const data = await response.json();
+      localStorage.setItem('token', data.token);
       setIsLoggedIn(true);
     } catch (error) {
       setError(error.message);
@@ -33,7 +34,7 @@ export default function LoginComponent() {
   };
 
   if (isLoggedIn) {
-    return <Navigate to="/dashboard" />;
+    return <Navigate to="/user_settings" />;
   }
 
   return (
