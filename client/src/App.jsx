@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import DashboardComponent from './DashboardComponent';
 import LoginComponent from './LoginComponent';
 import SignUpComponent from './SignUpComponent';
@@ -10,15 +10,18 @@ import PrivateRoute from './PrivateRoute';
 
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true');
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+
+  useEffect(() => {
+    const storedLoggedIn = localStorage.getItem('token'); // Check for token instead 
+    if (storedLoggedIn) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   const handleLogout = () => {
-    // Limpiar el estado de autenticación
-    localStorage.removeItem('isLoggedIn');
-    // Actualizar el estado para reflejar que el usuario ha cerrado sesión
+    localStorage.removeItem('token'); 
     setIsLoggedIn(false);
-    // Redirigir al usuario a la página de inicio de sesión
-    return <Navigate to="/login" />;
   };
 
   
