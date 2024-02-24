@@ -34,7 +34,7 @@ export default function LoginComponent() {
   };
 
   if (isLoggedIn) {
-    return <Navigate to="/user_settings" />;
+    return <Navigate to="/dashboard" />;
   }
 
   return (
