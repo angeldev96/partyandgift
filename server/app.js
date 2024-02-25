@@ -105,6 +105,19 @@ app.post('/form/products', async (req, res) => {
 
 const authenticateToken = require('./middleware/auth');
 
+// Ruta para cambiar la contraseña del usuario
+app.post('/change-password', authenticateToken, async (req, res) => {
+  const { newPassword } = req.body;
+  const userId = req.user.id; // Obtener el ID del usuario del token
+  
+  // Actualizar la contraseña en la base de datos
+  const hashedPassword = bcrypt.hashSync(newPassword, 10);
+  await db.updateUserPassword(userId, hashedPassword);
+  
+  res.send('Contraseña cambiada exitosamente');
+});
+
+
 app.get('/user_settings', authenticateToken, (req, res) => {
   res.json({ message: 'This is a protected route' });
 });

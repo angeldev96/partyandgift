@@ -59,9 +59,21 @@ const getEmpleadoByEmail = async (email) => {
   }
 };
 
+// Función para actualizar la contraseña del usuario en la base de datos
+async function updateUserPassword(userId, newPassword) {
+  try {
+    const query = 'UPDATE users SET password = $1 WHERE id = $2';
+    await pool.query(query, [newPassword, userId]);
+  } catch (error) {
+    throw new Error('Error al actualizar la contraseña del usuario');
+  }
+}
+
+
 module.exports = {
   getUserByEmail,
   getEmpleadoByEmail,
   createemployee,
-  createUser
+  createUser,
+  updateUserPassword,
 };
