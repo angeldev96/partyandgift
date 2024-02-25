@@ -6,7 +6,8 @@ import LoginComponent from './LoginComponent';
 import SignUpComponent from './SignUpComponent';
 import Navbar from './Navbar';
 import AccountComponent from './AccountComponent';
-import ChangePassword from './ChangePassword';
+import PasswordReset from './PasswordReset';
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); 
@@ -33,7 +34,7 @@ function App() {
           <Route path="/login" element={<LoginComponent setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/signup" element={<SignUpComponent />} />
           <Route path="/account" element={<AccountComponent />} />
-          <Route path="/reset_password" element={<ChangePassword />} />
+          <Route path="/reset-password" element={<PasswordReset />} />
 
         </Routes>
       </div>

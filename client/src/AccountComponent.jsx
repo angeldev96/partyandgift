@@ -1,8 +1,12 @@
+import { useNavigate } from "react-router-dom";
+
 
 function AccountComponent() {
+  let navigate = useNavigate();
+
 
   const handleChangePassword = () => {
-    // Implementar la lógica para cambiar la contraseña
+    navigate("/reset-password"); // path you want to redirect to
   };
 
   const handleViewPurchaseHistory = () => {
