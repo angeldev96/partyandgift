@@ -5,7 +5,8 @@ import DashboardComponent from './DashboardComponent';
 import LoginComponent from './LoginComponent';
 import SignUpComponent from './SignUpComponent';
 import Navbar from './Navbar';
-import PrivateRoute from './PrivateRoute';
+import AccountComponent from './AccountComponent';
+import ChangePassword from './ChangePassword';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); 
@@ -31,7 +32,9 @@ function App() {
           <Route path="/dashboard" element={<DashboardComponent />} />
           <Route path="/login" element={<LoginComponent setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/signup" element={<SignUpComponent />} />
-          {/* <PrivateRoute path="/user_settings" element={<UserSettings />} /> */}
+          <Route path="/account" element={<AccountComponent />} />
+          <Route path="/reset_password" element={<ChangePassword />} />
+
         </Routes>
       </div>
     </Router>
