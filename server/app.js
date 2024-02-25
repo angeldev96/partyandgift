@@ -52,8 +52,6 @@ app.post('/register', async (req, res) => {
   return res.send('Usuario registrado exitosamente');
 });
 
-
-
 // Ruta de registro empleado
 app.post('/register/empleado', async (req, res) => {
   const { email, password, nombre, apellido, cargo } = req.body;
