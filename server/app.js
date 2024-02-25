@@ -125,3 +125,15 @@ app.get('/user_settings', authenticateToken, (req, res) => {
 app.listen(3001, () => {
   console.log('Servidor iniciado en el puerto 3001');
 });
+
+
+// Ruta para obtener la lista de productos
+app.get('/products', async (req, res) => {
+  try {
+    const products = await db.getProducts(); // Obtener la lista de productos desde la base de datos
+    res.json(products);
+  } catch (error) {
+    console.error('Error al obtener la lista de productos:', error);
+    res.status(500).json({ error: 'Error al obtener la lista de productos' });
+  }
+});
