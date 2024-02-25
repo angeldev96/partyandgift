@@ -42,7 +42,7 @@ export default function SignUpComponent() {
             alt="Your Company"
           />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Register
+            Registro
           </h2>
         </div>
 
@@ -50,7 +50,7 @@ export default function SignUpComponent() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                Email address
+                Correo Electronico
               </label>
               <div className="mt-2">
                 <input
@@ -91,7 +91,7 @@ export default function SignUpComponent() {
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Register
+                Registrarse
               </button>
             </div>
           </form>
