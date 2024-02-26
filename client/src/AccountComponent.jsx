@@ -1,9 +1,8 @@
 import { useNavigate } from "react-router-dom";
-
+import { CogIcon, ViewListIcon } from '@heroicons/react/solid';
 
 function AccountComponent() {
   let navigate = useNavigate();
-
 
   const handleChangePassword = () => {
     navigate("/reset-password"); // path you want to redirect to
@@ -14,20 +13,19 @@ function AccountComponent() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <h1 className="mb-4 text-2xl font-bold text-gray-700">Perfil de Persona</h1>
-      <button 
-        onClick={handleChangePassword} 
-        className="mb-2 px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
-      >
-        Cambiar contraseña
-      </button>
-      <button 
-        onClick={handleViewPurchaseHistory} 
-        className="px-4 py-2 font-bold text-white bg-green-500 rounded hover:bg-green-700"
-      >
-        Ver historial de compras
-      </button>
+    <div className="flex h-screen bg-gray-100">
+      <div className="p-6 w-64 bg-white border-r dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300">
+        <div className="mt-6">
+          <button onClick={handleChangePassword} className="flex items-center text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 p-2 rounded mt-2 w-full">
+            <CogIcon className="h-5 w-5" />
+            <span className="mx-4 font-medium">Cambiar contraseña</span>
+          </button>
+          <button onClick={handleViewPurchaseHistory} className="flex items-center text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 p-2 rounded mt-2 w-full">
+            <ViewListIcon className="h-5 w-5" />
+            <span className="mx-4 font-medium">Ver historial de compras</span>
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
