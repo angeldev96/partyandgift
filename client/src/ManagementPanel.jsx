@@ -11,7 +11,7 @@ const items = [
         description: '',
         icon: Bars3Icon,
         background: 'bg-pink-500',
-        route: '/management-panel'
+        route: '/form-products'
     },
     {
         title: 'Ver Productos',

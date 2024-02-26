@@ -10,7 +10,7 @@ import AccountComponent from './AccountComponent';
 import PasswordReset from './PasswordReset';
 import LoginEmployee from './LoginEmployee';
 import ManagementPanel from './ManagementPanel';
-
+import FormProducts from './FormProducts';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); 
@@ -41,6 +41,7 @@ function App() {
           <Route path="/reset-password" element={<PasswordReset />} />
           <Route path="/login/empleado" element={<LoginEmployee setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/management-panel" element={<ManagementPanel />} />
+          <Route path="/form-products" element={<FormProducts />} />
 
         </Routes>
       </div>
