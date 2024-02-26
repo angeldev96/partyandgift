@@ -78,8 +78,8 @@ app.post('/login/empleado', async (req, res) => {
   }
   // Comprueba la contraseña
   if (bcrypt.compareSync(password, empleado.password)) {
-    req.session.empleadoId = empleado.id;
-    return res.send('Inicio de sesión de empleado exitoso');
+    let token = jwt.sign({id: empleado.id}, 'secret key', {expiresIn: '1h'});
+    return res.json({message:'Inicio de sesión de empleado exitoso',token: token});
   } else {
     return res.status(401).send('Correo electrónico o contraseña incorrectos');
   }
