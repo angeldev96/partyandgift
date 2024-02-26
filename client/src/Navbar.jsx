@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function Navbar({ isLoggedIn, handleLogout }) {
   return (
-    <nav className="mx-auto flex justify-between max-w-7xl items-center gap-x-6 p-6 lg:px-8" aria-label="Global">
+    <nav className="mx-auto flex justify-between max-w-7xl items-center gap-x-6 lg:px-8" aria-label="Global">
     <Link to="/dashboard">
         <span className="sr-only">Dashboard</span>
         <img className="h-16 w-auto" src="./partyandgift.png" alt="" />
