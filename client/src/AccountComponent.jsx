@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { CogIcon, ViewListIcon } from '@heroicons/react/solid';
+import { CogIcon, ViewColumnsIcon } from '@heroicons/react/24/outline'
 
 function AccountComponent() {
   let navigate = useNavigate();
@@ -21,7 +21,7 @@ function AccountComponent() {
             <span className="mx-4 font-medium">Cambiar contraseña</span>
           </button>
           <button onClick={handleViewPurchaseHistory} className="flex items-center text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 p-2 rounded mt-2 w-full">
-            <ViewListIcon className="h-5 w-5" />
+            <ViewColumnsIcon className="h-5 w-5" />
             <span className="mx-4 font-medium">Ver historial de compras</span>
           </button>
         </div>

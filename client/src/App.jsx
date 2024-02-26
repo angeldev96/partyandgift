@@ -9,6 +9,7 @@ import Navbar from './Navbar';
 import AccountComponent from './AccountComponent';
 import PasswordReset from './PasswordReset';
 import LoginEmployee from './LoginEmployee';
+import ManagementPanel from './ManagementPanel';
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
           <Route path="/account" element={<AccountComponent />} />
           <Route path="/reset-password" element={<PasswordReset />} />
           <Route path="/login/empleado" element={<LoginEmployee setIsLoggedIn={setIsLoggedIn} />} />
+          <Route path="/management-panel" element={<ManagementPanel />} />
 
         </Routes>
       </div>
