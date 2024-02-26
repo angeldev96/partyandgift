@@ -37,7 +37,7 @@ export default function LoginEmployee({setIsLoggedIn}) {
   };
 
   if (isLoggedInLocally) {
-    return <Navigate to="/panel-empleado" />;
+    return <Navigate to="/management-panel" />;
   }
 
   
