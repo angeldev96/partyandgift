@@ -19,7 +19,7 @@ function Navbar({ isLoggedIn, handleLogout }) {
       </div>
       
     ) : (
-        <div className="flex gap-x-6">
+        <div className="flex gap-x-6 items-center">
             <Link to="/login" className="hidden lg:block lg:text-sm lg:font-semibold lg:leading-6 lg:text-gray-900">
                 Iniciar Sesión
             </Link>
