@@ -5,7 +5,7 @@ const products = [
       name: 'Arreglo de Techo',
       color: 'Multicolor',
       href: '#',
-      imageSrc: '/client/public/pexels-anastasia-shuraeva-6234120.jpg',
+      imageSrc: './public/pexels-anastasia-shuraeva-6234120.jpg',
       imageAlt: 'Ceiling Decoration Gold and Silver',
       price: 'L.90',
     
@@ -15,7 +15,7 @@ const products = [
       name: 'Fiesta de Antifaz Unisex',
       color: 'Multicolor',
       href: '#',
-      imageSrc: '/client/public/pexels-davide-rotondi-15630475.jpg',
+      imageSrc: './public/pexels-davide-rotondi-15630475.jpg',
       imageAlt: 'Descp. Mascara de Fiesta',
       price: 'L.170',
     
@@ -25,7 +25,7 @@ const products = [
       name: 'Mascara Antifaz Dama',
       color: 'Multicolor',
       href: '#',
-      imageSrc: '/client/public/pexels-ibolya-toldi-3836671.jpg',
+      imageSrc: './public/pexels-ibolya-toldi-3836671.jpg',
       imageAlt: 'Descp. Mascara tonos obscuros Dama',
       price: 'L.210',
     
@@ -35,7 +35,7 @@ const products = [
       name: 'Cupcake Mini Pastel',
       color: 'Multicolor',
       href: '#',
-      imageSrc: '/client/public/pexels-jess-bailey-designs-913136.jpg',
+      imageSrc: './public/pexels-jess-bailey-designs-913136.jpg',
       imageAlt: 'Descp. Cupcake Basico',
       price: 'L.65',
     
@@ -45,7 +45,7 @@ const products = [
       name: 'Regalo Sorpresa',
       color: 'Multicolor',
       href: '#',
-      imageSrc: '/client/public/pexels-karolina-grabowska-4397903.jpg',
+      imageSrc: './public/pexels-karolina-grabowska-4397903.jpg',
       imageAlt: 'Descp. Gift boom',
       price: 'L.130',
     
@@ -55,7 +55,7 @@ const products = [
       name: 'Arreglo Mesa para 2',
       color: 'Multicolor',
       href: '#',
-      imageSrc: '/client/public/pexels-karolina-grabowska-5713660.jpg',
+      imageSrc: './public/pexels-karolina-grabowska-5713660.jpg',
       imageAlt: 'Descp. Mesa de parera',
       price: 'L.230',
     
@@ -65,7 +65,7 @@ const products = [
       name: 'Arreglo de Graduado',
       color: 'Multicolor',
       href: '#',
-      imageSrc: '/client/public/pexels-karolina-grabowska-5725977.jpg',
+      imageSrc: './public/pexels-karolina-grabowska-5725977.jpg',
       imageAlt: 'Descp. Arreglo con Botella de Vino',
       price: 'L.428',
     
@@ -75,7 +75,7 @@ const products = [
       name: 'Globo Personalizado',
       color: 'Multicolor',
       href: '#',
-      imageSrc: '/client/public/',
+      imageSrc: './public/globo_4.png',
       imageAlt: 'Descp. ',
       price: 'L.80',
     
@@ -85,7 +85,7 @@ const products = [
       name: 'Arreglo Pre-Navidad',
       color: 'Multicolor',
       href: '#',
-      imageSrc: '/client/public/pexels-laura-james-6101962.jpg',
+      imageSrc: './public/pexels-laura-james-6101962.jpg',
       imageAlt: 'Descp. Detalles preparando Navidad',
       price: 'L.145',
     
@@ -95,7 +95,7 @@ const products = [
       name: 'Regalo Sorpresa Mini',
       color: '2 Colores',
       href: '#',
-      imageSrc: '/client/public/pexels-liza-summer-6348104.jpg',
+      imageSrc: './public/pexels-liza-summer-6348104.jpg',
       imageAlt: 'Descp. Regalo Mini con chongo',
       price: 'L.96',
     
@@ -105,7 +105,7 @@ const products = [
       name: 'Pila de Regalos Sorpresa',
       color: 'Multicolor',
       href: '#',
-      imageSrc: '/client/public/pexels-michelle-leman-6765533.jpg',
+      imageSrc: './public/pexels-michelle-leman-6765533.jpg',
       imageAlt: 'Descp. Media docena de regalos',
       price: 'L.970',
     
@@ -115,7 +115,7 @@ const products = [
       name: 'Torre de Regalos 3 Pisos',
       color: 'Multicolor',
       href: '#',
-      imageSrc: '/client/public/pexels-pixabay-264985.jpg',
+      imageSrc: './public/pexels-pixabay-264985.jpg',
       imageAlt: 'Descp. Tres regalos diversos',
       price: 'L.467',
     
@@ -125,7 +125,7 @@ const products = [
       name: 'Pastel de Amistad',
       color: 'Multicolor',
       href: '#',
-      imageSrc: '/client/public/pexels-polina-tankilevitch-4110012.jpg',
+      imageSrc: './public/pexels-polina-tankilevitch-4110012.jpg',
       imageAlt: 'Descp. Pastel Base blanco',
       price: 'L.245',
     
@@ -135,7 +135,7 @@ const products = [
       name: 'Ramo de Rosas',
       color: 'Rosadas',
       href: '#',
-      imageSrc: '/client/public/pexels-secret-garden-931176.jpg',
+      imageSrc: './public/pexels-secret-garden-931176.jpg',
       imageAlt: 'Descp. Rosas de colores suave',
       price: 'L.315',
     
@@ -145,7 +145,7 @@ const products = [
       name: 'Pastel HB',
       color: 'Tonos purpuras',
       href: '#',
-      imageSrc: '/client/public/pexels-shuvalova-natalia-15419197.jpg',
+      imageSrc: './public/pexels-shuvalova-natalia-15419197.jpg',
       imageAlt: 'Descp. Pastel de Cumple tonos obscuros',
       price: 'L.245',
     
@@ -155,7 +155,7 @@ const products = [
       name: 'Globo Personalizado',
       color: 'Multicolor',
       href: '#',
-      imageSrc: '/client/public/',
+      imageSrc: '/client/public/globo_1.png',
       imageAlt: 'Descp. ',
       price: 'L.80',
     
@@ -165,7 +165,7 @@ const products = [
       name: 'Regalo Sorpresa Mediano',
       color: 'Tonos Rosados varios',
       href: '#',
-      imageSrc: '/client/public/pexels-skylar-kang-6045704.jpg',
+      imageSrc: './public/pexels-skylar-kang-6045704.jpg',
       imageAlt: 'Descp. Regalo de Media caja',
       price: 'L.330',
     
@@ -175,27 +175,18 @@ const products = [
       name: 'Arreglo y Regalo Tematico',
       color: 'Multicolor',
       href: '#',
-      imageSrc: '/client/public/pexels-tanya-gorelova-3933957.jpg',
+      imageSrc: './public/pexels-tanya-gorelova-3933957.jpg',
       imageAlt: 'Descp. Para mesa tema Mafia',
       price: 'L.610',
     
     },
-    {
-      id: 19,
-      name: 'Arreglo de Mesa Boda Fall',
-      color: 'Tonos marrones',
-      href: '#',
-      imageSrc: '/client/public/',
-      imageAlt: 'Descp. Mesa para invitados de boda ',
-      price: 'L.380',
     
-    },
     {
       id: 20,
       name: 'Arreglo de Mesa Boda Exterior Large',
       color: 'Multicolor',
       href: '#',
-      imageSrc: '/client/public/pexels-tara-winstead-6479601.jpg',
+      imageSrc: './public/pexels-tara-winstead-6479601.jpg',
       imageAlt: 'Descp. Para exteriores Large Table',
       price: 'L.620',
     
