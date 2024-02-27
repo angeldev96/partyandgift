@@ -52,22 +52,22 @@ const products = [
     },
     {
       id: 6,
-      name: 'Globo Personalizado',
+      name: 'Arreglo Mesa para 2',
       color: 'Multicolor',
       href: '#',
-      imageSrc: '/client/public/',
-      imageAlt: 'Descp. ',
-      price: 'L.80',
+      imageSrc: '/client/public/pexels-karolina-grabowska-5713660.jpg',
+      imageAlt: 'Descp. Mesa de parera',
+      price: 'L.230',
     
     },
     {
       id: 7,
-      name: 'Globo Personalizado',
+      name: 'Arreglo de Graduado',
       color: 'Multicolor',
       href: '#',
-      imageSrc: '/client/public/pexels-davide-rotondi-15630475.jpg',
-      imageAlt: 'Descp. ',
-      price: 'L.170',
+      imageSrc: '/client/public/pexels-karolina-grabowska-5725977.jpg',
+      imageAlt: 'Descp. Arreglo con Botella de Vino',
+      price: 'L.428',
     
     },
     {
@@ -82,22 +82,22 @@ const products = [
     },
     {
       id: 9,
-      name: 'Globo Personalizado',
+      name: 'Arreglo Pre-Navidad',
       color: 'Multicolor',
       href: '#',
-      imageSrc: '/client/public/',
-      imageAlt: 'Descp. ',
-      price: 'L.80',
+      imageSrc: '/client/public/pexels-laura-james-6101962.jpg',
+      imageAlt: 'Descp. Detalles preparando Navidad',
+      price: 'L.145',
     
     },
     {
       id: 10,
-      name: 'Globo Personalizado',
-      color: 'Multicolor',
+      name: 'Regalo Sorpresa Mini',
+      color: '2 Colores',
       href: '#',
-      imageSrc: '/client/public/',
-      imageAlt: 'Descp. ',
-      price: 'L.80',
+      imageSrc: '/client/public/pexels-liza-summer-6348104.jpg',
+      imageAlt: 'Descp. Regalo Mini con chongo',
+      price: 'L.96',
     
     },
     {
