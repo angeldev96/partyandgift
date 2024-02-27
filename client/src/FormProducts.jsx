@@ -1,11 +1,11 @@
-// ProductForm.jsx
 import React, { useState } from 'react';
-import axios from 'axios'; // Necesitarás axios para hacer peticiones HTTP al backend
+import axios from 'axios';
 
 function FormProducts() {
   const [productData, setProductData] = useState({
     title: '',
-    quantity: ''
+    quantity: '',
+    image: null
   });
 
   const handleInputChange = (event) => {
@@ -13,18 +13,31 @@ function FormProducts() {
     setProductData({ ...productData, [name]: value });
   };
 
+  const handleImageChange = (event) => {
+    setProductData({ ...productData, image: event.target.files[0] });
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      // Envía los datos del producto al backend
-      await axios.post('http://localhost:3001/products', productData);
-      alert('Producto registrado exitosamente');
-      // Limpia el formulario después de enviar los datos
-      setProductData({ title: '', quantity: '' });
-    } catch (error) {
-      console.error('Error al registrar el producto:', error);
-      alert('Error al registrar el producto');
-    }
+
+    // Encode image as base64 (replace with your preferred method if needed)
+    const reader = new FileReader();
+    reader.readAsDataURL(productData.image);
+    reader.onloadend = async () => {
+      const base64Image = reader.result;
+
+      try {
+        await axios.post('http://localhost:3001/products', {
+          img: base64Image,
+          ...productData, // Spread existing product data
+        });
+        alert('Producto registrado exitosamente');
+        setProductData({ title: '', quantity: '', image: null }); // Reset form
+      } catch (error) {
+        console.error('Error al registrar el producto:', error);
+        alert('Error al registrar el producto');
+      }
+    };
   };
 
   return (
@@ -49,6 +62,14 @@ function FormProducts() {
             value={productData.quantity}
             onChange={handleInputChange}
             required
+          />
+        </div>
+        <div>
+          <label>Imagen:</label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
           />
         </div>
         <button type="submit">Registrar Producto</button>
