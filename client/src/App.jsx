@@ -42,8 +42,8 @@ function App() {
           <Route path="/reset-password" element={<PasswordReset />} />
           <Route path="/login/empleado" element={<LoginEmployee setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/management-panel" element={<ManagementPanel />} />
-          <Route path="/form-products" element={<FormProducts />} />
           <Route path="/products-list" element={<ProductList />} />
+          <Route path="/form-products" element={<FormProducts />} />
 
         </Routes>
       </div>

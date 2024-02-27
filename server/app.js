@@ -85,12 +85,20 @@ app.post('/login/empleado', async (req, res) => {
   }
 });
 
-// Ruta para el envio del formulario del producto
+// Ruta para registrar un nuevo producto
 app.post('/products', async (req, res) => {
-  const { title, quantity, img } = req.body;
-  await db.createProduct(title, quantity, img);
-  return res.send('Producto registrado exitosamente');
+  const { img, title, quantity } = req.body;
+  
+  try {
+    // Crea un nuevo producto en la base de datos
+    await db.createProduct(img, title, quantity);
+    res.status(201).send('Producto creado exitosamente');
+  } catch (error) {
+    console.error('Error al crear el producto:', error);
+    res.status(500).send('Error interno del servidor');
+  }
 });
+
 
 // Ruta para el envio del formulario del producto
 app.post('/register/product', async (req, res) => {
