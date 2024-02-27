@@ -191,6 +191,26 @@ const products = [
       price: 'L.620',
     
     },
+    {
+      id: 21,
+      name: 'Arreglo de Mesa Boda Interior Large',
+      color: 'Tonos Marrones',
+      href: '#',
+      imageSrc: './public/pexels-tara-winstead-6479604.jpg',
+      imageAlt: 'Descp. Para exteriores Large Table',
+      price: 'L.620',
+    
+    },
+    {
+      id: 22,
+      name: 'Cupcake con Cereza',
+      color: 'Temporadas',
+      href: '#',
+      imageSrc: './public/pexels-tim-douglas-6210756.jpg',
+      imageAlt: 'Descp. Cupcake con fruta',
+      price: 'L.75',
+    
+    },
     
     
   ]
