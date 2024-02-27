@@ -69,6 +69,17 @@ async function updateUserPassword(userId, newPassword) {
   }
 }
 
+// Función para el envio del producto
+const createProduct = async (img, title, quantity) => {
+  try {
+    const query = 'INSERT INTO product (img, title, quantity) VALUES ($1, $2, $3) RETURNING *';
+    await pool.query(query, [img, title, quantity]);
+  } catch (error) {
+    console.error('Error a la hora de registrar productos', error);
+    throw error;
+  }
+};
+
 const getProducts = async () => {
   try {
     const query = 'SELECT * FROM product';
@@ -87,5 +98,6 @@ module.exports = {
   createemployee,
   createUser,
   updateUserPassword,
+  createProduct,
   getProducts,
 };

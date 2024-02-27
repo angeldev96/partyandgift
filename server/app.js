@@ -115,6 +115,13 @@ app.post('/change-password', authenticateToken, async (req, res) => {
   res.send('Contraseña cambiada exitosamente');
 });
 
+// Ruta para el envio del formulario del producto
+app.post('/products', async (req, res) => {
+  const { img, title, quantity } = req.body;
+  await db.createProduct(img, title, quantity);
+  return res.send('Producto registrado exitosamente');
+});
+
 // Ruta para obtener la lista de productos
 app.get('/products', async (req, res) => {
   try {
