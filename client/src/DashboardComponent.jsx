@@ -211,6 +211,26 @@ const products = [
       price: 'L.75',
     
     },
+    {
+      id: 23,
+      name: 'Slides de 3 Leches',
+      color: 'Temporadas',
+      href: '#',
+      imageSrc: './public/qpexels-amin-imanifar-865632.jpg',
+      imageAlt: 'Descp. 3 Leches top de relleno',
+      price: 'L.63',
+    
+    }, 
+     {
+      id: 24,
+      name: 'Globo No. 1',
+      color: 'Plateado',
+      href: '#',
+      imageSrc: '/client/public/qpexels-cup-of-couple-8014874.jpg',
+      imageAlt: 'Descp. Globo Numero 1',
+      price: 'L.60',
+    
+    },
     
     
   ]
