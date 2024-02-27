@@ -123,7 +123,7 @@ app.post('/products', async (req, res) => {
 });
 
 // Ruta para obtener la lista de productos
-app.get('/products', async (req, res) => {
+app.get('/product_list', async (req, res) => {
   try {
     const products = await db.getProducts(); // Obtener la lista de productos desde la base de datos
     res.json(products);
