@@ -115,6 +115,18 @@ app.post('/change-password', authenticateToken, async (req, res) => {
   res.send('Contraseña cambiada exitosamente');
 });
 
+// Ruta para obtener la lista de productos
+app.get('/products', async (req, res) => {
+  try {
+    const products = await db.getProducts(); // Obtener la lista de productos desde la base de datos
+    res.json(products);
+  } catch (error) {
+    console.error('Error al obtener la lista de productos:', error);
+    res.status(500).json({ error: 'Error al obtener la lista de productos' });
+  }
+});
+
+
 
 app.get('/user_settings', authenticateToken, (req, res) => {
   res.json({ message: 'This is a protected route' });
@@ -127,13 +139,3 @@ app.listen(3001, () => {
 });
 
 
-// Ruta para obtener la lista de productos
-app.get('/products', async (req, res) => {
-  try {
-    const products = await db.getProducts(); // Obtener la lista de productos desde la base de datos
-    res.json(products);
-  } catch (error) {
-    console.error('Error al obtener la lista de productos:', error);
-    res.status(500).json({ error: 'Error al obtener la lista de productos' });
-  }
-});

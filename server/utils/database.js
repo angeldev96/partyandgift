@@ -69,6 +69,17 @@ async function updateUserPassword(userId, newPassword) {
   }
 }
 
+const getProducts = async () => {
+  try {
+    const query = 'SELECT * FROM product';
+    const { rows } = await pool.query(query);
+    return rows;
+  } catch (error) {
+    console.error('Error al obtener la lista de productos:', error);
+    throw error;
+  }
+};
+
 
 module.exports = {
   getUserByEmail,
@@ -76,4 +87,5 @@ module.exports = {
   createemployee,
   createUser,
   updateUserPassword,
+  getProducts,
 };
