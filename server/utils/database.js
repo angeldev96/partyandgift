@@ -69,7 +69,6 @@ async function updateUserPassword(userId, newPassword) {
   }
 }
 
-// Función para el envio del producto
 const createProduct = async (img, title, quantity) => {
   try {
     const query = 'INSERT INTO product (img, title, quantity) VALUES ($1, $2, $3)';
