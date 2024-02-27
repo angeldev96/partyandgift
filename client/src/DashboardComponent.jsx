@@ -2,12 +2,12 @@
 const products = [
     {
       id: 1,
-      name: 'Globo Personalizado',
+      name: 'Arreglo de Techo',
       color: 'Multicolor',
       href: '#',
-      imageSrc: 'https://i.pinimg.com/736x/51/95/0c/51950cffd200c9db1fea3750e58728ef.jpg',
-      imageAlt: 'Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls.',
-      price: 'L.80',
+      imageSrc: '/client/public/pexels-anastasia-shuraeva-6234120.jpg',
+      imageAlt: 'Ceiling Decoration Gold and Silver',
+      price: 'L.90',
     
     },
     {
