@@ -86,7 +86,7 @@ app.post('/login/empleado', async (req, res) => {
 });
 
 // Ruta para el envio del formulario del producto
-app.post('/form/products', async (req, res) => {
+app.post('/register/product', async (req, res) => {
   const { img, title, quantity } = req.body
   try {
       const result = await pool.query("INSERT INTO product (img, title, quantity) VALUES ($1, $2, $3) RETURNING *", [ 
