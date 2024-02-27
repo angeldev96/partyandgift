@@ -70,21 +70,23 @@ async function updateUserPassword(userId, newPassword) {
 }
 
 // Función para el envio del producto
-const createProduct = async (img, title, quantity) => {
+const createProduct = async (title, quantity, img) => {
   try {
-    const query = 'INSERT INTO product (img, title, quantity) VALUES ($1, $2, $3) RETURNING *';
-    await pool.query(query, [img, title, quantity]);
+    const query = 'INSERT INTO product (title, quantity, img) VALUES ($1, $2, $3) RETURNING *';
+    const result = await pool.query(query, [title, quantity, img]);
+    return result.rows[0]; // Devuelve el producto recién creado
   } catch (error) {
     console.error('Error a la hora de registrar productos', error);
     throw error;
   }
 };
 
+// Función para obtener la lista de productos
 const getProducts = async () => {
   try {
     const query = 'SELECT * FROM product';
     const { rows } = await pool.query(query);
-    return rows;
+    return rows; // Devuelve un array de productos
   } catch (error) {
     console.error('Error al obtener la lista de productos:', error);
     throw error;

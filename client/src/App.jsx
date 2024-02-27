@@ -11,7 +11,7 @@ import PasswordReset from './PasswordReset';
 import LoginEmployee from './LoginEmployee';
 import ManagementPanel from './ManagementPanel';
 import FormProducts from './FormProducts';
-import ProductList from './Products';
+import ProductList from './ProductList';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); 

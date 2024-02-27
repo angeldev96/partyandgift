@@ -27,15 +27,19 @@ function ProductList() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('/product_list'); // Hace la solicitud GET a la ruta /products
-        setProducts(response.data); // Establece los productos obtenidos del backend en el estado
+        const response = await axios.get('http://localhost:3001/product_list');
+        if (Array.isArray(response.data)) { // Verificar si la respuesta es un array
+          setProducts(response.data); // Establece los productos obtenidos del backend en el estado
+        } else {
+          console.error('La respuesta del backend no es un array:', response.data);
+        }
       } catch (error) {
         console.error('Error al obtener los productos:', error);
       }
     };
 
-    fetchProducts(); // Llama a la función para obtener los productos cuando el componente se monta
-  }, []); // El segundo argumento [] indica que este efecto solo se ejecuta una vez, similar a componentDidMount en las clases
+    fetchProducts();
+  }, []);
 
   return (
     <div className="bg-white">
@@ -43,9 +47,13 @@ function ProductList() {
         <h2 className="sr-only">Products</h2>
 
         <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+          {Array.isArray(products) ? ( // Verificar si products es un array
+            products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))
+          ) : (
+            <p>No hay productos disponibles.</p> // Mostrar un mensaje si no hay productos disponibles
+          )}
         </div>
       </div>
     </div>

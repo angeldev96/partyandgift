@@ -18,7 +18,7 @@ const items = [
         description: '',
         icon: Bars3Icon,
         background: 'bg-yellow-500',
-        route: '/management-panel'
+        route: '/products-list'
     },
     {
         title: 'Crear una lista de tareas',

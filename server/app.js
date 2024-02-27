@@ -86,6 +86,13 @@ app.post('/login/empleado', async (req, res) => {
 });
 
 // Ruta para el envio del formulario del producto
+app.post('/products', async (req, res) => {
+  const { title, quantity, img } = req.body;
+  await db.createProduct(title, quantity, img);
+  return res.send('Producto registrado exitosamente');
+});
+
+// Ruta para el envio del formulario del producto
 app.post('/register/product', async (req, res) => {
   const { img, title, quantity } = req.body
   try {
@@ -115,12 +122,7 @@ app.post('/change-password', authenticateToken, async (req, res) => {
   res.send('Contraseña cambiada exitosamente');
 });
 
-// Ruta para el envio del formulario del producto
-app.post('/products', async (req, res) => {
-  const { img, title, quantity } = req.body;
-  await db.createProduct(img, title, quantity);
-  return res.send('Producto registrado exitosamente');
-});
+
 
 // Ruta para obtener la lista de productos
 app.get('/product_list', async (req, res) => {

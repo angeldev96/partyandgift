@@ -1,8 +1,8 @@
-import { PhotoIcon } from '@heroicons/react/24/solid'
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { PhotoIcon } from '@heroicons/react/24/solid';
 
 export default function FormProducts() {
-  const [img, setImg] = useState('');
+  const [file, setFile] = useState(null); // Estado para almacenar el archivo seleccionado
   const [title, setTitle] = useState('');
   const [quantity, setQuantity] = useState('');
   const [error, setError] = useState(null);
@@ -10,27 +10,35 @@ export default function FormProducts() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     try {
-      const response = await fetch('http://localhost:3001/register/product', {
+      // Verificar si hay archivos seleccionados
+      if (!file) {
+        throw new Error('Debes seleccionar una imagen');
+      }
+  
+      const formData = new FormData(); // Crea un objeto FormData para enviar la imagen al backend
+      formData.append('img', file); // Agrega el archivo al objeto FormData
+      formData.append('title', title);
+      formData.append('quantity', quantity);
+  
+      const response = await fetch('http://localhost:3001/products', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ img, title, quantity }),
+        body: formData, // Envía el objeto FormData en lugar de JSON.stringify
       });
-
+  
       if (!response.ok) {
         throw new Error('Error al registrar producto');
       }
-
-      setSuccess(true); 
+  
+      setSuccess(true);
     } catch (error) {
       setError(error.message);
       console.error(error);
     }
   };
   
+
   return (
     <>
       {success && <p className="text-green-500">Producto registrado exitosamente</p>}
@@ -38,7 +46,7 @@ export default function FormProducts() {
       <form onSubmit={handleSubmit}>
         <div className="space-y-12">
           <div className="border-b border-gray-900/10 pb-12">
-            <h2 className="text-base font-semibold leading-7 text-gray-900">Formulario de Producto</h2>  
+            <h2 className="text-base font-semibold leading-7 text-gray-900">Formulario de Producto</h2>
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
               <div className="col-span-full">
                 <label htmlFor="cover-photo" className="block text-sm font-medium leading-6 text-gray-900">
@@ -53,13 +61,13 @@ export default function FormProducts() {
                         className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                       >
                         <span>Upload a file</span>
-                        <input 
-                          id="img" 
-                          name="img" 
-                          type="file" 
-                          value={img}
-                          onChange={(e) => setImg(e.target.value)}
-                          className="sr-only" 
+                        <input
+                          id="img"
+                          name="img"
+                          type="file"
+                          accept="image/*" // Asegúrate de que solo se puedan seleccionar archivos de imagen
+                          onChange={(e) => setFile(e.target.files[0])} // Actualiza el estado con el archivo seleccionado
+                          className="sr-only"
                         />
                       </label>
                     </div>
@@ -105,7 +113,7 @@ export default function FormProducts() {
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
-              </div> 
+              </div>
             </div>
           </div>
         </div>
@@ -123,5 +131,5 @@ export default function FormProducts() {
         </div>
       </form>
     </>
-  )
+  );
 }
