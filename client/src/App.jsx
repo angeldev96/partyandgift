@@ -11,6 +11,7 @@ import PasswordReset from './PasswordReset';
 import LoginEmployee from './LoginEmployee';
 import ManagementPanel from './ManagementPanel';
 import FormProducts from './FormProducts';
+import ProductList from './Products';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); 
@@ -42,6 +43,7 @@ function App() {
           <Route path="/login/empleado" element={<LoginEmployee setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/management-panel" element={<ManagementPanel />} />
           <Route path="/form-products" element={<FormProducts />} />
+          <Route path="/products-list" element={<ProductList />} />
 
         </Routes>
       </div>
