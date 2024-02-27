@@ -8,8 +8,200 @@ const products = [
       imageSrc: 'https://i.pinimg.com/736x/51/95/0c/51950cffd200c9db1fea3750e58728ef.jpg',
       imageAlt: 'Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls.',
       price: 'L.80',
+    
     },
-    // More products...
+    {
+      id: 2,
+      name: 'Globo Personalizado',
+      color: 'Multicolor',
+      href: '#',
+      imageSrc: 'https://i.pinimg.com/736x/51/95/0c/51950cffd200c9db1fea3750e58728ef.jpg',
+      imageAlt: 'Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls.',
+      price: 'L.80',
+    
+    },
+    {
+      id: 3,
+      name: 'Globo Personalizado',
+      color: 'Multicolor',
+      href: '#',
+      imageSrc: 'https://i.pinimg.com/736x/51/95/0c/51950cffd200c9db1fea3750e58728ef.jpg',
+      imageAlt: 'Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls.',
+      price: 'L.80',
+    
+    },
+    {
+      id: 4,
+      name: 'Globo Personalizado',
+      color: 'Multicolor',
+      href: '#',
+      imageSrc: 'https://i.pinimg.com/736x/51/95/0c/51950cffd200c9db1fea3750e58728ef.jpg',
+      imageAlt: 'Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls.',
+      price: 'L.80',
+    
+    },
+    {
+      id: 5,
+      name: 'Globo Personalizado',
+      color: 'Multicolor',
+      href: '#',
+      imageSrc: 'https://i.pinimg.com/736x/51/95/0c/51950cffd200c9db1fea3750e58728ef.jpg',
+      imageAlt: 'Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls.',
+      price: 'L.80',
+    
+    },
+    {
+      id: 6,
+      name: 'Globo Personalizado',
+      color: 'Multicolor',
+      href: '#',
+      imageSrc: 'https://i.pinimg.com/736x/51/95/0c/51950cffd200c9db1fea3750e58728ef.jpg',
+      imageAlt: 'Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls.',
+      price: 'L.80',
+    
+    },
+    {
+      id: 7,
+      name: 'Globo Personalizado',
+      color: 'Multicolor',
+      href: '#',
+      imageSrc: 'https://i.pinimg.com/736x/51/95/0c/51950cffd200c9db1fea3750e58728ef.jpg',
+      imageAlt: 'Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls.',
+      price: 'L.80',
+    
+    },
+    {
+      id: 8,
+      name: 'Globo Personalizado',
+      color: 'Multicolor',
+      href: '#',
+      imageSrc: 'https://i.pinimg.com/736x/51/95/0c/51950cffd200c9db1fea3750e58728ef.jpg',
+      imageAlt: 'Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls.',
+      price: 'L.80',
+    
+    },
+    {
+      id: 9,
+      name: 'Globo Personalizado',
+      color: 'Multicolor',
+      href: '#',
+      imageSrc: 'https://i.pinimg.com/736x/51/95/0c/51950cffd200c9db1fea3750e58728ef.jpg',
+      imageAlt: 'Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls.',
+      price: 'L.80',
+    
+    },
+    {
+      id: 10,
+      name: 'Globo Personalizado',
+      color: 'Multicolor',
+      href: '#',
+      imageSrc: 'https://i.pinimg.com/736x/51/95/0c/51950cffd200c9db1fea3750e58728ef.jpg',
+      imageAlt: 'Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls.',
+      price: 'L.80',
+    
+    },
+    {
+      id: 11,
+      name: 'Globo Personalizado',
+      color: 'Multicolor',
+      href: '#',
+      imageSrc: 'https://i.pinimg.com/736x/51/95/0c/51950cffd200c9db1fea3750e58728ef.jpg',
+      imageAlt: 'Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls.',
+      price: 'L.80',
+    
+    },
+    {
+      id: 12,
+      name: 'Globo Personalizado',
+      color: 'Multicolor',
+      href: '#',
+      imageSrc: 'https://i.pinimg.com/736x/51/95/0c/51950cffd200c9db1fea3750e58728ef.jpg',
+      imageAlt: 'Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls.',
+      price: 'L.80',
+    
+    },
+    {
+      id: 13,
+      name: 'Globo Personalizado',
+      color: 'Multicolor',
+      href: '#',
+      imageSrc: 'https://i.pinimg.com/736x/51/95/0c/51950cffd200c9db1fea3750e58728ef.jpg',
+      imageAlt: 'Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls.',
+      price: 'L.80',
+    
+    },
+    {
+      id: 14,
+      name: 'Globo Personalizado',
+      color: 'Multicolor',
+      href: '#',
+      imageSrc: 'https://i.pinimg.com/736x/51/95/0c/51950cffd200c9db1fea3750e58728ef.jpg',
+      imageAlt: 'Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls.',
+      price: 'L.80',
+    
+    },
+    {
+      id: 15,
+      name: 'Globo Personalizado',
+      color: 'Multicolor',
+      href: '#',
+      imageSrc: 'https://i.pinimg.com/736x/51/95/0c/51950cffd200c9db1fea3750e58728ef.jpg',
+      imageAlt: 'Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls.',
+      price: 'L.80',
+    
+    },
+    {
+      id: 16,
+      name: 'Globo Personalizado',
+      color: 'Multicolor',
+      href: '#',
+      imageSrc: 'https://i.pinimg.com/736x/51/95/0c/51950cffd200c9db1fea3750e58728ef.jpg',
+      imageAlt: 'Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls.',
+      price: 'L.80',
+    
+    },
+    {
+      id: 17,
+      name: 'Globo Personalizado',
+      color: 'Multicolor',
+      href: '#',
+      imageSrc: 'https://i.pinimg.com/736x/51/95/0c/51950cffd200c9db1fea3750e58728ef.jpg',
+      imageAlt: 'Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls.',
+      price: 'L.80',
+    
+    },
+    {
+      id: 18,
+      name: 'Globo Personalizado',
+      color: 'Multicolor',
+      href: '#',
+      imageSrc: 'https://i.pinimg.com/736x/51/95/0c/51950cffd200c9db1fea3750e58728ef.jpg',
+      imageAlt: 'Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls.',
+      price: 'L.80',
+    
+    },
+    {
+      id: 19,
+      name: 'Globo Personalizado',
+      color: 'Multicolor',
+      href: '#',
+      imageSrc: 'https://i.pinimg.com/736x/51/95/0c/51950cffd200c9db1fea3750e58728ef.jpg',
+      imageAlt: 'Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls.',
+      price: 'L.80',
+    
+    },
+    {
+      id: 20,
+      name: 'Globo Personalizado',
+      color: 'Multicolor',
+      href: '#',
+      imageSrc: 'https://i.pinimg.com/736x/51/95/0c/51950cffd200c9db1fea3750e58728ef.jpg',
+      imageAlt: 'Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls.',
+      price: 'L.80',
+    
+    },
+    
+    
   ]
   
   export default function DashboardComponent() {
