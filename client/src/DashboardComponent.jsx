@@ -5,9 +5,9 @@ const products = [
       name: 'Globo Personalizado',
       color: 'Multicolor',
       href: '#',
-      imageSrc: 'https://i.pinimg.com/736x/51/95/0c/51950cffd200c9db1fea3750e58728ef.jpg',
-      imageAlt: 'Front of zip tote bag with white canvas, black canvas straps and handle, and black zipper pulls.',
-      price: 'L.80',
+      imageSrc: 'https://images.pexels.com/photos/7180235/pexels-photo-7180235.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+      imageAlt: 'Arreglo Mediano.',
+      price: 'L.140',
     },
     // More products...
   ]
