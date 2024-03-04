@@ -29,8 +29,10 @@ const getUserByEmail = async (email) => {
 // Función para crear un nuevo usuario
 const createUser = async (email, password) => {
   try {
-    const query = 'INSERT INTO users (email, password) VALUES ($1, $2)';
-    await pool.query(query, [email, password]);
+    // Se incluye el campo 'role' en la consulta y se asigna 'user' como valor predeterminado
+    const query = 'INSERT INTO users (email, password, role) VALUES ($1, $2, $3)';
+    // 'user' se pasa como tercer argumento en el arreglo de valores
+    await pool.query(query, [email, password, 'user']);
   } catch (error) {
     console.error('Error al crear un nuevo usuario:', error);
     throw error;
@@ -38,15 +40,18 @@ const createUser = async (email, password) => {
 };
 
 // Función para crear un nuevo empleado
-const createemployee = async (email, password, nombre, apellido , cargo) => {
+const createemployee = async (email, password, nombre, apellido, cargo, role) => {
   try {
-    const query = 'INSERT INTO employee (email, password, nombre, apellido , cargo) VALUES ($1, $2, $3, $4, $5)';
-    await pool.query(query, [email, password, nombre, apellido , cargo]);
+    // Se incluye el campo 'role' en la consulta
+    const query = 'INSERT INTO employee (email, password, nombre, apellido, cargo, role) VALUES ($1, $2, $3, $4, $5, $6)';
+    // Se pasa 'role' como sexto argumento en el arreglo de valores
+    await pool.query(query, [email, password, nombre, apellido, cargo, role]);
   } catch (error) {
     console.error('Error al crear un nuevo empleado:', error);
     throw error;
   }
 };
+
 // Función para obtener un empleado por correo electrónico
 const getEmpleadoByEmail = async (email) => {
   try {

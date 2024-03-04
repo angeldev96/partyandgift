@@ -56,7 +56,7 @@ app.post('/register', async (req, res) => {
 
 // Ruta de registro empleado
 app.post('/register/empleado', async (req, res) => {
-  const { email, password, nombre, apellido, cargo } = req.body;
+  const { email, password, nombre, apellido, cargo, role } = req.body; // Se obtiene también el campo 'role' del cuerpo de la solicitud
 
   // Comprueba si el empleado ya existe en la base de datos
   const existingEmpleado = await db.getEmpleadoByEmail(email);
@@ -66,9 +66,10 @@ app.post('/register/empleado', async (req, res) => {
 
   // Crea un nuevo empleado
   const hashedPassword = bcrypt.hashSync(password, 10);
-  await db.createemployee(email, hashedPassword, nombre, apellido, cargo);
+  await db.createemployee(email, hashedPassword, nombre, apellido, cargo, role); // Se pasa el campo 'role' a la función createemployee
   return res.send('Empleado registrado exitosamente');
 });
+
 
 // Ruta para el inicio de sesión de empleados
 app.post('/login/empleado', async (req, res) => {

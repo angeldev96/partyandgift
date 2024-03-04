@@ -8,6 +8,8 @@ export default function EmployeeSignUpComponent() {
   const [position, setPosition] = useState('');
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+  const [role, setRole] = useState('empleado'); // Por defecto, se establece el rol como 'empleado'
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -18,7 +20,7 @@ export default function EmployeeSignUpComponent() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password, nombre: name, apellido: lastName, cargo: position }),
+        body: JSON.stringify({ email, password, nombre: name, apellido: lastName, cargo: position, role }),
       });
 
       if (!response.ok) {
@@ -39,7 +41,7 @@ export default function EmployeeSignUpComponent() {
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Register as Employee
+            Registrar Empleado
           </h2>
         </div>
 
@@ -47,7 +49,7 @@ export default function EmployeeSignUpComponent() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                Correeo Electronico
+                Correo Electronico
               </label>
               <div className="mt-2">
                 <input
@@ -129,6 +131,24 @@ export default function EmployeeSignUpComponent() {
                   onChange={(e) => setPosition(e.target.value)}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="role" className="block text-sm font-medium leading-6 text-gray-900">
+                Rol
+              </label>
+              <div className="mt-2">
+                <select
+                  id="role"
+                  name="role"
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                >
+                  <option value="empleado">Empleado</option>
+                  <option value="admin">Admin</option>
+                </select>
               </div>
             </div>
 
