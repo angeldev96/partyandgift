@@ -17,8 +17,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors({
-  origin: 'http://localhost:5173'
-}));
+  origin: 'http://localhost:5173', // Specify the allowed origin
+  methods: ['GET', 'POST'],        // Allow specific methods
+  credentials: true                 // To allow sending of cookies
+})); 
 
 // Route for login
 app.post('/login', async (req, res) => {
@@ -52,8 +54,6 @@ app.post('/register', async (req, res) => {
   return res.send('Usuario registrado exitosamente');
 });
 
-
-
 // Ruta de registro empleado
 app.post('/register/empleado', async (req, res) => {
   const { email, password, nombre, apellido, cargo } = req.body;
@@ -80,15 +80,72 @@ app.post('/login/empleado', async (req, res) => {
   }
   // Comprueba la contraseña
   if (bcrypt.compareSync(password, empleado.password)) {
-    req.session.empleadoId = empleado.id;
-    return res.send('Inicio de sesión de empleado exitoso');
+    let token = jwt.sign({id: empleado.id}, 'secret key', {expiresIn: '1h'});
+    return res.json({message:'Inicio de sesión de empleado exitoso',token: token});
   } else {
     return res.status(401).send('Correo electrónico o contraseña incorrectos');
   }
 });
 
+// Ruta para registrar un nuevo producto
+app.post('/products', async (req, res) => {
+  const { img, title, quantity } = req.body;
+  
+  try {
+    // Crea un nuevo producto en la base de datos
+    await db.createProduct(img, title, quantity);
+    res.status(201).send('Producto creado exitosamente');
+  } catch (error) {
+    console.error('Error al crear el producto:', error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
+
+
+// Ruta para el envio del formulario del producto
+app.post('/register/product', async (req, res) => {
+  const { img, title, quantity } = req.body
+  try {
+      const result = await pool.query("INSERT INTO product (img, title, quantity) VALUES ($1, $2, $3) RETURNING *", [ 
+          img,
+          title,
+          quantity
+      ]);
+
+      res.json(result.rows[0]);
+  } catch (error) {
+      next(error)
+  }
+})
 
 const authenticateToken = require('./middleware/auth');
+
+// Ruta para cambiar la contraseña del usuario
+app.post('/change-password', authenticateToken, async (req, res) => {
+  const { newPassword } = req.body;
+  const userId = req.user.id; // Obtener el ID del usuario del token
+  
+  // Actualizar la contraseña en la base de datos
+  const hashedPassword = bcrypt.hashSync(newPassword, 10);
+  await db.updateUserPassword(userId, hashedPassword);
+  
+  res.send('Contraseña cambiada exitosamente');
+});
+
+
+
+// Ruta para obtener la lista de productos
+app.get('/product_list', async (req, res) => {
+  try {
+    const products = await db.getProducts(); // Obtener la lista de productos desde la base de datos
+    res.json(products);
+  } catch (error) {
+    console.error('Error al obtener la lista de productos:', error);
+    res.status(500).json({ error: 'Error al obtener la lista de productos' });
+  }
+});
+
+
 
 app.get('/user_settings', authenticateToken, (req, res) => {
   res.json({ message: 'This is a protected route' });
@@ -99,3 +156,5 @@ app.get('/user_settings', authenticateToken, (req, res) => {
 app.listen(3001, () => {
   console.log('Servidor iniciado en el puerto 3001');
 });
+
+

@@ -25,7 +25,7 @@ export default function EmployeeSignUpComponent() {
         throw new Error('Error al registrar empleado');
       }
 
-      setSuccess(true);
+      setSuccess(true); 
     } catch (error) {
       setError(error.message);
       console.error(error);
@@ -47,7 +47,7 @@ export default function EmployeeSignUpComponent() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                Email address
+                Correeo Electronico
               </label>
               <div className="mt-2">
                 <input
@@ -83,7 +83,7 @@ export default function EmployeeSignUpComponent() {
 
             <div>
               <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
-                Name
+                Primer Nombre
               </label>
               <div className="mt-2">
                 <input
@@ -100,7 +100,7 @@ export default function EmployeeSignUpComponent() {
 
             <div>
               <label htmlFor="lastName" className="block text-sm font-medium leading-6 text-gray-900">
-                Last Name
+                Apellido
               </label>
               <div className="mt-2">
                 <input
@@ -117,7 +117,7 @@ export default function EmployeeSignUpComponent() {
 
             <div>
               <label htmlFor="position" className="block text-sm font-medium leading-6 text-gray-900">
-                Position
+                Puesto
               </label>
               <div className="mt-2">
                 <input
@@ -137,7 +137,7 @@ export default function EmployeeSignUpComponent() {
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Register
+                Registrarse
               </button>
             </div>
           </form>

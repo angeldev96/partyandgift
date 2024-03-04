@@ -59,9 +59,45 @@ const getEmpleadoByEmail = async (email) => {
   }
 };
 
+// Función para actualizar la contraseña del usuario en la base de datos
+async function updateUserPassword(userId, newPassword) {
+  try {
+    const query = 'UPDATE users SET password = $1 WHERE id = $2';
+    await pool.query(query, [newPassword, userId]);
+  } catch (error) {
+    throw new Error('Error al actualizar la contraseña del usuario');
+  }
+}
+
+const createProduct = async (img, title, quantity) => {
+  try {
+    const query = 'INSERT INTO product (img, title, quantity) VALUES ($1, $2, $3)';
+    await pool.query(query, [img, title, quantity]);
+  } catch (error) {
+    console.error('Error al crear un nuevo producto:', error);
+    throw error;
+  }
+};
+
+// Función para obtener la lista de productos
+const getProducts = async () => {
+  try {
+    const query = 'SELECT * FROM product';
+    const { rows } = await pool.query(query);
+    return rows; // Devuelve un array de productos
+  } catch (error) {
+    console.error('Error al obtener la lista de productos:', error);
+    throw error;
+  }
+};
+
+
 module.exports = {
   getUserByEmail,
   getEmpleadoByEmail,
   createemployee,
-  createUser
+  createUser,
+  updateUserPassword,
+  createProduct,
+  getProducts,
 };

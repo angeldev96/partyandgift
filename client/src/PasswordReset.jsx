@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from 'axios';
 import { IconEye, IconEyeOff } from "@tabler/icons-react";
 
 const PasswordReset = () => {
@@ -7,6 +8,25 @@ const PasswordReset = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
   const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState(""); // Nuevo estado para el mensaje de éxito
+
+  const handleChangePassword = async () => {
+    try {
+      const token = localStorage.getItem('token'); // Obtener el token almacenado en el localStorage
+      await axios.post(
+        'http://localhost:3001/change-password',
+        { newPassword: newPassword },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      // Éxito al cambiar la contraseña
+      setSuccessMessage('Contraseña cambiada exitosamente');
+      setError(""); // Limpiar el mensaje de error
+    } catch (error) {
+      // Manejar errores
+      setError(error.response.data); // Establecer el mensaje de error desde la respuesta del servidor
+      setSuccessMessage(""); // Limpiar el mensaje de éxito
+    }
+  };
 
   const handleNewPasswordChange = (event) => {
     setNewPassword(event.target.value);
@@ -30,6 +50,7 @@ const PasswordReset = () => {
       setError("Las contraseñas no coinciden");
     } else {
       setError("");
+      handleChangePassword();
     }
   };
 
@@ -49,6 +70,8 @@ const PasswordReset = () => {
           onSubmit={validateAndSubmit}
         >
           {error && <p className="text-red-500">{error}</p>}
+          {successMessage && <p className="text-green-500">{successMessage}</p>}
+
 
           <div>
             <label

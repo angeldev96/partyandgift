@@ -3,9 +3,15 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { useState, useEffect } from 'react';
 import DashboardComponent from './DashboardComponent';
 import LoginComponent from './LoginComponent';
+import Register_Employee from './Register_Employee';
 import SignUpComponent from './SignUpComponent';
 import Navbar from './Navbar';
-import PrivateRoute from './PrivateRoute';
+import AccountComponent from './AccountComponent';
+import PasswordReset from './PasswordReset';
+import LoginEmployee from './LoginEmployee';
+import ManagementPanel from './ManagementPanel';
+import FormProducts from './FormProducts';
+import ProductList from './ProductList';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); 
@@ -31,7 +37,14 @@ function App() {
           <Route path="/dashboard" element={<DashboardComponent />} />
           <Route path="/login" element={<LoginComponent setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/signup" element={<SignUpComponent />} />
-          {/* <PrivateRoute path="/user_settings" element={<UserSettings />} /> */}
+          <Route path="/register/empleado" element={<Register_Employee />} />
+          <Route path="/account" element={<AccountComponent />} />
+          <Route path="/reset-password" element={<PasswordReset />} />
+          <Route path="/login/empleado" element={<LoginEmployee setIsLoggedIn={setIsLoggedIn} />} />
+          <Route path="/management-panel" element={<ManagementPanel />} />
+          <Route path="/products-list" element={<ProductList />} />
+          <Route path="/form-products" element={<FormProducts />} />
+
         </Routes>
       </div>
     </Router>
