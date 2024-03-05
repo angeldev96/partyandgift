@@ -1,4 +1,6 @@
 const { Pool } = require('pg');
+const bcrypt = require('bcrypt');
+
 
 // Configuración de la conexión a la base de datos PostgreSQL
 const pool = new Pool({
@@ -96,6 +98,35 @@ const getProducts = async () => {
   }
 };
 
+const createDefaultAdmin = async () => {
+  try {
+    const email = 'admin@admin.com';
+    const password = 'party20and24gift';
+    const nombre = 'admin';
+    const apellido = 'admin';
+    const cargo = 'admin';
+    const role = 'admin';
+
+    // Check if the admin user already exists
+    const existingAdmin = await pool.query('SELECT * FROM employee WHERE email = $1', [email]);
+    if (existingAdmin.rows.length > 0) {
+      console.log('Default admin user already exists');
+      return;
+    }
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create the default admin user
+    const query = 'INSERT INTO employee (email, password, nombre, apellido, cargo, role) VALUES ($1, $2, $3, $4, $5, $6)';
+    await pool.query(query, [email, hashedPassword, nombre, apellido, cargo, role]);
+
+    console.log('Default admin user created successfully');
+  } catch (error) {
+    console.error('Error creating default admin user:', error);
+  }
+};
+
 
 module.exports = {
   getUserByEmail,
@@ -105,4 +136,6 @@ module.exports = {
   updateUserPassword,
   createProduct,
   getProducts,
+  createDefaultAdmin,
+
 };

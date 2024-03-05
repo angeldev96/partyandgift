@@ -153,9 +153,10 @@ app.get('/user_settings', authenticateToken, (req, res) => {
 });
 
 
-// Iniciar el servidor en el puerto 3001
-app.listen(3001, () => {
-  console.log('Servidor iniciado en el puerto 3001');
+app.listen(3001, async () => {
+  console.log('Server is running on port 3000');
+  
+  // Create default admin user
+  await db.createDefaultAdmin();
+
 });
-
-
