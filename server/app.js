@@ -154,7 +154,7 @@ app.get('/user_settings', authenticateToken, (req, res) => {
 
 
 app.listen(3001, async () => {
-  console.log('Server is running on port 3000');
+  console.log('Server is running on port 3001');
   
   // Create default admin user
   await db.createDefaultAdmin();
