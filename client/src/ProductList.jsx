@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import DropdownMenu from './DropdownMenu'; // Importa el componente DropdownMenu
+import { ArchiveBoxIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
+
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -31,10 +32,7 @@ const ProductList = () => {
                   alt={product.title}
                   className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                 />
-                {/* Agregamos el componente DropdownMenu en la esquina superior derecha */}
-                <div className="absolute top-2 right-2">
-                  <DropdownMenu />
-                </div>
+
               </div>
               <div className="mt-4 flex justify-between">
                 <div>
@@ -45,6 +43,11 @@ const ProductList = () => {
                     </a>
                   </h3>
                   <p className="mt-1 text-sm text-gray-500">{product.quantity}</p>
+                </div>
+                <div className="flex">
+                  <ArchiveBoxIcon className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
+                  <PencilSquareIcon className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
+                  <TrashIcon className="h-5 w-5 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
                 </div>
                 <p className="text-sm font-medium text-gray-900">{product.price}</p>
               </div>
