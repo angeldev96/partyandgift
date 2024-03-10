@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors({
   origin: 'http://localhost:5173', // Specify the allowed origin
-  methods: ['GET', 'POST', 'PUT'],        // Allow specific methods
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],        // Allow specific methods
   credentials: true                 // To allow sending of cookies
 })); 
 
@@ -98,6 +98,27 @@ app.post('/products', async (req, res) => {
     res.status(201).send('Producto creado exitosamente');
   } catch (error) {
     console.error('Error al crear el producto:', error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
+
+// Ruta para eliminar un producto por su ID
+app.delete('/products/:id', async (req, res) => {
+  const productId = req.params.id;
+
+  try {
+    // Verifica si el producto con el ID dado existe
+    const existingProduct = await db.getProductById(productId);
+    if (!existingProduct) {
+      return res.status(404).send('Producto no encontrado');
+    }
+
+    // Elimina el producto de la base de datos
+    await db.deleteProduct(productId);
+
+    res.status(200).send('Producto eliminado exitosamente');
+  } catch (error) {
+    console.error('Error al eliminar el producto:', error);
     res.status(500).send('Error interno del servidor');
   }
 });

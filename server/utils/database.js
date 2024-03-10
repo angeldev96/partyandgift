@@ -156,6 +156,18 @@ const createDefaultAdmin = async () => {
   }
 };
 
+// Función para eliminar un producto por su ID
+const deleteProduct = async (productId) => {
+  try {
+    const query = 'DELETE FROM product WHERE id = $1';
+    await pool.query(query, [productId]);
+  } catch (error) {
+    console.error('Error al eliminar el producto:', error);
+    throw error;
+  }
+};
+
+
 // Función para crear envio de pedido
 const createaddress = async (nombre, apellido, direccion, ciudad, email, telefono, id_orders) => {
   try {
@@ -179,5 +191,6 @@ module.exports = {
   getProductById,
   updateProduct,
   createaddress,
+  deleteProduct,
 
 };

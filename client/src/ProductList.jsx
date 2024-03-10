@@ -31,9 +31,15 @@ const ProductList = () => {
     navigate(`/product_edit/${product.id}`); // Utilizar navigate para redirigir
   };
 
-  const handleDelete = (product) => {
-    // TODO: Implement delete functionality (with confirmation)
-    console.log('Delete product:', product);
+  const handleDelete = async (product) => {
+    try {
+      // Realizar la solicitud DELETE al backend para eliminar el producto
+      await axios.delete(`http://localhost:3001/products/${product.id}`);
+      // Actualizar el estado para reflejar la eliminación del producto
+      setProducts(products.filter(item => item.id !== product.id));
+    } catch (error) {
+      console.error('Error al eliminar el producto:', error);
+    }
   };
 
   const handleArchive = (product) => {
