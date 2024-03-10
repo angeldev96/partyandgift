@@ -14,7 +14,7 @@ import FormProducts from './FormProducts';
 import ProductList from './ProductList';
 import EditProduct from './EditProduct'; // Importar el nuevo componente
 import ProtectedRoute from './ProtectedRoute';
-// import OrderAddress from './OrderAddress';
+import OrderAddress from './OrderAddress';
 
 
 function App() {
@@ -52,7 +52,7 @@ function App() {
           </Route>         
           <Route path="/form-products" element={<FormProducts />} />
           <Route path="/product_edit/:productId" element={<EditProduct />} />
-          {/* <Route path="/order_address" element={<OrderAddress />} /> */}
+          <Route path="/order_address" element={<OrderAddress />} />
 
 
         </Routes>
