@@ -12,6 +12,8 @@ import LoginEmployee from './LoginEmployee';
 import ManagementPanel from './ManagementPanel';
 import FormProducts from './FormProducts';
 import ProductList from './ProductList';
+import EditProduct from './EditProduct'; // Importar el nuevo componente
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); 
@@ -44,6 +46,8 @@ function App() {
           <Route path="/management-panel" element={<ManagementPanel />} />
           <Route path="/products-list" element={<ProductList />} />
           <Route path="/form-products" element={<FormProducts />} />
+          <Route path="/product_edit/:productId" element={<EditProduct />} /> 
+
 
         </Routes>
       </div>

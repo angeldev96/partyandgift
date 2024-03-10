@@ -86,6 +86,20 @@ const createProduct = async (img, title, quantity) => {
   }
 };
 
+// Función para actualizar un producto por su ID
+const updateProduct = async (productId, updatedFields) => {
+  const { img, title, quantity } = updatedFields;
+
+  try {
+    const query = 'UPDATE product SET img = $1, title = $2, quantity = $3 WHERE id = $4';
+    await pool.query(query, [img, title, quantity, productId]);
+  } catch (error) {
+    console.error('Error al actualizar el producto:', error);
+    throw error;
+  }
+};
+
+
 // Función para obtener la lista de productos
 const getProducts = async () => {
   try {
@@ -97,6 +111,26 @@ const getProducts = async () => {
     throw error;
   }
 };
+
+// Función para obtener un producto por su ID
+const getProductById = async (productId) => {
+  try {
+    const query = 'SELECT * FROM product WHERE id = $1'; // Utiliza un parámetro de consulta para evitar SQL injection
+    const { rows } = await pool.query(query, [productId]);
+    
+    // Si no se encuentra ningún producto con el ID dado, retorna null
+    if (rows.length === 0) {
+      return null;
+    }
+    
+    // Devuelve el primer producto encontrado (debería ser único ya que el ID es único)
+    return rows[0];
+  } catch (error) {
+    console.error('Error al obtener el producto por ID:', error);
+    throw error;
+  }
+};
+
 
 const createDefaultAdmin = async () => {
   try {
@@ -137,5 +171,7 @@ module.exports = {
   createProduct,
   getProducts,
   createDefaultAdmin,
+  getProductById,
+  updateProduct,
 
 };

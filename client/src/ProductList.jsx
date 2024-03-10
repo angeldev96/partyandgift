@@ -1,4 +1,5 @@
 import  { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import {
@@ -9,6 +10,8 @@ import {
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
+  const navigate = useNavigate(); // Inicializar useNavigate
+
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -25,7 +28,7 @@ const ProductList = () => {
 
   const handleEdit = (product) => {
     // TODO: Implement edit functionality
-    console.log('Edit product:', product);
+    navigate(`/product_edit/${product.id}`); // Utilizar navigate para redirigir
   };
 
   const handleDelete = (product) => {

@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors({
   origin: 'http://localhost:5173', // Specify the allowed origin
-  methods: ['GET', 'POST'],        // Allow specific methods
+  methods: ['GET', 'POST', 'PUT'],        // Allow specific methods
   credentials: true                 // To allow sending of cookies
 })); 
 
@@ -98,6 +98,49 @@ app.post('/products', async (req, res) => {
     res.status(201).send('Producto creado exitosamente');
   } catch (error) {
     console.error('Error al crear el producto:', error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
+
+// Ruta para obtener un producto por su ID
+app.get('/products/:id', async (req, res) => {
+  const productId = req.params.id;
+  
+  try {
+    // Busca el producto en la base de datos por su ID
+    const product = await db.getProductById(productId);
+    
+    // Verifica si el producto existe
+    if (!product) {
+      return res.status(404).send('Producto no encontrado');
+    }
+    
+    // Si el producto existe, lo devuelve en la respuesta
+    res.status(200).json(product);
+  } catch (error) {
+    console.error('Error al obtener el producto:', error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
+
+// Ruta para actualizar un producto por su ID
+app.put('/products/:id', async (req, res) => {
+  const productId = req.params.id;
+  const { img, title, quantity } = req.body;
+
+  try {
+    // Verifica si el producto con el ID dado existe
+    const existingProduct = await db.getProductById(productId);
+    if (!existingProduct) {
+      return res.status(404).send('Producto no encontrado');
+    }
+
+    // Actualiza los datos del producto en la base de datos
+    await db.updateProduct(productId, { img, title, quantity });
+
+    res.status(200).send('Producto actualizado exitosamente');
+  } catch (error) {
+    console.error('Error al actualizar el producto:', error);
     res.status(500).send('Error interno del servidor');
   }
 });
