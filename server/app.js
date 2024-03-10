@@ -189,6 +189,20 @@ app.get('/product_list', async (req, res) => {
   }
 });
 
+// Ruta para registrar la direccion de pedido
+app.post('/order_address', async (req, res) => {
+  const { nombre, apellido, direccion, ciudad, email, telefono, id_orders} = req.body;
+  
+  try {
+    // Crea una nueva direccion para el pedido en la base de datos
+    await db.createaddress(nombre, apellido, direccion, ciudad, email, telefono, id_orders);
+    res.status(201).send('Direccion del pedido agregado exitosamente');
+  } catch (error) {
+    console.error('Error al registrar direccion de pedido:', error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
+
 
 
 app.get('/user_settings', authenticateToken, (req, res) => {

@@ -157,10 +157,10 @@ const createDefaultAdmin = async () => {
 };
 
 // Función para crear envio de pedido
-const createaddress = async (nombre, apellido, direccion, ciudad, email, telefono) => {
+const createaddress = async (nombre, apellido, direccion, ciudad, email, telefono, id_orders) => {
   try {
-    const query = 'INSERT INTO addresses (nombre, apellido, direccion, ciudad, email, telefono) VALUES ($1, $2, $3, $4, $5, $6)';
-    await pool.query(query, [nombre, apellido, direccion, ciudad, email, telefono]);
+    const query = 'INSERT INTO addresses (nombre, apellido, direccion, ciudad, email, telefono, id_orders) VALUES ($1, $2, $3, $4, $5, $6, $7)';
+    await pool.query(query, [nombre, apellido, direccion, ciudad, email, telefono, id_orders]);
   } catch (error) {
     console.error('Error al enviar la direccion de pedido:', error);
     throw error;
