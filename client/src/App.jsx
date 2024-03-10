@@ -13,11 +13,12 @@ import ManagementPanel from './ManagementPanel';
 import FormProducts from './FormProducts';
 import ProductList from './ProductList';
 import EditProduct from './EditProduct'; // Importar el nuevo componente
-import OrderAddress from './OrderAddress';
+import ProtectedRoute from './ProtectedRoute';
+// import OrderAddress from './OrderAddress';
 
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const storedLoggedIn = localStorage.getItem('token');
@@ -40,19 +41,24 @@ function App() {
           <Route path="/dashboard" element={<DashboardComponent />} />
           <Route path="/login" element={<LoginComponent setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/signup" element={<SignUpComponent />} />
-          <Route path="/register/empleado" element={<Register_Employee />} />
           <Route path="/account" element={<AccountComponent />} />
           <Route path="/reset-password" element={<PasswordReset />} />
           <Route path="/login/empleado" element={<LoginEmployee setIsLoggedIn={setIsLoggedIn} />} />
-          <Route path="/management-panel" element={<ManagementPanel />} />
-          <Route path="/products-list" element={<ProductList />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/management-panel" element={<ManagementPanel />} />
+            <Route path="/products-list" element={<ProductList />} />
+            <Route path="/register/empleado" element={<Register_Employee />} />
+
+          </Route>         
           <Route path="/form-products" element={<FormProducts />} />
-          <Route path="/product_edit/:productId" element={<EditProduct />} /> 
-          <Route path="/order_address" element={<OrderAddress />} />
+          <Route path="/product_edit/:productId" element={<EditProduct />} />
+          {/* <Route path="/order_address" element={<OrderAddress />} /> */}
 
 
         </Routes>
       </div>
+
+
     </Router>
   );
 }

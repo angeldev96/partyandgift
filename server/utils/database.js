@@ -59,9 +59,9 @@ const getEmpleadoByEmail = async (email) => {
   try {
     const query = 'SELECT * FROM employee WHERE email = $1';
     const { rows } = await pool.query(query, [email]);
-    return rows[0]; // Devuelve el primer usuario encontrado
+    return rows[0]; // Devuelve el primer empleado encontrado
   } catch (error) {
-    console.error('Error al obtener el usuario por correo electrónico:', error);
+    console.error('Error al obtener el empleado por correo electrónico:', error);
     throw error;
   }
 };
@@ -178,6 +178,10 @@ const createaddress = async (nombre, apellido, direccion, ciudad, email, telefon
     throw error;
   }
 };
+
+
+
+
 
 module.exports = {
   getUserByEmail,
