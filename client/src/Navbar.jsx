@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { HiOutlineShoppingCart } from 'react-icons/hi';
 
 function Navbar({ isLoggedIn, handleLogout }) {
   return (
@@ -16,8 +17,8 @@ function Navbar({ isLoggedIn, handleLogout }) {
         <Link to="/account" className="hidden lg:block lg:text-sm lg:font-semibold lg:leading-6 lg:text-gray-900 ">
           Mi Perfil
         </Link>
-        <Link to="/order_address" className="hidden lg:block lg:text-sm lg:font-semibold lg:leading-6 lg:text-gray-900 ">
-          Carrito
+        <Link to="/order_address" className="hidden lg:block lg:text-sm lg:font-semibold lg:leading-6 lg:text-gray-900">
+        <HiOutlineShoppingCart className="inline-block mr-1 h-5 w-5" /> Carrito
         </Link>
       </div>
       
