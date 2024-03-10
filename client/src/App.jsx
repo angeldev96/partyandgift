@@ -13,6 +13,7 @@ import ManagementPanel from './ManagementPanel';
 import FormProducts from './FormProducts';
 import ProductList from './ProductList';
 import EditProduct from './EditProduct'; // Importar el nuevo componente
+import OrderAddress from './OrderAddress';
 
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
           <Route path="/products-list" element={<ProductList />} />
           <Route path="/form-products" element={<FormProducts />} />
           <Route path="/product_edit/:productId" element={<EditProduct />} /> 
+          <Route path="/order_address" element={<OrderAddress />} />
 
 
         </Routes>
