@@ -1,14 +1,13 @@
 const { Pool } = require('pg');
 const bcrypt = require('bcrypt');
 
-
 // Configuración de la conexión a la base de datos PostgreSQL
 const pool = new Pool({
   user: 'postgres',
   host: '127.0.0.1',
   database: 'partyandgift',
   password: 'admin',
-  port: 5432, 
+  port: 5432,
 });
 
 // Prueba de conexión directa
@@ -139,7 +138,7 @@ const createDefaultAdmin = async () => {
     // Check if the admin user already exists
     const existingAdmin = await pool.query('SELECT * FROM employee WHERE email = $1', [email]);
     if (existingAdmin.rows.length > 0) {
-      console.log('Default admin user already exists');
+      console.log('El usuario administrador predeterminado ya existe');
       return;
     }
 
@@ -150,9 +149,9 @@ const createDefaultAdmin = async () => {
     const query = 'INSERT INTO employee (email, password, nombre, apellido, cargo, role) VALUES ($1, $2, $3, $4, $5, $6)';
     await pool.query(query, [email, hashedPassword, nombre, apellido, cargo, role]);
 
-    console.log('Default admin user created successfully');
+    console.log('Usuario administrador predeterminado creado con éxito');
   } catch (error) {
-    console.error('Error creating default admin user:', error);
+    console.error('Error al crear el usuario administrador predeterminado:', error);
   }
 };
 
@@ -189,8 +188,12 @@ module.exports = {
   createemployee,
   createUser,
   updateUserPassword,
-  createProduct,
-  getProducts,
+  crearTablaCategorias,
+  insertarCategorias,
+  obtenerCategorias,
+  crearTablaProductos,
+  insertarProducto,
+  getProductsByPage,
   createDefaultAdmin,
   getProductById,
   updateProduct,
