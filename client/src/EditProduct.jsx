@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function EditProduct() {
   const { productId } = useParams();
@@ -7,7 +9,6 @@ function EditProduct() {
   const [title, setTitle] = useState('');
   const [quantity, setQuantity] = useState('');
   const [image, setImage] = useState('');
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -19,7 +20,7 @@ function EditProduct() {
         setImage(data.img);
       } catch (error) {
         console.error('Error al cargar el producto:', error);
-        setError('Error al cargar el producto');
+        toast.error('Error al cargar el producto');
       }
     };
 
@@ -43,14 +44,15 @@ function EditProduct() {
 
       navigate('/'); // Opcional: redirecciona al usuario después de la actualización exitosa
     } catch (error) {
-      setError(error.message);
       console.error(error);
+      toast.error('Error al actualizar el producto');
+
     }
   };
 
   return (
     <>
-      {error && <p className="text-red-500">{error}</p>}
+      <ToastContainer />
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
