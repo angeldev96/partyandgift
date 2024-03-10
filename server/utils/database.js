@@ -85,11 +85,9 @@ const createProduct = async (img, title, quantity) => {
     throw error;
   }
 };
-
 // Función para actualizar un producto por su ID
 const updateProduct = async (productId, updatedFields) => {
   const { img, title, quantity } = updatedFields;
-
   try {
     const query = 'UPDATE product SET img = $1, title = $2, quantity = $3 WHERE id = $4';
     await pool.query(query, [img, title, quantity, productId]);
@@ -98,7 +96,6 @@ const updateProduct = async (productId, updatedFields) => {
     throw error;
   }
 };
-
 
 // Función para obtener la lista de productos
 const getProducts = async () => {
@@ -117,12 +114,10 @@ const getProductById = async (productId) => {
   try {
     const query = 'SELECT * FROM product WHERE id = $1'; // Utiliza un parámetro de consulta para evitar SQL injection
     const { rows } = await pool.query(query, [productId]);
-    
     // Si no se encuentra ningún producto con el ID dado, retorna null
     if (rows.length === 0) {
       return null;
     }
-    
     // Devuelve el primer producto encontrado (debería ser único ya que el ID es único)
     return rows[0];
   } catch (error) {
@@ -161,6 +156,16 @@ const createDefaultAdmin = async () => {
   }
 };
 
+// Función para crear envio de pedido
+const createaddress = async (nombre, apellido, direccion, ciudad, email, telefono) => {
+  try {
+    const query = 'INSERT INTO addresses (nombre, apellido, direccion, ciudad, email, telefono) VALUES ($1, $2, $3, $4, $5, $6)';
+    await pool.query(query, [nombre, apellido, direccion, ciudad, email, telefono]);
+  } catch (error) {
+    console.error('Error al enviar la direccion de pedido:', error);
+    throw error;
+  }
+};
 
 module.exports = {
   getUserByEmail,
@@ -173,5 +178,6 @@ module.exports = {
   createDefaultAdmin,
   getProductById,
   updateProduct,
+  createaddress,
 
 };
