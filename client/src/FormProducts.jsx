@@ -1,11 +1,12 @@
 import  { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function FormProducts() {
   const [title, setTitle] = useState('');
   const [quantity, setQuantity] = useState('');
   const [image, setImage] = useState('');
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(false);
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -23,17 +24,17 @@ function FormProducts() {
         throw new Error('Error al registrar el producto');
       }
 
-      setSuccess(true); 
+      toast.success('Producto registrado exitosamente'); 
     } catch (error) {
-      setError(error.message);
+      toast.error(error.message);
       console.error(error);
     }
   };
 
   return (
     <>
-      {success && <p className="text-green-500">Producto registrado exitosamente</p>}
-      {error && <p className="text-red-500">{error}</p>}
+            <ToastContainer />
+
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
