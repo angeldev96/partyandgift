@@ -167,9 +167,15 @@ app.put('/products/:id', async (req, res) => {
       return res.status(404).send('Producto no encontrado');
     }
 
-    // Actualiza los datos del producto en la base de datos
-    await db.actualizarProducto(productId, { image_url, name, stock });
-
+    // Actualiza el producto en la base de datos
+    await db.actualizarProducto(productId, {
+      category_id: category_id || existingProduct.category_id,
+      name: name || existingProduct.name,
+      description: description || existingProduct.description,
+      price: price || existingProduct.price,
+      stock: stock || existingProduct.stock,
+      image_url: image_url || existingProduct.image_url
+    });
     res.status(200).send('Producto actualizado exitosamente');
   } catch (error) {
     console.error('Error al actualizar el producto:', error);
