@@ -13,29 +13,25 @@
   ```
 */
 const navigation = {
-    solutions: [
+    soluciones: [
       { name: 'Marketing', href: '#' },
-      { name: 'Analytics', href: '#' },
-      { name: 'Commerce', href: '#' },
-      { name: 'Insights', href: '#' },
+      { name: 'Comercio', href: '#' },
+      { name: 'Ideas', href: '#' },
     ],
-    support: [
-      { name: 'Pricing', href: '#' },
-      { name: 'Documentation', href: '#' },
-      { name: 'Guides', href: '#' },
-      { name: 'API Status', href: '#' },
+    soporte: [
+      { name: 'Precios', href: '#' },
+      { name: 'Documentación', href: '#' },
+      { name: 'Guías', href: '#' },
     ],
-    company: [
-      { name: 'About', href: '#' },
-      { name: 'Blog', href: '#' },
-      { name: 'Jobs', href: '#' },
-      { name: 'Press', href: '#' },
-      { name: 'Partners', href: '#' },
+    empresa: [
+      { name: 'Acerca de', href: '#' },
+      { name: 'Empleos', href: '#' },
+      { name: 'Socios', href: '#' },
     ],
     legal: [
-      { name: 'Claim', href: '#' },
-      { name: 'Privacy', href: '#' },
-      { name: 'Terms', href: '#' },
+      { name: 'Reclamos', href: '#' },
+      { name: 'Privacidad', href: '#' },
+      { name: 'Términos y condiciones', href: '#' },
     ],
     social: [
       {
@@ -78,9 +74,9 @@ const navigation = {
             <div className="grid grid-cols-2 gap-8 xl:col-span-2">
               <div className="md:grid md:grid-cols-2 md:gap-8">
                 <div>
-                  <h3 className="text-sm font-semibold leading-6 text-white">Solutions</h3>
+                  <h3 className="text-sm font-semibold leading-6 text-white">soluciones</h3>
                   <ul role="list" className="mt-6 space-y-4">
-                    {navigation.solutions.map((item) => (
+                    {navigation.soluciones.map((item) => (
                       <li key={item.name}>
                         <a href={item.href} className="text-sm leading-6 text-gray-300 hover:text-white">
                           {item.name}
@@ -90,9 +86,9 @@ const navigation = {
                   </ul>
                 </div>
                 <div className="mt-10 md:mt-0">
-                  <h3 className="text-sm font-semibold leading-6 text-white">Support</h3>
+                  <h3 className="text-sm font-semibold leading-6 text-white">soporte</h3>
                   <ul role="list" className="mt-6 space-y-4">
-                    {navigation.support.map((item) => (
+                    {navigation.soporte.map((item) => (
                       <li key={item.name}>
                         <a href={item.href} className="text-sm leading-6 text-gray-300 hover:text-white">
                           {item.name}
@@ -104,9 +100,9 @@ const navigation = {
               </div>
               <div className="md:grid md:grid-cols-2 md:gap-8">
                 <div>
-                  <h3 className="text-sm font-semibold leading-6 text-white">Company</h3>
+                  <h3 className="text-sm font-semibold leading-6 text-white">empresa</h3>
                   <ul role="list" className="mt-6 space-y-4">
-                    {navigation.company.map((item) => (
+                    {navigation.empresa.map((item) => (
                       <li key={item.name}>
                         <a href={item.href} className="text-sm leading-6 text-gray-300 hover:text-white">
                           {item.name}
@@ -130,9 +126,9 @@ const navigation = {
               </div>
             </div>
             <div className="mt-10 xl:mt-0">
-              <h3 className="text-sm font-semibold leading-6 text-white">Subscribe to our newsletter</h3>
+              <h3 className="text-sm font-semibold leading-6 text-white">Suscríbase a nuestro boletín</h3>
               <p className="mt-2 text-sm leading-6 text-gray-300">
-                The latest news, articles, and resources, sent to your inbox weekly.
+                Las últimas noticias, artículos y recursos, enviados semanalmente a su bandeja de entrada.
               </p>
               <form className="mt-6 sm:flex sm:max-w-md">
                 <label htmlFor="email-address" className="sr-only">
@@ -152,7 +148,7 @@ const navigation = {
                     type="submit"
                     className="flex w-full items-center justify-center rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
                   >
-                    Subscribe
+                    Suscríbase
                   </button>
                 </div>
               </form>
@@ -168,7 +164,7 @@ const navigation = {
               ))}
             </div>
             <p className="mt-8 text-xs leading-5 text-gray-400 md:order-1 md:mt-0">
-              &copy; 2020 Your Company, Inc. All rights reserved.
+              &copy; 2014 Tu empresa, Inc. Todos los derechos reservados.
             </p>
           </div>
         </div>
