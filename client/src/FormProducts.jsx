@@ -48,9 +48,9 @@ function FormProducts() {
           quantity,
           image_url: image,
           /* Añadir los campos adicionales aquí si es necesario */
-          description: '', // Ejemplo: descripción del producto
-          price: 0, // Ejemplo: precio del producto
-          stock: 0, // Ejemplo: stock del producto
+          description: description, // Ejemplo: descripción del producto
+          price: price, // Ejemplo: precio del producto
+          stock: quantity // Ejemplo: stock del producto
           // Puedes agregar más campos según sea necesario para tu aplicación
         }),
       });
