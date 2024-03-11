@@ -62,8 +62,8 @@ function EditProduct() {
       if (!response.ok) {
         throw new Error('Error al actualizar el producto');
       }
+      toast.success('Producto actualizado exitosamente');
 
-      navigate('/');
     } catch (error) {
       console.error(error);
       toast.error('Error al actualizar el producto');
