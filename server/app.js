@@ -104,7 +104,7 @@ app.post('/products', async (req, res) => {
 
   try {
     // Crea un nuevo producto en la base de datos
-    const producto = await insertarProducto(category_id, name, description, price, stock, image_url);
+    const producto = await db.insertarProducto(category_id, name, description, price, stock, image_url);
 
     res.status(201).json(producto); // Devuelve el producto creado
   } catch (error) {

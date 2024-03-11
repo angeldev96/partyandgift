@@ -1,5 +1,6 @@
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 
 function FormProducts() {
@@ -12,6 +13,7 @@ function FormProducts() {
   const [price, setPrice] = useState(0);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -58,6 +60,8 @@ function FormProducts() {
       }
 
       setSuccess(true);
+      toast.success('Producto registrado con éxito!');
+
     } catch (error) {
       toast.error(error.message);
       console.error(error);
@@ -74,7 +78,7 @@ function FormProducts() {
 
   return (
     <>
-            <ToastContainer />
+      <ToastContainer />
 
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -179,6 +183,17 @@ function FormProducts() {
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
               />
             </div>
+
+            <div>
+              <button
+                type="submit"
+                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                Registrar Producto
+              </button>
+            </div>
+
+
 
           </form>
         </div>
