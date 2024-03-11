@@ -15,6 +15,7 @@ import ProductList from './ProductList';
 import EditProduct from './EditProduct'; // Importar el nuevo componente
 import ProtectedRoute from './ProtectedRoute';
 import OrderAddress from './OrderAddress';
+import Footer from './Footer';
 
 
 function App() {
@@ -56,6 +57,7 @@ function App() {
 
 
         </Routes>
+        <Footer />
       </div>
 
 
