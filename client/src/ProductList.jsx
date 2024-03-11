@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import axios from 'axios';
 
 import {
@@ -12,6 +15,7 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate(); // Inicializar useNavigate
   const [currentPage, setCurrentPage] = useState(1);
+
 
   const goToPage = (page) => {
     setCurrentPage(page);
@@ -31,17 +35,19 @@ const ProductList = () => {
 
   const handleEdit = (product) => {
     // TODO: Implement edit functionality
-    navigate(`/product_edit/${product.id}`); // Utilizar navigate para redirigir
+    navigate(`/product_edit/${product.product_id}`);
   };
 
   const handleDelete = async (product) => {
     try {
       // Realizar la solicitud DELETE al backend para eliminar el producto
-      await axios.delete(`http://localhost:3001/products/${product.id}`);
+      await axios.delete(`http://localhost:3001/products/${product.product_id}`);
       // Actualizar el estado para reflejar la eliminación del producto
-      setProducts(products.filter(item => item.id !== product.id));
+      setProducts(products.filter(item => item.product_id !== product.product_id));
+      // Mostrar una notificación de éxito
+      toast.success('Producto eliminado exitosamente');
     } catch (error) {
-      console.error('Error al eliminar el producto:', error);
+      console.error('Error al eliminar el producto client:', error);
     }
   };
 
@@ -51,6 +57,8 @@ const ProductList = () => {
   };
 
   return (
+    <>
+    <ToastContainer />
     <div className="bg-white">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
         <h2 className="text-3xl font-bold tracking-tight text-gray-900">Productos</h2>
@@ -105,6 +113,9 @@ const ProductList = () => {
         </div>
       </div>
     </div>
+    </>
+
+    
   );
 };
 
