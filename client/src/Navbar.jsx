@@ -17,12 +17,10 @@ function Navbar({ isLoggedIn, handleLogout }) {
       <Link to="/dashboard" className="flex items-center gap-x-4">
         <img className="h-16 w-auto" src="./partyandgift.png" alt="" />
         <div className="flex items-center gap-x-1 text-gray-900">
-          <HiOutlineDocumentText className="h-6 w-6" />
-          <span className="text-lg font-semibold">Inicio</span>
+          <span className="text-lg font-semibold hover:text-blue-500">Inicio</span>
         </div>
         <div className="flex items-center gap-x-1 text-gray-900">
-          <HiOutlineInformationCircle className="h-7 w-7" />
-          <span className="text-lg font-semibold">Acerca</span>
+          <span className="text-lg font-semibold hover:text-blue-500">Acerca</span>
         </div>
       </Link>
       {isLoggedIn ? (
@@ -38,10 +36,29 @@ function Navbar({ isLoggedIn, handleLogout }) {
               </button>
             </div>
             {isOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10">
-                <Link to="/dulces" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Dulces</Link>
-                <Link to="/globos" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Globos</Link>
-                <Link to="/arreglos" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Arreglos</Link>
+              <div className="absolute right-0 mt-2 grid grid-cols-3 gap-x-2 w-64 bg-white border border-gray-200 rounded-md shadow-lg z-10">
+                <div>
+                  <Link to="/dulces" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Arreglos</Link>
+                  <Link to="/globos" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Caja de Regalos</Link>
+                  <Link to="/arreglos" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Cajitas Dulceras</Link>
+                  <Link to="/dulces" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Cucharas y Tenedores</Link>
+                  <Link to="/globos" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Gorros</Link>
+                </div>
+                <div>
+                 <Link to="/arreglos" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Juguetes</Link>
+                  <Link to="/arreglos" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Números de Cumpleaños</Link>
+                  <Link to="/dulces" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Papel de Regalo</Link>
+                  <Link to="/globos" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Peluches</Link>
+                  <Link to="/arreglos" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Piñatas</Link>
+                </div>
+                <div>
+                  <Link to="/dulces" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Platos</Link>
+                  <Link to="/globos" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Retrateras</Link>
+                  <Link to="/arreglos" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Tarjetas</Link>                
+                  <Link to="/globos" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Tazas</Link>
+                  <Link to="/arreglos" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Vasos</Link>
+                </div>
+              
               </div>
             )}
           </div>
@@ -71,7 +88,7 @@ function Navbar({ isLoggedIn, handleLogout }) {
             Registrarse
           </Link>
         </div>
-      )}
+     )}
     </nav>
   );
 }
