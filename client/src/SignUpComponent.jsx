@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function SignUpComponent() {
   const [email, setEmail] = useState('');
@@ -24,16 +26,18 @@ export default function SignUpComponent() {
       }
 
       setSuccess(true);
+      toast.success('Usuario registrado con éxito');
     } catch (error) {
       setError(error.message);
       console.error(error);
+      toast.error(error.message);
     }
   };
 
   return (
     <>
-      {success && <p className="text-green-500">Usuario registrado exitosamente</p>}
-      {error && <p className="text-red-500">{error}</p>}
+      <ToastContainer />
+      
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img

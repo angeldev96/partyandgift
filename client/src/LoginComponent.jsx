@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 // eslint-disable-next-line react/prop-types
@@ -33,6 +35,8 @@ export default function LoginComponent({setIsLoggedIn}) {
     } catch (error) {
       setError(error.message);
       console.error(error);
+      toast.error(error.message);
+      
     }
   };
 
@@ -44,7 +48,8 @@ export default function LoginComponent({setIsLoggedIn}) {
 
   return (
     <>
-      {error && <p className="text-red-500">{error}</p>}
+          <ToastContainer />
+
       <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
