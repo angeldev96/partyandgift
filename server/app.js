@@ -119,13 +119,13 @@ app.delete('/products/:id', async (req, res) => {
 
   try {
     // Verifica si el producto con el ID dado existe
-    const existingProduct = await db.getProductById(productId);
+    const existingProduct = await db.obtenerProductoPorId(productId);
     if (!existingProduct) {
       return res.status(404).send('Producto no encontrado');
     }
 
     // Elimina el producto de la base de datos
-    await db.deleteProduct(productId);
+    await db.eliminarProducto(productId);
 
     res.status(200).send('Producto eliminado exitosamente');
   } catch (error) {
@@ -140,7 +140,7 @@ app.get('/products/:id', async (req, res) => {
   
   try {
     // Busca el producto en la base de datos por su ID
-    const product = await db.getProductById(productId);
+    const product = await db.obtenerProductoPorId(productId);
     
     // Verifica si el producto existe
     if (!product) {
@@ -158,17 +158,17 @@ app.get('/products/:id', async (req, res) => {
 // Ruta para actualizar un producto por su ID
 app.put('/products/:id', async (req, res) => {
   const productId = req.params.id;
-  const { img, title, quantity } = req.body;
+  const { category_id, name, description, price, stock, image_url } = req.body;
 
   try {
     // Verifica si el producto con el ID dado existe
-    const existingProduct = await db.getProductById(productId);
+    const existingProduct = await db.obtenerProductoPorId(productId);
     if (!existingProduct) {
       return res.status(404).send('Producto no encontrado');
     }
 
     // Actualiza los datos del producto en la base de datos
-    await db.updateProduct(productId, { img, title, quantity });
+    await db.actualizarProducto(productId, { image_url, name, stock });
 
     res.status(200).send('Producto actualizado exitosamente');
   } catch (error) {
@@ -234,7 +234,6 @@ app.post('/order_address', async (req, res) => {
     res.status(500).send('Error interno del servidor');
   }
 });
-
 
 app.get('/management-panel', authenticateToken, async (req, res) => {
   // Aquí puedes realizar cualquier lógica adicional para manejar la ruta protegida
