@@ -2,10 +2,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
-const db = require('./utils/database'); 
+const db = require('./utils/database');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
-
 
 // Crear una instancia de Express
 const app = express();
@@ -20,7 +19,7 @@ app.use(cors({
   origin: 'http://localhost:5173', // Specify the allowed origin
   methods: ['GET', 'POST', 'PUT', 'DELETE'],        // Allow specific methods
   credentials: true                 // To allow sending of cookies
-})); 
+}));
 
 // Route for login
 app.post('/login', async (req, res) => {
@@ -32,8 +31,8 @@ app.post('/login', async (req, res) => {
   }
   // Check the password
   if (bcrypt.compareSync(password, user.password)) {
-    let token = jwt.sign({id: user.id}, 'secretkey', { expiresIn: '1h' });
-    return res.json({message: 'Successful login', token: token});
+    let token = jwt.sign({ id: user.id }, 'secretkey', { expiresIn: '1h' });
+    return res.json({ message: 'Successful login', token: token });
   } else {
     return res.status(401).send('Incorrect email or password');
   }
@@ -47,7 +46,7 @@ app.post('/register', async (req, res) => {
   if (existingUser) {
     return res.status(400).send('El correo electrónico ya está en uso');
   }
-  
+
   // Crea un nuevo usuario
   const hashedPassword = bcrypt.hashSync(password, 10);
   await db.createUser(email, hashedPassword);
@@ -81,21 +80,33 @@ app.post('/login/empleado', async (req, res) => {
   }
   // Comprueba la contraseña
   if (bcrypt.compareSync(password, empleado.password)) {
-    let token = jwt.sign({id: empleado.id}, 'secret key', {expiresIn: '1h'});
-    return res.json({message:'Inicio de sesión de empleado exitoso',token: token});
+    let token = jwt.sign({ id: empleado.id }, 'secret key', { expiresIn: '1h' });
+    return res.json({ message: 'Inicio de sesión de empleado exitoso', token: token });
   } else {
     return res.status(401).send('Correo electrónico o contraseña incorrectos');
   }
 });
 
+// Ruta para obtener todas las categorías
+app.get('/categories', async (req, res) => {
+  try {
+    const categorias = await db.obtenerCategorias();
+    res.status(200).json(categorias); // Devuelve todas las categorías
+  } catch (error) {
+    console.error('Error al obtener las categorías:', error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
+
 // Ruta para registrar un nuevo producto
 app.post('/products', async (req, res) => {
-  const { img, title, quantity } = req.body;
-  
+  const { category_id, name, description, price, stock, image_url } = req.body;
+
   try {
     // Crea un nuevo producto en la base de datos
-    await db.createProduct(img, title, quantity);
-    res.status(201).send('Producto creado exitosamente');
+    const producto = await insertarProducto(category_id, name, description, price, stock, image_url);
+
+    res.status(201).json(producto); // Devuelve el producto creado
   } catch (error) {
     console.error('Error al crear el producto:', error);
     res.status(500).send('Error interno del servidor');
@@ -169,19 +180,18 @@ app.put('/products/:id', async (req, res) => {
 
 // Ruta para el envio del formulario del producto
 app.post('/register/product', async (req, res) => {
-  const { img, title, quantity } = req.body
-  try {
-      const result = await pool.query("INSERT INTO product (img, title, quantity) VALUES ($1, $2, $3) RETURNING *", [ 
-          img,
-          title,
-          quantity
-      ]);
+  const { category_id, name, description, price, stock, image_url } = req.body;
 
-      res.json(result.rows[0]);
+  try {
+    // Crea un nuevo producto en la base de datos
+    const producto = await insertarProducto(category_id, name, description, price, stock, image_url);
+
+    res.status(201).json(producto); // Devuelve el producto creado
   } catch (error) {
-      next(error)
+    console.error('Error al crear el producto:', error);
+    res.status(500).send('Error interno del servidor');
   }
-})
+});
 
 const authenticateToken = require('./middleware/auth');
 
@@ -189,24 +199,25 @@ const authenticateToken = require('./middleware/auth');
 app.post('/change-password', authenticateToken, async (req, res) => {
   const { newPassword } = req.body;
   const userId = req.user.id; // Obtener el ID del usuario del token
-  
+
   // Actualizar la contraseña en la base de datos
   const hashedPassword = bcrypt.hashSync(newPassword, 10);
   await db.updateUserPassword(userId, hashedPassword);
-  
+
   res.send('Contraseña cambiada exitosamente');
 });
 
-
-
 // Ruta para obtener la lista de productos
+const ITEMS_PER_PAGE = 5;
 app.get('/product_list', async (req, res) => {
+  const page = req.query.page ? parseInt(req.query.page, 10) : 1;
+
   try {
-    const products = await db.getProducts(); // Obtener la lista de productos desde la base de datos
+    const products = await db.getProductsByPage(page, ITEMS_PER_PAGE);
     res.json(products);
   } catch (error) {
     console.error('Error al obtener la lista de productos:', error);
-    res.status(500).json({ error: 'Error al obtener la lista de productos' });
+    res.status(500).send('Error al obtener la lista de productos');
   }
 });
 

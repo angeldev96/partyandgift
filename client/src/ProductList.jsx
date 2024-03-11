@@ -16,13 +16,12 @@ const ProductList = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/product_list');
+        const response = await axios.get(`http://localhost:3001/product_list?page=${currentPage}`);
         setProducts(response.data);
       } catch (error) {
         console.error('Error al obtener la lista de productos:', error);
       }
     };
-
     fetchProducts();
   }, []);
 
@@ -49,17 +48,17 @@ const ProductList = () => {
 
   return (
     <div className="bg-white">
-      <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-        <h2 className="text-2xl font-bold tracking-tight text-gray-900">Productos</h2>
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+        <h2 className="text-3xl font-bold tracking-tight text-gray-900">Productos</h2>
 
-        <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+        <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-8">
           {products.map((product) => (
-            <div key={product.id} className="group relative">
-              <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+            <div key={product.product_id} className="group relative bg-white overflow-hidden rounded-lg shadow-md">
+              <div className="aspect-w-1 aspect-h-1">
                 <img
-                  src={product.img}
-                  alt={product.title}
-                  className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+                  src={product.image_url}
+                  alt={product.name}
+                  className="w-full h-full object-cover"
                 />
               </div>
               <div className="mt-4 flex justify-between">
@@ -89,6 +88,11 @@ const ProductList = () => {
               </div>
             </div>
           ))}
+        </div>
+
+        <div className="mt-6">
+          <button onClick={() => goToPage(currentPage - 1)} disabled={currentPage === 1} className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md mr-2">Anterior</button>
+          <button onClick={() => goToPage(currentPage + 1)} className="bg-blue-500 text-white px-4 py-2 rounded-md">Siguiente</button>
         </div>
       </div>
     </div>
