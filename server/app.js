@@ -213,7 +213,7 @@ app.get('/product_list', async (req, res) => {
   const page = req.query.page ? parseInt(req.query.page, 10) : 1;
 
   try {
-    const products = await db.getProductsByPage(page, ITEMS_PER_PAGE);
+    const products = await db.obtenerProductosPorPagina(page, ITEMS_PER_PAGE);
     res.json(products);
   } catch (error) {
     console.error('Error al obtener la lista de productos:', error);

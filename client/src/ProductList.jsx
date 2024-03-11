@@ -1,4 +1,4 @@
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -11,7 +11,11 @@ import {
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate(); // Inicializar useNavigate
+  const [currentPage, setCurrentPage] = useState(1);
 
+  const goToPage = (page) => {
+    setCurrentPage(page);
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -23,7 +27,7 @@ const ProductList = () => {
       }
     };
     fetchProducts();
-  }, []);
+  }, [currentPage]);
 
   const handleEdit = (product) => {
     // TODO: Implement edit functionality
@@ -71,11 +75,16 @@ const ProductList = () => {
                   </h3>
                   <p className="mt-1 text-sm text-gray-500">{product.quantity}</p>
                 </div>
-                <p className="text-sm font-medium text-gray-900">{product.price}</p>
+              </div>
+              <div className="p-4">
+                <h3 className="text-lg font-semibold text-gray-900">{product.name}</h3>
+                <p className="text-gray-500 mt-2">{product.description}</p>
+                <p className="text-gray-500 mt-2">Precio: ${Number(product.price).toFixed(2)}</p>
+                <p className="text-gray-500 mt-2">Cantidad disponible: {product.stock}</p>
               </div>
 
               {/* Icon Actions */}
-              <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100"> 
+              <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100">
                 <button onClick={() => handleEdit(product)}>
                   <PencilSquareIcon className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
                 </button>
