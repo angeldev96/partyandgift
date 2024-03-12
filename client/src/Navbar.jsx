@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { HiOutlineDocumentText, HiOutlineInformationCircle } from 'react-icons/hi';
+import { HiOutlineDocumentText } from 'react-icons/hi';
 import { HiOutlineShoppingCart, HiUserCircle } from 'react-icons/hi';
 import { FaSignOutAlt } from 'react-icons/fa';
 
@@ -38,25 +38,25 @@ function Navbar({ isLoggedIn, handleLogout }) {
             {isOpen && (
               <div className="absolute right-0 mt-2 grid grid-cols-3 gap-x-2 w-64 bg-white border border-gray-200 rounded-md shadow-lg z-10">
                 <div>
-                  <Link to="/dulces" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Arreglos</Link>
-                  <Link to="/globos" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Caja de Regalos</Link>
-                  <Link to="/arreglos" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Cajitas Dulceras</Link>
-                  <Link to="/dulces" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Cucharas y Tenedores</Link>
-                  <Link to="/globos" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Gorros</Link>
+                  <Link to="/arrangements" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Arreglos</Link>
+                  <Link to="/Gift_boxes" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Caja de Regalos</Link>
+                  <Link to="/Sweet_boxes" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Cajitas Dulceras</Link>
+                  <Link to="/Spoons_forks" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Cucharas y Tenedores</Link>
+                  <Link to="/Caps" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Gorros</Link>
                 </div>
                 <div>
-                 <Link to="/arreglos" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Juguetes</Link>
-                  <Link to="/arreglos" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Números de Cumpleaños</Link>
-                  <Link to="/dulces" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Papel de Regalo</Link>
-                  <Link to="/globos" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Peluches</Link>
-                  <Link to="/arreglos" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Piñatas</Link>
+                 <Link to="/Toys" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Juguetes</Link>
+                  <Link to="/Birthday_numbers" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Números de Cumpleaños</Link>
+                  <Link to="/Gift_wrap" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Papel de Regalo</Link>
+                  <Link to="/Teddies" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Peluches</Link>
+                  <Link to="/Pinatas" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Piñatas</Link>
                 </div>
                 <div>
-                  <Link to="/dulces" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Platos</Link>
-                  <Link to="/globos" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Retrateras</Link>
-                  <Link to="/arreglos" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Tarjetas</Link>                
-                  <Link to="/globos" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Tazas</Link>
-                  <Link to="/arreglos" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Vasos</Link>
+                  <Link to="/Plate" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Platos</Link>
+                  <Link to="/Portraits" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Retrateras</Link>
+                  <Link to="/Cards" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Tarjetas</Link>                
+                  <Link to="/Cups" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Tazas</Link>
+                  <Link to="/Glasses" className="block px-4 py-2 text-sm text-gray-900 hover:bg-blue-100">Vasos</Link>
                 </div>
               
               </div>
