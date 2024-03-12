@@ -1,12 +1,12 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import DashboardComponent from './DashboardComponent';
-import Arrangements from './arrangements'; 
+import Arrangements from './Arrangements'; 
 import Gift_boxes from './Gift_boxes'; 
-import Sweet_boxes from './Sweet_boxes'; 
+// import Sweet_boxes from './Sweet_boxes'; 
 import Spoons_forks from './Spoons_forks'; 
 import Caps from './Caps'; 
-import Toys from './toys'; 
+import Toys from './Toys'; 
 import Birthday_numbers from './Birthday_numbers';
 import Gift_wrap from './Gift_wrap';  
 import Teddies from './Teddies'; 
@@ -55,7 +55,7 @@ function App() {
           <Route path="/dashboard" element={<DashboardComponent />} />
           <Route path="/arrangements" element={<Arrangements />} />
           <Route path="/Gift_boxes" element={<Gift_boxes />} />
-          <Route path="/Sweet_boxes" element={<Sweet_boxes />} />
+          {/* <Route path="/Sweet_boxes" element={<Sweet_boxes />} /> */}
           <Route path="/Spoons_forks" element={<Spoons_forks />} />
           <Route path="/Toys" element={<Toys />} />
           <Route path="/Caps" element={<Caps />} />
