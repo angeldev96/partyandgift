@@ -1,13 +1,14 @@
 const { Pool } = require('pg');
 const bcrypt = require('bcrypt');
 
-// Configuración de la conexión a la base de datos PostgreSQL
+require('dotenv').config();
+
 const pool = new Pool({
-  user: 'postgres',
-  host: '127.0.0.1',
-  database: 'partyandgift',
-  password: 'admin',
-  port: 5432,
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
 });
 
 // Prueba de conexión directa
