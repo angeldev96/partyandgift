@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors({
-  origin: 'http://localhost:5173', // Specify the allowed origin
+  origin: process.env.CORS_ORIGIN, // Use the environment variable
   methods: ['GET', 'POST', 'PUT', 'DELETE'],        // Allow specific methods
   credentials: true                 // To allow sending of cookies
 }));
