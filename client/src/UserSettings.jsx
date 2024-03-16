@@ -6,7 +6,7 @@ export default function UserSettings() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:3001/user_settings', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/user_settings`, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
           }

@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 // eslint-disable-next-line react/prop-types
-export default function LoginComponent({setIsLoggedIn}) {
+export default function LoginComponent({ setIsLoggedIn }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
@@ -16,7 +16,7 @@ export default function LoginComponent({setIsLoggedIn}) {
     event.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:3001/login', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ export default function LoginComponent({setIsLoggedIn}) {
       setError(error.message);
       console.error(error);
       toast.error(error.message);
-      
+
     }
   };
 
@@ -44,11 +44,11 @@ export default function LoginComponent({setIsLoggedIn}) {
     return <Navigate to="/dashboard" />;
   }
 
-  
+
 
   return (
     <>
-          <ToastContainer />
+      <ToastContainer />
 
       <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="flex justify-center items-center">

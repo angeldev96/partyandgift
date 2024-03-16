@@ -17,7 +17,8 @@ function EditProduct() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch(`http://localhost:3001/products/${productId}`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/products/${productId}`);
+        
         const data = await response.json();
         setName(data.name);
         setStock(data.stock);
@@ -33,7 +34,7 @@ function EditProduct() {
 
     const fetchCategories = async () => {
       try {
-        const response = await fetch('http://localhost:3001/categories');
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/categories`);
         if (!response.ok) {
           throw new Error('Error al obtener las categorías');
         }
@@ -52,7 +53,7 @@ function EditProduct() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch(`http://localhost:3001/products/${productId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/products/${productId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

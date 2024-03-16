@@ -15,7 +15,7 @@ export default function EmployeeSignUpComponent() {
     event.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:3001/register/empleado', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/register/empleado`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ export default function EmployeeSignUpComponent() {
         throw new Error('Error al registrar empleado');
       }
 
-      setSuccess(true); 
+      setSuccess(true);
     } catch (error) {
       setError(error.message);
       console.error(error);

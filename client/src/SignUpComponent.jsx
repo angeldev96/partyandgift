@@ -12,13 +12,13 @@ export default function SignUpComponent() {
     event.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:3001/register', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({ email, password }),
-});
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
 
       if (!response.ok) {
@@ -37,7 +37,7 @@ export default function SignUpComponent() {
   return (
     <>
       <ToastContainer />
-      
+
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <div className="flex justify-center items-center">

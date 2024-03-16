@@ -18,8 +18,7 @@ function FormProducts() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch('http://localhost:3001/categories');
-        if (!response.ok) {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/categories`);        if (!response.ok) {
           throw new Error('Error al obtener las categorías');
         }
         const data = await response.json();
@@ -37,7 +36,7 @@ function FormProducts() {
     event.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:3001/products', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/products`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

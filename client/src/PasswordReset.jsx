@@ -14,8 +14,7 @@ const PasswordReset = () => {
     try {
       const token = localStorage.getItem('token'); // Obtener el token almacenado en el localStorage
       await axios.post(
-        'http://localhost:3001/change-password',
-        { newPassword: newPassword },
+        `${import.meta.env.VITE_API_URL}/change-password`, { newPassword: newPassword },
         { headers: { Authorization: `Bearer ${token}` } }
       );
       // Éxito al cambiar la contraseña
@@ -58,7 +57,7 @@ const PasswordReset = () => {
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-        Restablecer Contraseña
+          Restablecer Contraseña
         </h2>
       </div>
 
