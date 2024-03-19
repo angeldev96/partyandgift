@@ -30,6 +30,7 @@ import EditProduct from './EditProduct';
 import ProtectedRoute from './ProtectedRoute';
 import OrderAddress from './OrderAddress';
 import Footer from './Footer';
+import UnAuthorized from './UnAuthorized';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -71,6 +72,8 @@ function App() {
           <Route path="/signup" element={<SignUpComponent />} />
           <Route path="/reset-password" element={<PasswordReset />} />
           <Route path="/login/empleado" element={<LoginEmployee setIsLoggedIn={setIsLoggedIn} />} />
+          <Route path="/unauthorized" element={<UnAuthorized />} />
+          
           <Route element={<ProtectedRoute allowedRoles={['admin', 'empleado']} />}>
             <Route path="/management-panel" element={<ManagementPanel />} />
             <Route path="/products-list" element={<ProductList />} />
