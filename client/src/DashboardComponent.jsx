@@ -8,7 +8,7 @@ const products = [
       name: 'Arreglo de Techo',
       color: 'Multicolor',
       href: '#',
-      imageSrc: './public/pexels-anastasia-shuraeva-6234120.jpg',
+      imageSrc: 'https://github.com/angeldev96/partyandgift/blob/main/client/public/pexels-anastasia-shuraeva-6234120.jpg?raw=true',
       imageAlt: 'Ceiling Decoration Gold and Silver',
       price: 'L.90',
     
@@ -18,7 +18,7 @@ const products = [
       name: 'Fiesta de Antifaz Unisex',
       color: 'Multicolor',
       href: '#',
-      imageSrc: './public/pexels-davide-rotondi-15630475.jpg',
+      imageSrc: 'https://github.com/angeldev96/partyandgift/blob/main/client/public/pexels-davide-rotondi-15630475.jpg?raw=true',
       imageAlt: 'Descp. Mascara de Fiesta',
       price: 'L.170',
     
@@ -28,7 +28,7 @@ const products = [
       name: 'Mascara Antifaz Dama',
       color: 'Multicolor',
       href: '#',
-      imageSrc: './public/pexels-ibolya-toldi-3836671.jpg',
+      imageSrc: 'https://github.com/angeldev96/partyandgift/blob/main/client/public/pexels-ibolya-toldi-3836671.jpg?raw=true',
       imageAlt: 'Descp. Mascara tonos obscuros Dama',
       price: 'L.210',
     
@@ -38,7 +38,7 @@ const products = [
       name: 'Cupcake Mini Pastel',
       color: 'Multicolor',
       href: '#',
-      imageSrc: './public/pexels-jess-bailey-designs-913136.jpg',
+      imageSrc: 'https://github.com/angeldev96/partyandgift/blob/main/client/public/pexels-jess-bailey-designs-913136.jpg?raw=true',
       imageAlt: 'Descp. Cupcake Basico',
       price: 'L.65',
     
@@ -48,7 +48,7 @@ const products = [
       name: 'Regalo Sorpresa',
       color: 'Multicolor',
       href: '#',
-      imageSrc: './public/pexels-karolina-grabowska-4397903.jpg',
+      imageSrc: 'https://github.com/angeldev96/partyandgift/blob/main/client/public/pexels-karolina-grabowska-4397903.jpg?raw=true',
       imageAlt: 'Descp. Gift boom',
       price: 'L.130',
     
@@ -58,7 +58,7 @@ const products = [
       name: 'Arreglo Mesa para 2',
       color: 'Multicolor',
       href: '#',
-      imageSrc: './public/pexels-karolina-grabowska-5713660.jpg',
+      imageSrc: 'https://github.com/angeldev96/partyandgift/blob/main/client/public/pexels-karolina-grabowska-5713660.jpg?raw=true',
       imageAlt: 'Descp. Mesa de parera',
       price: 'L.230',
     
@@ -68,7 +68,7 @@ const products = [
       name: 'Arreglo de Graduado',
       color: 'Multicolor',
       href: '#',
-      imageSrc: './public/pexels-karolina-grabowska-5725977.jpg',
+      imageSrc: 'https://github.com/angeldev96/partyandgift/blob/main/client/public/pexels-karolina-grabowska-5725977.jpg?raw=true',
       imageAlt: 'Descp. Arreglo con Botella de Vino',
       price: 'L.428',
     
@@ -78,7 +78,7 @@ const products = [
       name: 'Globo Personalizado',
       color: 'Multicolor',
       href: '#',
-      imageSrc: './public/globo_4.png',
+      imageSrc: 'https://github.com/angeldev96/partyandgift/blob/main/client/public/pexels-laura-james-6101962.jpg?raw=true',
       imageAlt: 'Descp. ',
       price: 'L.80',
     
@@ -98,7 +98,7 @@ const products = [
       name: 'Regalo Sorpresa Mini',
       color: '2 Colores',
       href: '#',
-      imageSrc: './public/pexels-liza-summer-6348104.jpg',
+      imageSrc: 'https://github.com/angeldev96/partyandgift/blob/main/client/public/pexels-liza-summer-6348104.jpg?raw=true',
       imageAlt: 'Descp. Regalo Mini con chongo',
       price: 'L.96',
     
@@ -108,7 +108,7 @@ const products = [
       name: 'Pila de Regalos Sorpresa',
       color: 'Multicolor',
       href: '#',
-      imageSrc: './public/pexels-michelle-leman-6765533.jpg',
+      imageSrc: 'https://github.com/angeldev96/partyandgift/blob/main/client/public/pexels-michelle-leman-6765533.jpg?raw=true',
       imageAlt: 'Descp. Media docena de regalos',
       price: 'L.970',
     
@@ -118,7 +118,7 @@ const products = [
       name: 'Torre de Regalos 3 Pisos',
       color: 'Multicolor',
       href: '#',
-      imageSrc: './public/pexels-pixabay-264985.jpg',
+      imageSrc: 'https://github.com/angeldev96/partyandgift/blob/main/client/public/pexels-pixabay-264985.jpg?raw=true',
       imageAlt: 'Descp. Tres regalos diversos',
       price: 'L.467',
     
@@ -128,7 +128,7 @@ const products = [
       name: 'Pastel de Amistad',
       color: 'Multicolor',
       href: '#',
-      imageSrc: './public/pexels-polina-tankilevitch-4110012.jpg',
+      imageSrc: 'https://github.com/angeldev96/partyandgift/blob/main/client/public/pexels-polina-tankilevitch-4110012.jpg?raw=true',
       imageAlt: 'Descp. Pastel Base blanco',
       price: 'L.245',
     
@@ -138,7 +138,7 @@ const products = [
       name: 'Ramo de Rosas',
       color: 'Rosadas',
       href: '#',
-      imageSrc: './public/pexels-secret-garden-931176.jpg',
+      imageSrc: 'https://github.com/angeldev96/partyandgift/blob/main/client/public/pexels-secret-garden-931176.jpg?raw=true',
       imageAlt: 'Descp. Rosas de colores suave',
       price: 'L.315',
     
@@ -148,7 +148,7 @@ const products = [
       name: 'Pastel HB',
       color: 'Tonos purpuras',
       href: '#',
-      imageSrc: './public/pexels-shuvalova-natalia-15419197.jpg',
+      imageSrc: 'https://github.com/angeldev96/partyandgift/blob/main/client/public/pexels-shuvalova-natalia-15419197.jpg?raw=true',
       imageAlt: 'Descp. Pastel de Cumple tonos obscuros',
       price: 'L.245',
     
@@ -168,7 +168,7 @@ const products = [
       name: 'Regalo Sorpresa Mediano',
       color: 'Tonos Rosados varios',
       href: '#',
-      imageSrc: './public/pexels-skylar-kang-6045704.jpg',
+      imageSrc: 'https://github.com/angeldev96/partyandgift/blob/main/client/public/pexels-skylar-kang-6045704.jpg?raw=true',
       imageAlt: 'Descp. Regalo de Media caja',
       price: 'L.330',
     
@@ -178,7 +178,7 @@ const products = [
       name: 'Arreglo y Regalo Tematico',
       color: 'Multicolor',
       href: '#',
-      imageSrc: './public/pexels-tanya-gorelova-3933957.jpg',
+      imageSrc: 'https://github.com/angeldev96/partyandgift/blob/main/client/public/pexels-tanya-gorelova-3933957.jpg?raw=true',
       imageAlt: 'Descp. Para mesa tema Mafia',
       price: 'L.610',
     
@@ -189,7 +189,7 @@ const products = [
       name: 'Arreglo de Mesa Boda Exterior Large',
       color: 'Multicolor',
       href: '#',
-      imageSrc: './public/pexels-tara-winstead-6479601.jpg',
+      imageSrc: 'https://github.com/angeldev96/partyandgift/blob/main/client/public/pexels-tara-winstead-6479596.jpg?raw=true',
       imageAlt: 'Descp. Para exteriores Large Table',
       price: 'L.620',
     
@@ -199,7 +199,7 @@ const products = [
       name: 'Arreglo de Mesa Boda Interior Large',
       color: 'Tonos Marrones',
       href: '#',
-      imageSrc: './public/pexels-tara-winstead-6479604.jpg',
+      imageSrc: 'https://github.com/angeldev96/partyandgift/blob/main/client/public/pexels-tara-winstead-6479601.jpg?raw=true',
       imageAlt: 'Descp. Para exteriores Large Table',
       price: 'L.620',
     
@@ -209,7 +209,7 @@ const products = [
       name: 'Cupcake con Cereza',
       color: 'Temporadas',
       href: '#',
-      imageSrc: './public/pexels-tim-douglas-6210756.jpg',
+      imageSrc: 'https://github.com/angeldev96/partyandgift/blob/main/client/public/pexels-tim-douglas-6210756.jpg?raw=true',
       imageAlt: 'Descp. Cupcake con fruta',
       price: 'L.75',
     
@@ -219,7 +219,7 @@ const products = [
       name: 'Slides de 3 Leches',
       color: 'Temporadas',
       href: '#',
-      imageSrc: './public/qpexels-amin-imanifar-865632.jpg',
+      imageSrc: 'https://github.com/angeldev96/partyandgift/blob/main/client/public/qpexels-amin-imanifar-865632.jpg?raw=true',
       imageAlt: 'Descp. 3 Leches top de relleno',
       price: 'L.63',
     
