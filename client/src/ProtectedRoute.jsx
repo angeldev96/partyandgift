@@ -1,13 +1,22 @@
+/* eslint-disable react/prop-types */
 import { Navigate, Outlet } from 'react-router-dom';
+import { jwtDecode } from "jwt-decode";
 
-const ProtectedRoute = () => {
-  // Aquí debes determinar si el usuario está autenticado o no
-  // Puedes obtener esta información del estado de React o del localStorage
-  const isAuthenticated = localStorage.getItem('token') !== null;
+const ProtectedRoute = ({ allowedRoles }) => {
+  const token = localStorage.getItem('token');
 
-  // Si el usuario está autenticado, renderiza el componente hijo (Outlet)
-  // De lo contrario, redirige al usuario a la página de inicio de sesión
-  return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
+
+  const decodedToken = jwtDecode(token);
+  const userRole = decodedToken.role;
+
+  if (!allowedRoles.includes(userRole)) {
+    return <Navigate to="/unauthorized" replace />;
+  }
+
+  return <Outlet />;
 };
 
 export default ProtectedRoute;

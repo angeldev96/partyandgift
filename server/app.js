@@ -31,7 +31,7 @@ app.post('/login', async (req, res) => {
   }
   // Check the password
   if (bcrypt.compareSync(password, user.password)) {
-    let token = jwt.sign({ id: user.id }, 'secretkey', { expiresIn: '1h' });
+    let token = jwt.sign({ id: user.id, role: user.role }, 'secretkey', { expiresIn: '1h' });
     return res.json({ message: 'Successful login', token: token });
   } else {
     return res.status(401).send('Incorrect email or password');
@@ -80,7 +80,7 @@ app.post('/login/empleado', async (req, res) => {
   }
   // Comprueba la contraseña
   if (bcrypt.compareSync(password, empleado.password)) {
-    let token = jwt.sign({ id: empleado.id }, 'secret key', { expiresIn: '1h' });
+    let token = jwt.sign({ id: empleado.id, role: empleado.role }, 'secret key', { expiresIn: '1h' });
     return res.json({ message: 'Inicio de sesión de empleado exitoso', token: token });
   } else {
     return res.status(401).send('Correo electrónico o contraseña incorrectos');
@@ -201,17 +201,17 @@ app.post('/register/product', async (req, res) => {
 
 const authenticateToken = require('./middleware/auth');
 
-// Ruta para cambiar la contraseña del usuario
-app.post('/change-password', authenticateToken, async (req, res) => {
-  const { newPassword } = req.body;
-  const userId = req.user.id; // Obtener el ID del usuario del token
+// // Ruta para cambiar la contraseña del usuario
+// app.post('/change-password', authenticateToken, async (req, res) => {
+//   const { newPassword } = req.body;
+//   const userId = req.user.id; // Obtener el ID del usuario del token
 
-  // Actualizar la contraseña en la base de datos
-  const hashedPassword = bcrypt.hashSync(newPassword, 10);
-  await db.updateUserPassword(userId, hashedPassword);
+//   // Actualizar la contraseña en la base de datos
+//   const hashedPassword = bcrypt.hashSync(newPassword, 10);
+//   await db.updateUserPassword(userId, hashedPassword);
 
-  res.send('Contraseña cambiada exitosamente');
-});
+//   res.send('Contraseña cambiada exitosamente');
+// });
 
 // Ruta para obtener la lista de productos
 const ITEMS_PER_PAGE = 5;
@@ -241,28 +241,26 @@ app.post('/order_address', async (req, res) => {
   }
 });
 
-app.get('/management-panel', authenticateToken, async (req, res) => {
-  // Aquí puedes realizar cualquier lógica adicional para manejar la ruta protegida
-  // Por ejemplo, puedes verificar el rol del usuario (si es un empleado) antes de permitir el acceso
+// app.get('/management-panel', authenticateToken, async (req, res) => {
+//   // Aquí puedes realizar cualquier lógica adicional para manejar la ruta protegida
+//   // Por ejemplo, puedes verificar el rol del usuario (si es un empleado) antes de permitir el acceso
 
-  // Obtener el ID del usuario del token
-  const userId = req.user.id;
+//   // Obtener el ID del usuario del token
+//   const userId = req.user.id;
 
-  // Verificar si el usuario es un empleado
-  const empleado = await db.getEmpleadoById(userId);
+//   // Verificar si el usuario es un empleado
+//   const empleado = await db.getEmpleadoById(userId);
 
-  if (!empleado) {
-    return res.status(403).json({ error: 'Acceso denegado. Solo los empleados pueden acceder a esta ruta.' });
-  }
+//   if (!empleado) {
+//     return res.status(403).json({ error: 'Acceso denegado. Solo los empleados pueden acceder a esta ruta.' });
+//   }
 
-  // Si el usuario es un empleado, permitir el acceso
-  res.json({ message: 'Acceso concedido al panel de administración' });
-});
+//   // Si el usuario es un empleado, permitir el acceso
+//   res.json({ message: 'Acceso concedido al panel de administración' });
+// });
 
 
-app.get('/user_settings', authenticateToken, (req, res) => {
-  res.json({ message: 'This is a protected route' });
-});
+
 
 
 app.listen(3001, async () => {

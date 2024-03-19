@@ -1,23 +1,23 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import DashboardComponent from './DashboardComponent';
-import Arrangements from './Arrangements'; 
-import Gift_boxes from './Gift_boxes'; 
+import Arrangements from './Arrangements';
+import Gift_boxes from './Gift_boxes';
 // import Sweet_boxes from './Sweet_boxes'; 
-import Spoons_forks from './Spoons_forks'; 
-import Caps from './Caps'; 
-import Toys from './Toys'; 
+import Spoons_forks from './Spoons_forks';
+import Caps from './Caps';
+import Toys from './Toys';
 import Birthday_numbers from './Birthday_numbers';
-import Gift_wrap from './Gift_wrap';  
-import Teddies from './Teddies'; 
-import Pinatas from './Pinatas'; 
-import Plate from './Plate'; 
+import Gift_wrap from './Gift_wrap';
+import Teddies from './Teddies';
+import Pinatas from './Pinatas';
+import Plate from './Plate';
 import Portraits from './Portraits';
 import Cards from './Cards';
 import Cups from './Cups';
-import Glasses from './Glasses'; 
+import Glasses from './Glasses';
 import LoginComponent from './LoginComponent';
-import Register_Employee from './Register_Employee'; 
+import Register_Employee from './Register_Employee';
 import SignUpComponent from './SignUpComponent';
 import Navbar from './Navbar';
 import AccountComponent from './AccountComponent';
@@ -45,14 +45,13 @@ function App() {
     localStorage.removeItem('token');
     setIsLoggedIn(false);
   };
-  
+
   return (
     <Router>
       <div>
         <Navbar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
         <Routes>
           <Route path="/" element={<Navigate to="/dashboard" />} />
-          <Route path="/dashboard" element={<DashboardComponent />} />
           <Route path="/arrangements" element={<Arrangements />} />
           <Route path="/Gift_boxes" element={<Gift_boxes />} />
           {/* <Route path="/Sweet_boxes" element={<Sweet_boxes />} /> */}
@@ -70,17 +69,20 @@ function App() {
           <Route path="/Glasses" element={<Glasses />} />
           <Route path="/login" element={<LoginComponent setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/signup" element={<SignUpComponent />} />
-          <Route path="/account" element={<AccountComponent />} />
           <Route path="/reset-password" element={<PasswordReset />} />
           <Route path="/login/empleado" element={<LoginEmployee setIsLoggedIn={setIsLoggedIn} />} />
-          <Route element={<ProtectedRoute />}>
+          <Route element={<ProtectedRoute allowedRoles={['admin', 'empleado']} />}>
             <Route path="/management-panel" element={<ManagementPanel />} />
             <Route path="/products-list" element={<ProductList />} />
-            <Route path="/register/empleado" element={<Register_Employee />} /> {/* Cambiado de 'Register_Employee' a 'RegisterEmployee' */}
+            <Route path="/register/empleado" element={<Register_Employee />} />
             <Route path="/form-products" element={<FormProducts />} />
             <Route path="/product_edit/:productId" element={<EditProduct />} />
             <Route path="/order_address" element={<OrderAddress />} />
-          </Route>         
+          </Route>
+          <Route element={<ProtectedRoute allowedRoles={['user']} />}>
+            <Route path="/dashboard" element={<DashboardComponent />} />
+            <Route path="/account" element={<AccountComponent/>} />
+          </Route>
         </Routes>
         <Footer />
       </div>

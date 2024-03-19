@@ -63,7 +63,7 @@ function Navbar({ isLoggedIn, handleLogout }) {
             )}
           </div>
           <Link to="/order_address" className="hidden lg:block lg:text-sm lg:font-semibold lg:leading-6 lg:text-gray-900 hover:text-blue-400">
-            <HiOutlineShoppingCart className="inline-block mr-1 h-7 w-7" /> Carrito
+            <HiOutlineShoppingCart className="inline-block mr-1 h-7 w-7" /> Carrito (1)
           </Link>
           <Link to="/account" className="hidden lg:block lg:text-sm lg:font-semibold lg:leading-6 lg:text-gray-900 hover:text-blue-400">
             <HiUserCircle className="inline-block mr-1 h-7 w-7" /> Mi Perfil
