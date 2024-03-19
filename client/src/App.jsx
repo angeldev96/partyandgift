@@ -73,6 +73,8 @@ function App() {
           <Route path="/reset-password" element={<PasswordReset />} />
           <Route path="/login/empleado" element={<LoginEmployee setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/unauthorized" element={<UnAuthorized />} />
+          <Route path="/dashboard" element={<DashboardComponent />} />
+
           
           <Route element={<ProtectedRoute allowedRoles={['admin', 'empleado']} />}>
             <Route path="/management-panel" element={<ManagementPanel />} />
@@ -81,9 +83,10 @@ function App() {
             <Route path="/form-products" element={<FormProducts />} />
             <Route path="/product_edit/:productId" element={<EditProduct />} />
             <Route path="/order_address" element={<OrderAddress />} />
+            <Route path="/account" element={<AccountComponent/>} />
+
           </Route>
           <Route element={<ProtectedRoute allowedRoles={['user']} />}>
-            <Route path="/dashboard" element={<DashboardComponent />} />
             <Route path="/account" element={<AccountComponent/>} />
           </Route>
         </Routes>
