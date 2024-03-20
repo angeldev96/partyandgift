@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import DashboardComponent from './DashboardComponent';
+import Carrito from './Carrito';
 import Arrangements from './Arrangements';
 import Gift_boxes from './Gift_boxes';
 // import Sweet_boxes from './Sweet_boxes'; 
@@ -87,6 +88,7 @@ function App() {
 
           </Route>
           <Route element={<ProtectedRoute allowedRoles={['user']} />}>
+            <Route path="/carrito" element={<Carrito />} />
             <Route path="/account" element={<AccountComponent/>} />
           </Route>
         </Routes>
