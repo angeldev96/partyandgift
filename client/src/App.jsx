@@ -83,9 +83,10 @@ function App() {
             <Route path="/order_address" element={<OrderAddress />} />
           </Route>
           <Route element={<ProtectedRoute allowedRoles={['user']} />}>
-            <Route path="/dashboard" element={<DashboardComponent />} />
             <Route path="/account" element={<AccountComponent/>} />
           </Route>
+          <Route path="/dashboard" element={<DashboardComponent />} />
+
         </Routes>
         <Footer />
       </div>
