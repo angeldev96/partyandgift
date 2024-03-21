@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import axios from 'axios';
 
 const productsPerPage = 5;
@@ -7,21 +10,43 @@ const productsPerPage = 5;
 export default function DashboardComponent() {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [addedToCart, setAddedToCart] = useState([]);
+
 
   const handleAddToCart = async (productId) => {
     try {
-      const token = localStorage.getItem('token'); // Obtener el token del almacenamiento local
-      await axios.post(`${import.meta.env.VITE_API_URL}/cart/add`, { productId }, {
+      const token = localStorage.getItem('token');
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/cart`, {
         headers: {
-          Authorization: token
-        }
+          Authorization: token,
+        },
       });
-      console.log('Producto agregado al carrito');
+      const cartItems = response.data;
+  
+      // Verificar si el producto ya existe en el carrito
+      const existingItem = cartItems.find((item) => item.product_id === productId);
+  
+      if (existingItem) {
+        toast.info('El producto ya está agregado al carrito');
+        setAddedToCart([...addedToCart, productId]);
+      } else {
+        await axios.post(`${import.meta.env.VITE_API_URL}/cart/add`, { productId }, {
+          headers: {
+            Authorization: token,
+          },
+        });
+        console.log('Producto agregado al carrito');
+        toast.success('Producto agregado al carrito');
+        setAddedToCart([...addedToCart, productId]);
+      }
     } catch (error) {
       console.error('Error al agregar el producto al carrito:', error);
+      toast.error('Error al agregar el producto al carrito');
     }
   };
   
+
+
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -37,6 +62,7 @@ export default function DashboardComponent() {
 
   return (
     <div className="bg-white">
+      <ToastContainer />
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
         <h2 className="text-xl font-bold text-gray-900">Productos</h2>
 
@@ -64,13 +90,26 @@ export default function DashboardComponent() {
                 </div>
               </div>
               <div className="mt-6">
-      <button
-        onClick={() => handleAddToCart(product.product_id)}
-        className="relative flex items-center justify-center rounded-md border border-transparent bg-gray-100 px-8 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200"
-      >
-        Agregar al carrito<span className="sr-only">, {product.name}</span>
-      </button>
-    </div>
+                <button
+                  onClick={() => handleAddToCart(product.product_id)}
+                  disabled={addedToCart.includes(product.product_id)}
+                  className={`relative flex items-center justify-center rounded-md border-transparent px-8 py-2 text-sm font-medium ${addedToCart.includes(product.product_id)
+                      ? 'bg-green-500 text-white cursor-not-allowed'
+                      : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
+                    }`}
+                >
+                  {addedToCart.includes(product.product_id) ? (
+                    <>
+                      Agregado al carrito<span className="sr-only">, {product.name}</span>
+                    </>
+                  ) : (
+                    <>
+                      Agregar al carrito<span className="sr-only">, {product.name}</span>
+                    </>
+                  )}
+                </button>
+              </div>
+
             </div>
           ))}
         </div>
