@@ -31,12 +31,13 @@ app.post('/login', async (req, res) => {
   }
   // Check the password
   if (bcrypt.compareSync(password, user.password)) {
-    let token = jwt.sign({ id: user.id, role: user.role }, 'secretkey', { expiresIn: '1h' });
+    let token = jwt.sign({ id: user.id, role: user.role }, 'secretkey');
     return res.json({ message: 'Successful login', token: token });
   } else {
     return res.status(401).send('Incorrect email or password');
   }
 });
+
 
 // Ruta para el registro de usuarios
 app.post('/register', async (req, res) => {
