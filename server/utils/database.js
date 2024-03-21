@@ -234,6 +234,24 @@ const agregarAlCarrito = async (userId, productId, quantity) => {
   }
 };
 
+const obtenerCarritoPorUsuario = async (userId) => {
+  try {
+    const query = `
+      SELECT ci.item_id, ci.quantity, p.product_id, p.name, p.description, p.price, p.image_url
+      FROM cart_items ci
+      JOIN cart c ON ci.cart_id = c.cart_id
+      JOIN productos p ON ci.product_id = p.product_id
+      WHERE c.user_id = $1
+    `;
+    const { rows } = await pool.query(query, [userId]);
+    return rows;
+  } catch (error) {
+    console.error('Error al obtener el carrito por usuario:', error);
+    throw error;
+  }
+};
+
+
 
 module.exports = {
   getUserByEmail,
@@ -253,5 +271,6 @@ module.exports = {
   createaddress,
   eliminarProducto,
   agregarAlCarrito,
+  obtenerCarritoPorUsuario,
 
 };

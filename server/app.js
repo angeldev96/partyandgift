@@ -255,6 +255,20 @@ app.post('/cart/add', verifyToken, async (req, res) => {
   }
 });
 
+// Ruta para obtener los productos del carrito de un usuario
+app.get('/cart', verifyToken, async (req, res) => {
+  const userId = req.userId;
+
+  try {
+    const cart = await db.obtenerCarritoPorUsuario(userId);
+    res.status(200).json(cart);
+  } catch (error) {
+    console.error('Error al obtener el carrito:', error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
+
+
 
 
 
