@@ -8,6 +8,21 @@ export default function DashboardComponent() {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
+  const handleAddToCart = async (productId) => {
+    try {
+      const token = localStorage.getItem('token'); // Obtener el token del almacenamiento local
+      await axios.post(`${import.meta.env.VITE_API_URL}/cart/add`, { productId }, {
+        headers: {
+          Authorization: token
+        }
+      });
+      console.log('Producto agregado al carrito');
+    } catch (error) {
+      console.error('Error al agregar el producto al carrito:', error);
+    }
+  };
+  
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -49,13 +64,13 @@ export default function DashboardComponent() {
                 </div>
               </div>
               <div className="mt-6">
-                <a
-                  href={product.href}
-                  className="relative flex items-center justify-center rounded-md border border-transparent bg-gray-100 px-8 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200"
-                >
-                  Agregar al carrito<span className="sr-only">, {product.name}</span>
-                </a>
-              </div>
+      <button
+        onClick={() => handleAddToCart(product.product_id)}
+        className="relative flex items-center justify-center rounded-md border border-transparent bg-gray-100 px-8 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200"
+      >
+        Agregar al carrito<span className="sr-only">, {product.name}</span>
+      </button>
+    </div>
             </div>
           ))}
         </div>

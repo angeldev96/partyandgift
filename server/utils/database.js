@@ -208,6 +208,33 @@ const createaddress = async (nombre, apellido, direccion, ciudad, email, telefon
   }
 };
 
+// Función para insertar un producto en el carrito
+const agregarAlCarrito = async (userId, productId, quantity) => {
+  try {
+    // Verifica si el carrito existe para el usuario
+    const cartQuery = 'SELECT cart_id FROM cart WHERE user_id = $1';
+    const { rows: cartRows } = await pool.query(cartQuery, [userId]);
+
+    let cartId;
+    if (cartRows.length === 0) {
+      // Si el carrito no existe, crea uno nuevo
+      const createCartQuery = 'INSERT INTO cart (user_id) VALUES ($1) RETURNING cart_id';
+      const { rows: newCartRows } = await pool.query(createCartQuery, [userId]);
+      cartId = newCartRows[0].cart_id;
+    } else {
+      cartId = cartRows[0].cart_id;
+    }
+
+    // Inserta el producto en el carrito
+    const insertQuery = 'INSERT INTO cart_items (cart_id, product_id, quantity, price) VALUES ($1, $2, $3, (SELECT price FROM productos WHERE product_id = $2))';
+    await pool.query(insertQuery, [cartId, productId, quantity]);
+  } catch (error) {
+    console.error('Error al agregar el producto al carrito:', error);
+    throw error;
+  }
+};
+
+
 module.exports = {
   getUserByEmail,
   getEmpleadoByEmail,
@@ -225,4 +252,6 @@ module.exports = {
   actualizarProducto,
   createaddress,
   eliminarProducto,
+  agregarAlCarrito,
+
 };
