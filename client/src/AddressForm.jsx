@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddressForm = () => {
   const [addressLine1, setAddressLine1] = useState('');
@@ -27,7 +29,9 @@ const AddressForm = () => {
             Authorization: token,
           },
         }
+
       );
+      toast.success('Dirección agregada correctamente');
       // Limpiar los campos del formulario después de enviar
       setAddressLine1('');
       setAddressLine2('');
@@ -41,6 +45,7 @@ const AddressForm = () => {
 
   return (
     <section className="bg-gray-100">
+            <ToastContainer />
       <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
           <div className="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
