@@ -11,6 +11,20 @@ export default function Carrito() {
   const [showHeader, setShowHeader] = useState(true);
   const [cartItems, setCartItems] = useState([]);
 
+
+  const calculateTotals = () => {
+    const subtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+    const tax = subtotal * 0.12;
+    const total = subtotal + tax;
+
+    return {
+      subtotal: subtotal.toFixed(2),
+      tax: tax.toFixed(2),
+      total: total.toFixed(2),
+    };
+  };
+
+
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
@@ -130,16 +144,7 @@ export default function Carrito() {
             <dl className="mt-6 space-y-4">
               <div className="flex items-center justify-between">
                 <dt className="text-sm text-gray-600">Subtotal</dt>
-                <dd className="text-sm font-medium text-gray-900">$99.00</dd>
-              </div>
-              <div className="flex items-center justify-between border-t border-gray-200 pt-4">
-                <dt className="flex items-center text-sm text-gray-600">
-                  <span>Costo de envio</span>
-                  <a href="#" className="ml-2 flex-shrink-0 text-gray-400 hover:text-gray-500">
-                    <QuestionMarkCircleIcon className="h-5 w-5" aria-hidden="true" />
-                  </a>
-                </dt>
-                <dd className="text-sm font-medium text-gray-900">$5.00</dd>
+                <dd className="text-sm font-medium text-gray-900">L. {calculateTotals().subtotal}</dd>
               </div>
               <div className="flex items-center justify-between border-t border-gray-200 pt-4">
                 <dt className="flex text-sm text-gray-600">
@@ -148,13 +153,14 @@ export default function Carrito() {
                     <QuestionMarkCircleIcon className="h-5 w-5" aria-hidden="true" />
                   </a>
                 </dt>
-                <dd className="text-sm font-medium text-gray-900">$8.32</dd>
+                <dd className="text-sm font-medium text-gray-900">L. {calculateTotals().tax}</dd>
               </div>
               <div className="flex items-center justify-between border-t border-gray-200 pt-4">
                 <dt className="text-base font-medium text-gray-900">Total</dt>
-                <dd className="text-base font-medium text-gray-900">$112.32</dd>
+                <dd className="text-base font-medium text-gray-900">L. {calculateTotals().total}</dd>
               </div>
             </dl>
+
 
             <div className="mt-6">
               <button
@@ -164,7 +170,9 @@ export default function Carrito() {
                 Proceder al pago
               </button>
             </div>
+
           </section>
+
         </form>
 
 
@@ -174,3 +182,4 @@ export default function Carrito() {
     </div>
   )
 }
+
