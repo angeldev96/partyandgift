@@ -237,10 +237,12 @@ const agregarAlCarrito = async (userId, productId, quantity) => {
 const obtenerCarritoPorUsuario = async (userId) => {
   try {
     const query = `
-      SELECT ci.item_id, ci.quantity, p.product_id, p.name, p.description, p.price, p.image_url
+      SELECT ci.item_id, ci.quantity, p.product_id, p.name, p.description, p.price, p.image_url,
+             a.address_line1, a.address_line2, a.city, a.postal_code, a.phone
       FROM cart_items ci
       JOIN cart c ON ci.cart_id = c.cart_id
       JOIN productos p ON ci.product_id = p.product_id
+      LEFT JOIN addresses a ON c.user_id = a.user_id
       WHERE c.user_id = $1
     `;
     const { rows } = await pool.query(query, [userId]);
@@ -250,6 +252,28 @@ const obtenerCarritoPorUsuario = async (userId) => {
     throw error;
   }
 };
+
+
+const guardarDireccionUsuario = async (userId, direccion) => {
+  try {
+    const { address_line1, address_line2, city, postal_code, phone } = direccion;
+    const query = `
+      INSERT INTO addresses (user_id, address_line1, address_line2, city, postal_code, phone)
+      VALUES ($1, $2, $3, $4, $5, $6)
+      ON CONFLICT (user_id) DO UPDATE
+      SET address_line1 = $2, address_line2 = $3, city = $4, postal_code = $5, phone = $6
+      RETURNING *;
+    `;
+    const values = [userId, address_line1, address_line2, city, postal_code, phone];
+    const result = await pool.query(query, values);
+    return result.rows[0];
+  } catch (error) {
+    console.error('Error al guardar la dirección del usuario:', error);
+    throw error;
+  }
+};
+
+
 
 
 
@@ -272,5 +296,6 @@ module.exports = {
   eliminarProducto,
   agregarAlCarrito,
   obtenerCarritoPorUsuario,
+  guardarDireccionUsuario,
 
 };

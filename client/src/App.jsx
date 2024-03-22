@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import DashboardComponent from './DashboardComponent';
+import AddressForm from './AddressForm';
 import Carrito from './Carrito';
 import Arrangements from './Arrangements';
 import Gift_boxes from './Gift_boxes';
@@ -90,6 +91,7 @@ function App() {
           <Route element={<ProtectedRoute allowedRoles={['user']} />}>
             <Route path="/carrito" element={<Carrito />} />
             <Route path="/account" element={<AccountComponent/>} />
+            <Route path="/address-form" element={<AddressForm />} />
           </Route>
         </Routes>
         <Footer />

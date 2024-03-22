@@ -241,6 +241,9 @@ app.post('/order_address', async (req, res) => {
   }
 });
 
+
+
+
 const { verifyToken } = require('./middleware/auth');
 
 app.post('/cart/add', verifyToken, async (req, res) => {
@@ -267,6 +270,20 @@ app.get('/cart', verifyToken, async (req, res) => {
     res.status(500).send('Error interno del servidor');
   }
 });
+
+app.post('/addresses', verifyToken, async (req, res) => {
+  const userId = req.userId;
+  const direccion = req.body;
+
+  try {
+    const direccionGuardada = await db.guardarDireccionUsuario(userId, direccion);
+    res.status(200).json(direccionGuardada);
+  } catch (error) {
+    console.error('Error al guardar la dirección del usuario:', error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
+
 
 
 

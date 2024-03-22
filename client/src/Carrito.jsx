@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { CheckIcon, ClockIcon, QuestionMarkCircleIcon, XMarkIcon as XMarkIconMini } from '@heroicons/react/20/solid'
 import axios from 'axios'
 
@@ -10,6 +11,18 @@ import axios from 'axios'
 export default function Carrito() {
   const [showHeader, setShowHeader] = useState(true);
   const [cartItems, setCartItems] = useState([]);
+  const navigate = useNavigate();
+
+
+  const handleEditAddress = () => {
+    // Lógica para editar la dirección
+    // Puedes mostrar un formulario o redirigir a una página de edición de dirección
+  };
+
+  const handleAddAddress = () => {
+    navigate('/address-form');
+  };
+
 
 
   const calculateTotals = () => {
@@ -171,7 +184,43 @@ export default function Carrito() {
               </button>
             </div>
 
+
+            <section className="mt-8">
+              <h2 className="text-lg font-medium text-gray-900">Dirección de envío</h2>
+              {cartItems.length > 0 && cartItems[0].address_line1 ? (
+               <div className="mt-4">
+               <p><strong>Dirección 1:</strong> {cartItems[0].address_line1}</p>
+               {cartItems[0].address_line2 && <p><strong>Dirección 2:</strong> {cartItems[0].address_line2}</p>}
+               <p><strong>Ciudad:</strong> {cartItems[0].city}</p>
+               <p><strong>Código Postal:</strong> {cartItems[0].postal_code}</p>
+               <p><strong>Teléfono:</strong> {cartItems[0].phone}</p>
+               <button
+                 type="button"
+                 className="mt-2 text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                 onClick={handleEditAddress}
+               >
+                 Editar dirección
+               </button>
+             </div>
+              ) : (
+                <div className="mt-4">
+                  <p>No se ha agregado una dirección de envío.</p>
+                  <button
+                    type="button"
+                    className="mt-2 text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                    onClick={handleAddAddress}
+                  >
+                    Agregar dirección
+                  </button>
+                </div>
+              )}
+            </section>
+
           </section>
+
+
+
+
 
         </form>
 
