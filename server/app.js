@@ -284,6 +284,30 @@ app.post('/addresses', verifyToken, async (req, res) => {
   }
 });
 
+// app.js
+app.get('/get_address', verifyToken, async (req, res) => {
+  const userId = req.userId;
+  try {
+    const direccion = await db.obtenerDireccionUsuario(userId);
+    res.status(200).json(direccion);
+  } catch (error) {
+    console.error('Error al obtener la dirección del usuario:', error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
+
+app.put('/edit_address', verifyToken, async (req, res) => {
+  const userId = req.userId;
+  const direccion = req.body;
+  try {
+    const direccionActualizada = await db.actualizarDireccionUsuario(userId, direccion);
+    res.status(200).json(direccionActualizada);
+  } catch (error) {
+    console.error('Error al actualizar la dirección del usuario:', error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
+
 
 
 

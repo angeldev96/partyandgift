@@ -274,6 +274,41 @@ const guardarDireccionUsuario = async (userId, direccion) => {
 };
 
 
+// database.js
+const obtenerDireccionUsuario = async (userId) => {
+  try {
+    const query = `
+      SELECT address_line1, address_line2, city, postal_code, phone
+      FROM addresses
+      WHERE user_id = $1;
+    `;
+    const result = await pool.query(query, [userId]);
+    return result.rows[0] || null; // Devuelve null si no se encuentra una dirección
+  } catch (error) {
+    console.error('Error al obtener la dirección del usuario:', error);
+    throw error;
+  }
+};
+
+const actualizarDireccionUsuario = async (userId, direccion) => {
+  try {
+    const { address_line1, address_line2, city, postal_code, phone } = direccion;
+    const query = `
+      UPDATE addresses
+      SET address_line1 = $1, address_line2 = $2, city = $3, postal_code = $4, phone = $5
+      WHERE user_id = $6
+      RETURNING address_line1, address_line2, city, postal_code, phone;
+    `;
+    const values = [address_line1, address_line2, city, postal_code, phone, userId];
+    const result = await pool.query(query, values);
+    return result.rows[0];
+  } catch (error) {
+    console.error('Error al actualizar la dirección del usuario:', error);
+    throw error;
+  }
+};
+
+
 
 
 
@@ -297,5 +332,7 @@ module.exports = {
   agregarAlCarrito,
   obtenerCarritoPorUsuario,
   guardarDireccionUsuario,
+  obtenerDireccionUsuario,
+  actualizarDireccionUsuario,
 
 };

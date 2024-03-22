@@ -15,8 +15,7 @@ export default function Carrito() {
 
 
   const handleEditAddress = () => {
-    // Lógica para editar la dirección
-    // Puedes mostrar un formulario o redirigir a una página de edición de dirección
+    navigate('/edit-address-form');
   };
 
   const handleAddAddress = () => {

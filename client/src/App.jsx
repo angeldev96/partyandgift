@@ -33,6 +33,7 @@ import ProtectedRoute from './ProtectedRoute';
 import OrderAddress from './OrderAddress';
 import Footer from './Footer';
 import UnAuthorized from './UnAuthorized';
+import EditAddressForm from './EditAddressForm';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -93,6 +94,7 @@ function App() {
             <Route path="/carrito" element={<Carrito />} />
             <Route path="/account" element={<AccountComponent/>} />
             <Route path="/address-form" element={<AddressForm />} />
+            <Route path="/edit-address-form" element={<EditAddressForm />} />
           </Route>
         </Routes>
         <Footer />
