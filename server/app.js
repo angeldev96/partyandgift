@@ -38,6 +38,15 @@ app.post('/login', async (req, res) => {
   }
 });
 
+const cloudinary = require('cloudinary').v2;
+
+cloudinary.config({
+  cloud_name: 'dqy0f7skk',
+  api_key: '626754323673753',
+  api_secret: 'eZMydSf0i92LcK3EOdmgwMAEUbU'
+});
+
+
 
 // Ruta para el registro de usuarios
 app.post('/register', async (req, res) => {
@@ -100,14 +109,20 @@ app.get('/categories', async (req, res) => {
 });
 
 // Ruta para registrar un nuevo producto
-app.post('/products', async (req, res) => {
-  const { category_id, name, description, price, stock, image_url } = req.body;
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
+
+app.post('/products', upload.single('image'), async (req, res) => {
+  const { category_id, name, description, price, stock } = req.body;
+  const image = req.file;
 
   try {
-    // Crea un nuevo producto en la base de datos
+    const result = await cloudinary.uploader.upload(image.path);
+    const image_url = result.secure_url;
+
     const producto = await db.insertarProducto(category_id, name, description, price, stock, image_url);
 
-    res.status(201).json(producto); // Devuelve el producto creado
+    res.status(201).json(producto);
   } catch (error) {
     console.error('Error al crear el producto:', error);
     res.status(500).send('Error interno del servidor');

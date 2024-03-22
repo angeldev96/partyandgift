@@ -7,7 +7,7 @@ function FormProducts() {
   const [categoryId, setCategoryId] = useState("");
   const [title, setTitle] = useState("");
   const [quantity, setQuantity] = useState(0);
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
   const [categories, setCategories] = useState([]);
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
@@ -34,38 +34,34 @@ function FormProducts() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
+    const formData = new FormData();
+    formData.append('category_id', categoryId);
+    formData.append('name', title);
+    formData.append('quantity', quantity);
+    formData.append('image', image);
+    formData.append('description', description);
+    formData.append('price', price);
+    formData.append('stock', quantity);
+  
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/products`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          category_id: categoryId,
-          name: title,
-          quantity,
-          image_url: image,
-          /* Añadir los campos adicionales aquí si es necesario */
-          description: description, // Ejemplo: descripción del producto
-          price: price, // Ejemplo: precio del producto
-          stock: quantity // Ejemplo: stock del producto
-          // Puedes agregar más campos según sea necesario para tu aplicación
-        }),
+        body: formData,
       });
-
+  
       if (!response.ok) {
         throw new Error('Error al registrar el producto');
       }
-
+  
       setSuccess(true);
       toast.success('Producto registrado con éxito!');
-
     } catch (error) {
       toast.error(error.message);
       console.error(error);
     }
   };
+  
 
   const handleChangeDescription = (e) => {
     setDescription(e.target.value);
@@ -140,19 +136,19 @@ function FormProducts() {
             </div>
 
             <div>
-              <label htmlFor="image" className="block text-sm font-medium leading-6 text-gray-900">
-                URL de la imagen
-              </label>
-              <input
-                id="image"
-                name="image"
-                type="text"
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
-                required
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
-              />
-            </div>
+  <label htmlFor="image" className="block text-sm font-medium leading-6 text-gray-900">
+    Imagen
+  </label>
+  <input
+    id="image"
+    name="image"
+    type="file"
+    onChange={(e) => setImage(e.target.files[0])}
+    required
+    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+  />
+</div>
+
 
             <div>
               <label htmlFor="description" className="block text-sm font-medium leading-6 text-gray-900">

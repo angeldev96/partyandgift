@@ -1,5 +1,6 @@
 const { Pool } = require('pg');
 const bcrypt = require('bcrypt');
+const cloudinary = require('cloudinary').v2;
 
 require('dotenv').config();
 
@@ -18,6 +19,12 @@ const pool = new Pool({
 pool.connect()
   .then(() => console.log('Conexión exitosa a la base de datos'))
   .catch(err => console.error('Error al conectar a la base de datos:', err));
+
+  cloudinary.config({
+    cloud_name: 'dqy0f7skk',
+    api_key: '626754323673753',
+    api_secret: 'eZMydSf0i92LcK3EOdmgwMAEUbU'
+  });
 
 // Función para obtener un usuario por correo electrónico
 const getUserByEmail = async (email) => {
