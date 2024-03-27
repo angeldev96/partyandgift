@@ -1,6 +1,10 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function EmployeeSignUpComponent() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -9,6 +13,7 @@ export default function EmployeeSignUpComponent() {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
   const [role, setRole] = useState('empleado'); // Por defecto, se establece el rol como 'empleado'
+  
 
 
   const handleSubmit = async (event) => {
@@ -22,20 +27,22 @@ export default function EmployeeSignUpComponent() {
         },
         body: JSON.stringify({ email, password, nombre: name, apellido: lastName, cargo: position, role }),
       });
-
+     
       if (!response.ok) {
-        throw new Error('Error al registrar empleado');
+        throw new Error('El correo electrónico ya está en uso.');
       }
-
+    // Redirigir a otra página después de actualizar el producto
+    navigate('/management-panel');
       setSuccess(true);
     } catch (error) {
-      setError(error.message);
       console.error(error);
+      toast.error(error.message);
     }
   };
-
+  
   return (
     <>
+    <ToastContainer />
       {success && <p className="text-green-500">Empleado registrado exitosamente</p>}
       {error && <p className="text-red-500">{error}</p>}
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">

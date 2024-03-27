@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom'; // Importa Link desde react-router-dom
 import 'react-toastify/dist/ReactToastify.css';
 
 function FormProducts() {
@@ -18,7 +18,8 @@ function FormProducts() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/categories`);        if (!response.ok) {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/categories`);        
+        if (!response.ok) {
           throw new Error('Error al obtener las categorías');
         }
         const data = await response.json();
@@ -83,8 +84,17 @@ function FormProducts() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form onSubmit={handleSubmit} className="space-y-6">
+        <Link to="/management-panel" className="text-indigo-600 hover:text-indigo-500 mb-4 block text-center">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 inline-block mr-1 -mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+        <path fillRule="evenodd" d="M8.707 14.707a1 1 0 0 1-1.414 0l-6-6a1 1 0 1 1 1.414-1.414L7 11.586V3a1 1 0 1 1 2 0v8.586l4.293-4.293a1 1 0 1 1 1.414 1.414l-6 6z" clipRule="evenodd" />
+        </svg>
+        Volver
+        </Link>
 
+
+
+          <form onSubmit={handleSubmit} className="space-y-6">
+            
             <div>
               <label htmlFor="category" className="block text-sm font-medium leading-6 text-gray-900">
                 Categoría
@@ -138,7 +148,7 @@ function FormProducts() {
             <div>
   <label htmlFor="image" className="block text-sm font-medium leading-6 text-gray-900">
     Imagen
-  </label>
+    </label>
   <input
     id="image"
     name="image"
@@ -149,52 +159,49 @@ function FormProducts() {
   />
 </div>
 
+<div>
+  <label htmlFor="description" className="block text-sm font-medium leading-6 text-gray-900">
+    Descripción
+  </label>
+  <textarea
+    id="description"
+    name="description"
+    value={description}
+    onChange={handleChangeDescription}
+    required
+    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+  />
+</div>
 
-            <div>
-              <label htmlFor="description" className="block text-sm font-medium leading-6 text-gray-900">
-                Descripción
-              </label>
-              <textarea
-                id="description"
-                name="description"
-                value={description}
-                onChange={handleChangeDescription}
-                required
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
-              />
-            </div>
+<div>
+  <label htmlFor="price" className="block text-sm font-medium leading-6 text-gray-900">
+    Precio
+  </label>
+  <input
+    id="price"
+    name="price"
+    type="number"
+    value={price}
+    onChange={handleChangePrice}
+    required
+    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+  />
+</div>
 
-            <div>
-              <label htmlFor="price" className="block text-sm font-medium leading-6 text-gray-900">
-                Precio
-              </label>
-              <input
-                id="price"
-                name="price"
-                type="number"
-                value={price}
-                onChange={handleChangePrice}
-                required
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
-              />
-            </div>
+<div>
+  <button
+    type="submit"
+    className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+  >
+    Registrar Producto
+  </button>
+</div>
 
-            <div>
-              <button
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Registrar Producto
-              </button>
-            </div>
-
-
-
-          </form>
-        </div>
-      </div>
-    </>
-  );
+</form>
+</div>
+</div>
+</>
+);
 }
 
 export default FormProducts;

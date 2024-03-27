@@ -58,18 +58,22 @@ function EditProduct() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, stock, image_url: image, description, price, category_id: categoryId }),      });
+        body: JSON.stringify({ name, stock, image_url: image, description, price, category_id: categoryId }),
+      });
 
       if (!response.ok) {
         throw new Error('Error al actualizar el producto');
       }
       toast.success('Producto actualizado exitosamente');
-
+      
+      // Redirigir a otra página después de actualizar el producto
+      navigate('/products-list');
     } catch (error) {
       console.error(error);
       toast.error('Error al actualizar el producto');
     }
   };
+
 
   const handleDescriptionChange = (e) => {
     setDescription(e.target.value);
