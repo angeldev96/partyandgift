@@ -134,6 +134,18 @@ const obtenerProductosPorPagina = async (pagina, productosPorPagina) => {
     throw error;
   }
 };
+// Función para obtener productos por categoria
+const obtenerProductosPorCategoria = async (categoria) => {
+  try {
+    const query = `SELECT * FROM productos WHERE category_id = $1`;
+    const { rows } = await pool.query(query, [categoria]);
+    return rows;
+  } catch (error) {
+    console.error('Error al obtener la lista de productos por categoría:', error);
+    throw error;
+  }
+};
+
 
 // Función para actualizar un producto por su ID
 const actualizarProducto = async (idProducto, camposActualizados) => {
