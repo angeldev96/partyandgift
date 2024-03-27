@@ -62,40 +62,42 @@ export default function LoginComponent({ setIsLoggedIn }) {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px] border-solid border-2 border-indigo-600 rounded-lg">
           <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                  Correo electrónico
-                </label>
-                <div className="mt-2 border border-neutral-700 rounded-md">
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  />
-                </div>
-              </div>
+            <div>
+  <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+    Correo electrónico
+  </label>
+  <div className="mt-2 border border-neutral-700 rounded-md">
+    <input
+      id="email"
+      name="email"
+      type="email"
+      autoComplete="email"
+      required
+      value={email}
+      onChange={(e) => setEmail(e.target.value)}
+      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+    />
+    {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+  </div>
+</div>
 
               <div>
-                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                  Contraseña
-                </label>
+              <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+               Contraseña
+               </label>
                 <div className="mt-2 border border-neutral-700 rounded-md">
-                  <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    autoComplete="current-password"
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  />
-                </div>
+                 <input
+                id="password"
+                name="password"
+                type="password"
+                autoComplete="current-password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+              </div>
               </div>
 
               <div className="flex items-center justify-between">

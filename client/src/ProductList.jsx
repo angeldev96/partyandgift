@@ -37,17 +37,27 @@ const ProductList = () => {
     navigate(`/product_edit/${product.product_id}`);
   };
 
-  const handleDelete = async (product) => {
+    const handleDelete = async (product) => {
     try {
-      // Realizar la solicitud DELETE al backend para eliminar el producto
-      await axios.delete(`${import.meta.env.VITE_API_URL}/products/${product.product_id}`);      // Actualizar el estado para reflejar la eliminación del producto
-      setProducts(products.filter(item => item.product_id !== product.product_id));
-      // Mostrar una notificación de éxito
-      toast.success('Producto eliminado exitosamente');
+      // Mostrar mensaje de confirmación
+      const isConfirmed = window.confirm('¿Estás seguro de que deseas eliminar este producto?');
+
+      // Si el usuario confirma la eliminación
+      if (isConfirmed) {
+        // Realizar la solicitud DELETE al backend para eliminar el producto
+        await axios.delete(`${import.meta.env.VITE_API_URL}/products/${product.product_id}`);
+        
+        // Actualizar el estado para reflejar la eliminación del producto
+        setProducts(products.filter(item => item.product_id !== product.product_id));
+
+        // Mostrar una notificación de éxito
+        toast.success('Producto eliminado exitosamente');
+      }
     } catch (error) {
       console.error('Error al eliminar el producto client:', error);
     }
   };
+
 
   const handleArchive = (product) => {
     // TODO: Implement archive functionality
