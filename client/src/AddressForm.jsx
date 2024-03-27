@@ -56,7 +56,7 @@ const AddressForm = () => {
                 </label>
                 <input
                   className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                  placeholder="Address Line 1"
+                  placeholder="Dirección #1"
                   type="text"
                   id="address_line1"
                   required
@@ -70,7 +70,7 @@ const AddressForm = () => {
                 </label>
                 <input
                   className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                  placeholder="Address Line 2"
+                  placeholder="Dirección #2"
                   type="text"
                   id="address_line2"
                   value={addressLine2}
@@ -84,7 +84,7 @@ const AddressForm = () => {
                   </label>
                   <input
                     className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                    placeholder="City"
+                    placeholder="Ciudad"
                     type="text"
                     id="city"
                     required
@@ -98,7 +98,7 @@ const AddressForm = () => {
                   </label>
                   <input
                     className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                    placeholder="Postal Code"
+                    placeholder="Número Postal"
                     type="text"
                     id="postal_code"
                     value={postalCode}
@@ -111,7 +111,7 @@ const AddressForm = () => {
                   </label>
                   <input
                     className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                    placeholder="Phone Number"
+                    placeholder="Número de Telefono"
                     type="tel"
                     id="phone"
                     pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
