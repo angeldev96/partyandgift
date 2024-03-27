@@ -1,156 +1,99 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid';
-
-const products = [
-  {
-    id: 1,
-    name: 'Arreglo #1',
-    color: 'Multicolor',
-    href: '#',
-    imageSrc: './public/arreglos/arreglo1.jpg',
-    imageAlt: 'Ceiling Decoration Gold and Silver',
-    price: 'L.290',
-  },
-  {
-    id: 2,
-    name: 'Arreglo #2',
-    color: 'Multicolor',
-    href: '#',
-    imageSrc: './public/arreglos/arreglo2.jpg',
-    imageAlt: 'Descp. Mascara de Fiesta',
-    price: 'L.370',
-  },
-  {
-    id: 3,
-    name: 'Arreglo #3',
-    color: 'Multicolor',
-    href: '#',
-    imageSrc: './public/arreglos/arreglo3.jpg',
-    imageAlt: 'Descp. Mascara tonos obscuros Dama',
-    price: 'L.210',
-  },
-  {
-    id: 4,
-    name: 'Arreglo #4',
-    color: 'Multicolor',
-    href: '#',
-    imageSrc: './public/arreglos/arreglo4.jpg',
-    imageAlt: 'Descp. Cupcake Basico',
-    price: 'L.265',
-  },
-  {
-    id: 5,
-    name: 'Arreglo #5',
-    color: 'Multicolor',
-    href: '#',
-    imageSrc: './public/arreglos/arreglo5.jpg',
-    imageAlt: 'Descp. Gift boom',
-    price: 'L.230',
-  },
-  {
-    id: 6,
-    name: 'Arreglo #6',
-    color: 'Multicolor',
-    href: '#',
-    imageSrc: './public/arreglos/arreglo6.jpg',
-    imageAlt: 'Descp. Mesa de parera',
-    price: 'L.230',
-  },
-  {
-    id: 7,
-    name: 'Arreglo #7',
-    color: 'Multicolor',
-    href: '#',
-    imageSrc: './public/arreglos/arreglo7.jpg',
-    imageAlt: 'Descp. Arreglo con Botella de Vino',
-    price: 'L.320',
-  },
-  {
-    id: 8,
-    name: 'Arreglo #8',
-    color: 'Multicolor',
-    href: '#',
-    imageSrc: './public/arreglos/arreglo8.jpg',
-    imageAlt: 'Descp.',
-    price: 'L.380',
-  },
-  {
-    id: 9,
-    name: 'Arreglo #9',
-    color: 'Multicolor',
-    href: '#',
-    imageSrc: './public/arreglos/arreglo9.jpg',
-    imageAlt: 'Descp. Detalles preparando Navidad',
-    price: 'L.245',
-  },
-  {
-    id: 10,
-    name: 'Arreglo #10',
-    color: '2 Colores',
-    href: '#',
-    imageSrc: './public/arreglos/arreglo10.jpg',
-    imageAlt: 'Descp. Regalo Mini con chongo',
-    price: 'L.300',
-  },
-  {
-    id: 11,
-    name: 'Arreglo #11',
-    color: 'Multicolor',
-    href: '#',
-    imageSrc: './public/arreglos/arreglo11.jpg',
-    imageAlt: 'Descp. Media docena de regalos',
-    price: 'L.200',
-  },
-];
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 const productsPerPage = 5;
 
-export default function Arrangements() {
+export default function DashboardComponent() {
+  const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+  const [addedToCart, setAddedToCart] = useState([]);
+  const defaultCategory = 4; // Categoría predeterminada
+
+  const handleAddToCart = async (productId) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/cart`, {
+        headers: {
+          Authorization: token,
+        },
+      });
+      const cartItems = response.data;
+
+      // Verificar si el producto ya existe en el carrito
+      const existingItem = cartItems.find((item) => item.product_id === productId);
+
+      if (existingItem) {
+        toast.info('El producto ya está agregado al carrito');
+        setAddedToCart([...addedToCart, productId]);
+      } else {
+        await axios.post(`${import.meta.env.VITE_API_URL}/cart/add`, { productId }, {
+          headers: {
+            Authorization: token,
+          },
+        });
+
+        console.log('Producto agregado al carrito');
+        toast.success('Producto agregado al carrito');
+        setAddedToCart([...addedToCart, productId]);
+      }
+    } catch (error) {
+      console.error('Error al agregar el producto al carrito:', error);
+      toast.error('Error al agregar el producto al carrito');
+    }
+  }
+
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/product_list`, {
+        params: {
+          page: currentPage,
+          category: defaultCategory
+        }
+      });
+      setProducts(response.data);
+    } catch (error) {
+      console.error('Error al obtener la lista de productos:', error);
+    }
+  }
+
+  useEffect(() => {
+    fetchProducts();
+  }, [currentPage]);
 
   return (
     <div className="bg-white">
+      <ToastContainer />
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
         <h2 className="text-xl font-bold text-gray-900">Productos</h2>
-
         <div className="mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
-          {currentProducts.map((product) => (
-            <div key={product.id}>
-              <div className="relative">
-                <div className="relative h-72 w-full overflow-hidden rounded-lg">
-                  <img
-                    src={product.imageSrc}
-                    alt={product.imageAlt}
-                    className="h-full w-full object-cover object-center"
-                  />
-                </div>
-                <div className="relative mt-4">
-                  <h3 className="text-sm font-medium text-gray-900">{product.name}</h3>
-                  <p className="mt-1 text-sm text-gray-500">{product.color}</p>
-                </div>
-                <div className="absolute inset-x-0 top-0 flex h-72 items-end justify-end overflow-hidden rounded-lg p-4">
-                  <div
-                    aria-hidden="true"
-                    className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black opacity-50"
-                  />
-                  <p className="relative text-lg font-semibold text-white">{product.price}</p>
-                </div>
+          {products.map((product) => (
+            <div key={product.product_id}>
+              <div className="relative h-72 w-full overflow-hidden rounded-lg">
+                <img src={product.image_url} alt={product.name} className="h-full w-full object-cover object-center" />
               </div>
               <div className="mt-6">
-                <a
-                  href={product.href}
-                  className="relative flex items-center justify-center rounded-md border border-transparent bg-gray-100 px-8 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200"
-                >
-                  Agregar al carrito<span className="sr-only">, {product.name}</span>
-                </a>
+                <h3 className="text-sm font-medium text-gray-900">{product.name}</h3>
+                <p className="mt-1 text-sm text-gray-500">{product.description}</p>
+              </div>
+              <div className="mt-6">
+                <button onClick={() => handleAddToCart(product.product_id)} disabled={addedToCart.includes(product.product_id)} className={`relative flex items-center justify-center rounded-md border-transparent px-8 py-2 text-sm font-medium ${addedToCart.includes(product.product_id) ? "bg-green-500 text-white cursor-not-allowed" : "bg-gray-100 text-gray-900 hover:bg-gray-200"}`}>
+                  {addedToCart.includes(product.product_id) ? (
+                    <>
+                      Agregado al carrito<span className="sr-only">, {product.name}</span>
+                    </>
+                  ) : (
+                    <>
+                      Agregar al carrito<span className="sr-only">, {product.name}</span>
+                    </>
+                  )}
+                </button>
               </div>
             </div>
           ))}
         </div>
-
         <div className="flex items-center justify-center mt-8">
           <button
             onClick={() => setCurrentPage(currentPage - 1)}
@@ -162,7 +105,7 @@ export default function Arrangements() {
           </button>
           <button
             onClick={() => setCurrentPage(currentPage + 1)}
-            disabled={indexOfLastProduct >= products.length}
+            disabled={products.length < productsPerPage}
             className="ml-2 px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300"
           >
             Siguiente
