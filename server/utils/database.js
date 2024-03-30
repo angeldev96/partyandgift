@@ -353,5 +353,6 @@ module.exports = {
   guardarDireccionUsuario,
   obtenerDireccionUsuario,
   actualizarDireccionUsuario,
+  obtenerProductosPorCategoria,
 
 };

@@ -28,6 +28,7 @@ import LoginEmployee from './LoginEmployee';
 import ManagementPanel from './ManagementPanel';
 import FormProducts from './FormProducts';
 import ProductList from './ProductList';
+import ProductListCategory from './ProductListCategory';
 import EditProduct from './EditProduct';
 import ProtectedRoute from './ProtectedRoute';
 import OrderAddress from './OrderAddress';
@@ -70,6 +71,7 @@ function App() {
           <Route path="/Portraits" element={<Portraits />} />
           <Route path="/Cards" element={<Cards />} />
           <Route path="/Cups" element={<Cups />} />
+          <Route path="/ProductListCategory" element={<ProductListCategory />} />
           <Route path="/Glasses" element={<Glasses />} />
           <Route path="/login" element={<LoginComponent setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/signup" element={<SignUpComponent />} />
