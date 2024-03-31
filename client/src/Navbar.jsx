@@ -55,7 +55,7 @@ function Navbar({ isLoggedIn, handleLogout }) {
             </button>
             {isCatalogOpen && (
               <div
-                className="absolute top-full mt-2 w-64 bg-white border border-gray-200 rounded-md shadow-lg z-10"
+                className="absolute top-full mt-0 w-64 bg-white border border-gray-200 rounded-md shadow-lg z-10"
                 onMouseEnter={handleCatalogEnter}
                 onMouseLeave={handleCatalogLeave}
               >
@@ -84,7 +84,7 @@ function Navbar({ isLoggedIn, handleLogout }) {
             </button>
             {isEventOpen && (
               <div
-                className="absolute top-full mt-2 w-64 bg-white border border-gray-200 rounded-md shadow-lg z-10"
+                className="absolute top-full mt-0 w-64 bg-white border border-gray-200 rounded-md shadow-lg z-10"
                 onMouseEnter={handleEventEnter}
                 onMouseLeave={handleEventLeave}
               >
