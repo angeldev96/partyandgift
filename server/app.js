@@ -242,21 +242,19 @@ app.get('/product_list', async (req, res) => {
   }
 });
 
-app.get('/arrangements', async (req, res) => {
-  const categoria = req.query.categoria ? parseInt(req.query.categoria, 10) : null;
+
+app.get('/product_list', async (req, res) => {
+  const page = req.query.page ? parseInt(req.query.page, 10) : 1;
 
   try {
-    if (!categoria) {
-      throw new Error('No se proporcionó una categoría válida');
-    }
-
-    const productos = await db.obtenerProductosPorCategoria(categoria);
-    res.json(productos);
+    const products = await db.obtenerProductosPorPagina(page, ITEMS_PER_PAGE);
+    res.json(products);
   } catch (error) {
     console.error('Error al obtener la lista de productos:', error);
     res.status(500).send('Error al obtener la lista de productos');
   }
 });
+
 
 
 

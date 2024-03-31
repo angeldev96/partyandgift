@@ -28,10 +28,12 @@ import LoginEmployee from './LoginEmployee';
 import ManagementPanel from './ManagementPanel';
 import FormProducts from './FormProducts';
 import ProductList from './ProductList';
-import ProductListCategory from './ProductListCategory';
 import EditProduct from './EditProduct';
 import ProtectedRoute from './ProtectedRoute';
 import OrderAddress from './OrderAddress';
+import DayOfFather from './DayOfFather';
+import DayofMother from './DayofMother';
+import ValentinsDay from './ValentinsDay';
 import Footer from './Footer';
 import UnAuthorized from './UnAuthorized';
 import EditAddressForm from './EditAddressForm';
@@ -70,8 +72,10 @@ function App() {
           <Route path="/Plate" element={<Plate />} />
           <Route path="/Portraits" element={<Portraits />} />
           <Route path="/Cards" element={<Cards />} />
+          <Route path="/DayofMother" element={<DayofMother />} />
+          <Route path="/DayOfFather" element={<DayOfFather />} />
+          <Route path="/ValentinsDay" element={<ValentinsDay />} />
           <Route path="/Cups" element={<Cups />} />
-          <Route path="/ProductListCategory" element={<ProductListCategory />} />
           <Route path="/Glasses" element={<Glasses />} />
           <Route path="/login" element={<LoginComponent setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/signup" element={<SignUpComponent />} />
