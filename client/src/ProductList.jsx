@@ -13,13 +13,24 @@ import {
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
-  const navigate = useNavigate(); // Inicializar useNavigate
   const [currentPage, setCurrentPage] = useState(1);
+  const navigate = useNavigate(); // Inicializar useNavigate
 
-
-  const goToPage = (page) => {
-    setCurrentPage(page);
+  const next = () => {
+    if (currentPage === 5) return;
+    setCurrentPage(currentPage + 1);
   };
+
+  const prev = () => {
+    if (currentPage === 1) return;
+    setCurrentPage(currentPage - 1);
+  };
+
+  const getItemProps = (index) => ({
+    onClick: () => setCurrentPage(index),
+    className: `flex items-center justify-center gap-2 rounded-full p-2 cursor-pointer ${currentPage === index ? 'bg-sky-200 shadow-md' : 'bg-white'}`,
+    style: { minWidth: '30px', minHeight: '30px' }
+  });
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -37,22 +48,22 @@ const ProductList = () => {
     navigate(`/product_edit/${product.product_id}`);
   };
 
-    const handleDelete = async (product) => {
+  const handleDelete = async (product) => {
     try {
-      // Mostrar mensaje de confirmación
+// Mostrar mensaje de confirmación
       const isConfirmed = window.confirm('¿Estás seguro de que deseas eliminar este producto?');
 
       // Si el usuario confirma la eliminación
       if (isConfirmed) {
-        // Realizar la solicitud DELETE al backend para eliminar el producto
-        await axios.delete(`${import.meta.env.VITE_API_URL}/products/${product.product_id}`);
+      // Realizar la solicitud DELETE al backend para eliminar el producto
+      await axios.delete(`${import.meta.env.VITE_API_URL}/products/${product.product_id}`);
         
         // Actualizar el estado para reflejar la eliminación del producto
-        setProducts(products.filter(item => item.product_id !== product.product_id));
+      setProducts(products.filter(item => item.product_id !== product.product_id));
 
-        // Mostrar una notificación de éxito
-        toast.success('Producto eliminado exitosamente');
-      }
+      // Mostrar una notificación de éxito
+      toast.success('Producto eliminado exitosamente');
+}
     } catch (error) {
       console.error('Error al eliminar el producto client:', error);
     }
@@ -115,9 +126,28 @@ const ProductList = () => {
             ))}
           </div>
 
-          <div className="mt-6">
-            <button onClick={() => goToPage(currentPage - 1)} disabled={currentPage === 1} className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md mr-2">Anterior</button>
-            <button onClick={() => goToPage(currentPage + 1)} className="bg-blue-500 text-white px-4 py-2 rounded-md">Siguiente</button>
+          <div className="flex items-center justify-center gap-4">
+            <button
+              className={`flex items-center gap-2 rounded-full p-2 cursor-pointer ${currentPage === 1 ? 'bg-sky-300 shadow-md' : 'bg-white'}`}
+              onClick={prev}
+              disabled={currentPage === 1}
+            >
+              &#60; Anterior
+            </button>
+            <div className="flex items-center gap-2">
+              {Array.from({ length: 5 }, (_, index) => (
+                <div key={index} {...getItemProps(index + 1)}>
+                  {index + 1}
+                </div>
+              ))}
+            </div>
+            <button
+              className={`flex items-center gap-2 rounded-full p-2 cursor-pointer ${currentPage === 5 ? 'bg-sky-300 shadow-md' : 'bg-white'}`}
+              onClick={next}
+              disabled={currentPage === 5}
+            >
+              Siguiente &#62;
+            </button>
           </div>
         </div>
       </div>
