@@ -46,8 +46,6 @@ cloudinary.config({
   api_secret: 'eZMydSf0i92LcK3EOdmgwMAEUbU'
 });
 
-
-
 // Ruta para el registro de usuarios
 app.post('/register', async (req, res) => {
   const { email, password } = req.body;
@@ -199,6 +197,40 @@ app.put('/products/:id', async (req, res) => {
   }
 });
 
+// Ruta para obtener los 10 productos registrados o agregados recientemente
+app.get('/recent-products', async (req, res) => {
+  try {
+    // Obtiene los 10 productos más recientes de la base de datos
+    const recentProducts = await db.obtenerProductosRecientes(10);
+
+    res.status(200).send(recentProducts);
+  } catch (error) {
+    console.error('Error al obtener los productos recientes:', error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
+
+// Ruta para obtener todos los productos de una categoría
+app.get('/products/category/:category_id', async (req, res) => {
+  const categoryId = req.params.category_id;
+
+  if (!categoryId) {
+    return res.status(400).json({ error: 'ID de categoría no proporcionado' });
+  }
+
+  try {
+    const productos = await db.obtenerProductosPorCategoria(categoryId);
+
+    if (!productos || productos.length === 0) {
+      return res.status(404).json({ error: 'No se encontraron productos para la categoría especificada' });
+    }
+
+    res.status(200).json(productos);
+  } catch (error) {
+    console.error('Error al obtener productos por categoría:', error);
+    res.status(500).send('Error al obtener los productos por categoría');
+  }
+});
 
 // Ruta para el envio del formulario del producto
 app.post('/register/product', async (req, res) => {
@@ -256,8 +288,6 @@ app.get('/product_list', async (req, res) => {
 });
 
 
-
-
 // Ruta para registrar la direccion de pedido
 app.post('/order_address', async (req, res) => {
   const { nombre, apellido, direccion, ciudad, email, telefono, id_orders} = req.body;
@@ -271,9 +301,6 @@ app.post('/order_address', async (req, res) => {
     res.status(500).send('Error interno del servidor');
   }
 });
-
-
-
 
 const { verifyToken } = require('./middleware/auth');
 
@@ -338,14 +365,6 @@ app.put('/edit_address', verifyToken, async (req, res) => {
     res.status(500).send('Error interno del servidor');
   }
 });
-
-
-
-
-
-
-
-
 
 app.listen(3001, async () => {
   console.log('Server is running on port 3001');

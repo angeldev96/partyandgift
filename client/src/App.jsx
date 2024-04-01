@@ -1,6 +1,12 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import DashboardComponent from './DashboardComponent';
+import AboutUs from './components/AboutUs';
+import ProductCategories from './components/ProductCategories';
+import News from './components/News';
+import Season from './components/Season';
+import Events from './components/Events';
+import HelpCenter from './components/HelpCenter';
 import AddressForm from './AddressForm';
 import Carrito from './Carrito';
 import Arrangements from './Arrangements';
@@ -61,6 +67,12 @@ function App() {
         <Navbar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
         <Routes>
           <Route path="/" element={<Navigate to="/dashboard" />} />
+          <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/product-categories" element={<ProductCategories />} />
+          <Route path="/news" element={<News />} />
+          <Route path="/season" element={<Season />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/help-center" element={<HelpCenter />} />
           <Route path="/arrangements" element={<Arrangements />} />
           <Route path="/Gift_boxes" element={<Gift_boxes />} />
           {/* <Route path="/Sweet_boxes" element={<Sweet_boxes />} /> */}

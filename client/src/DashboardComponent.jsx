@@ -12,6 +12,21 @@ export default function DashboardComponent() {
   const [currentPage, setCurrentPage] = useState(1);
   const [addedToCart, setAddedToCart] = useState([]);
 
+  const next = () => {
+    if (currentPage === 5) return;
+    setCurrentPage(currentPage + 1);
+  };
+
+  const prev = () => {
+    if (currentPage === 1) return;
+    setCurrentPage(currentPage - 1);
+  };
+
+  const getItemProps = (index) => ({
+    onClick: () => setCurrentPage(index),
+    className: `flex items-center justify-center gap-2 rounded-full p-2 cursor-pointer ${currentPage === index ? 'bg-sky-200 shadow-md' : 'bg-white'}`,
+    style: { minWidth: '30px', minHeight: '30px' }
+  });
 
   const handleAddToCart = async (productId) => {
     try {
@@ -22,10 +37,10 @@ export default function DashboardComponent() {
         },
       });
       const cartItems = response.data;
-  
+
       // Verificar si el producto ya existe en el carrito
       const existingItem = cartItems.find((item) => item.product_id === productId);
-  
+
       if (existingItem) {
         toast.info('El producto ya está agregado al carrito');
         setAddedToCart([...addedToCart, productId]);
@@ -44,9 +59,6 @@ export default function DashboardComponent() {
       toast.error('Error al agregar el producto al carrito');
     }
   };
-  
-
-
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -94,8 +106,8 @@ export default function DashboardComponent() {
                   onClick={() => handleAddToCart(product.product_id)}
                   disabled={addedToCart.includes(product.product_id)}
                   className={`relative flex items-center justify-center rounded-md border-transparent px-8 py-2 text-sm font-medium ${addedToCart.includes(product.product_id)
-                      ? 'bg-green-500 text-white cursor-not-allowed'
-                      : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
+                    ? 'bg-green-500 text-white cursor-not-allowed'
+                    : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
                     }`}
                 >
                   {addedToCart.includes(product.product_id) ? (
@@ -114,24 +126,30 @@ export default function DashboardComponent() {
           ))}
         </div>
 
-        <div className="flex items-center justify-center mt-8">
+        <div className="flex items-center justify-center gap-4">
           <button
-            onClick={() => setCurrentPage(currentPage - 1)}
+            className={`flex items-center gap-2 rounded-full p-2 cursor-pointer ${currentPage === 1 ? 'bg-sky-300 shadow-md' : 'bg-white'}`}
+            onClick={prev}
             disabled={currentPage === 1}
-            className="mr-2 px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300"
           >
-            <ChevronLeftIcon className="h-5 w-5 inline" />
-            Anterior
+            &#60; Anterior
           </button>
+          <div className="flex items-center gap-2">
+            {Array.from({ length: 5 }, (_, index) => (
+              <div key={index} {...getItemProps(index + 1)}>
+                {index + 1}
+              </div>
+            ))}
+          </div>
           <button
-            onClick={() => setCurrentPage(currentPage + 1)}
-            disabled={products.length < productsPerPage}
-            className="ml-2 px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300"
+            className={`flex items-center gap-2 rounded-full p-2 cursor-pointer ${currentPage === 5 ? 'bg-sky-300 shadow-md' : 'bg-white'}`}
+            onClick={next}
+            disabled={currentPage === 5}
           >
-            Siguiente
-            <ChevronRightIcon className="h-5 w-5 inline" />
+            Siguiente &#62;
           </button>
         </div>
+
       </div>
     </div>
   );

@@ -134,6 +134,7 @@ const obtenerProductosPorPagina = async (pagina, productosPorPagina) => {
     throw error;
   }
 };
+
 // Función para obtener productos por categoria
 const obtenerProductosPorCategoria = async (categoria) => {
   try {
@@ -146,6 +147,18 @@ const obtenerProductosPorCategoria = async (categoria) => {
   }
 };
 
+// Función para obtener los productos más recientes en PostgreSQL
+const obtenerProductosRecientes = async (limit) => {
+  try {
+    const query = `SELECT * FROM productos ORDER BY created_at DESC LIMIT ${limit}`;
+    const { rows } = await pool.query(query);
+
+    return rows;
+  } catch (error) {
+    console.error('Error al obtener los productos recientes:', error);
+    throw error;
+  }
+};
 
 // Función para actualizar un producto por su ID
 const actualizarProducto = async (idProducto, camposActualizados) => {
@@ -327,10 +340,6 @@ const actualizarDireccionUsuario = async (userId, direccion) => {
   }
 };
 
-
-
-
-
 module.exports = {
   getUserByEmail,
   getEmpleadoByEmail,
@@ -354,5 +363,5 @@ module.exports = {
   obtenerDireccionUsuario,
   actualizarDireccionUsuario,
   obtenerProductosPorCategoria,
-
+  obtenerProductosRecientes,
 };
