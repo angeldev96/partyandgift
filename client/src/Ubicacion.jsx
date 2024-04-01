@@ -1,4 +1,3 @@
-import React from 'react';
 
 const Ubicacion = () => {
   return (
@@ -14,8 +13,8 @@ const Ubicacion = () => {
           <h1 className="text-4xl font-bold tracking-tight text-white lg:text-6xl">
             Visitanos: City Mall - Sotano 2, Tegucigalpa, Francisco Morazan,&nbsp;&nbsp; <br />
             <br />
-            Lunes a Sabado 9:00a - 6:30p*&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br />
-            Domingo 10:00a - 5:00p&nbsp;&nbsp;
+            Lunes a Sabado 9:00am - 6:30pm<br />
+            Domingo 10:00am - 5:00pm
           </h1>
 
           <h1 className="text-4xl font-bold tracking-tight text-white lg:text-6xl">
