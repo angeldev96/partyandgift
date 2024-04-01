@@ -37,6 +37,8 @@ import ValentinsDay from './ValentinsDay';
 import Footer from './Footer';
 import UnAuthorized from './UnAuthorized';
 import EditAddressForm from './EditAddressForm';
+import Ubicacion from './Ubicacion';
+import Descuentos from './Descuentos';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -84,6 +86,8 @@ function App() {
           <Route path="/unauthorized" element={<UnAuthorized />} />
           <Route path="/dashboard" element={<DashboardComponent />} />
           <Route path="/account" element={<AccountComponent/>} />
+          <Route path="/ubicacion" element={<Ubicacion />} />
+          <Route path="/descuentos" element={<Descuentos />} />
 
 
           
