@@ -14,28 +14,20 @@ import {
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 5;
   const navigate = useNavigate(); // Inicializar useNavigate
 
-  const next = () => {
-    if (currentPage === 5) return;
-    setCurrentPage(currentPage + 1);
-  };
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
 
-  const prev = () => {
-    if (currentPage === 1) return;
-    setCurrentPage(currentPage - 1);
-  };
-
-  const getItemProps = (index) => ({
-    onClick: () => setCurrentPage(index),
-    className: `flex items-center justify-center gap-2 rounded-full p-2 cursor-pointer ${currentPage === index ? 'bg-sky-200 shadow-md' : 'bg-white'}`,
-    style: { minWidth: '30px', minHeight: '30px' }
-  });
+  const paginate = pageNumber => setCurrentPage(pageNumber);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/product_list?page=${currentPage}`); setProducts(response.data);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/product_list`);
+        setProducts(response.data);
       } catch (error) {
         console.error('Error al obtener la lista de productos:', error);
       }
@@ -50,20 +42,20 @@ const ProductList = () => {
 
   const handleDelete = async (product) => {
     try {
-// Mostrar mensaje de confirmación
+      // Mostrar mensaje de confirmación
       const isConfirmed = window.confirm('¿Estás seguro de que deseas eliminar este producto?');
 
       // Si el usuario confirma la eliminación
       if (isConfirmed) {
-      // Realizar la solicitud DELETE al backend para eliminar el producto
-      await axios.delete(`${import.meta.env.VITE_API_URL}/products/${product.product_id}`);
-        
-        // Actualizar el estado para reflejar la eliminación del producto
-      setProducts(products.filter(item => item.product_id !== product.product_id));
+        // Realizar la solicitud DELETE al backend para eliminar el producto
+        await axios.delete(`${import.meta.env.VITE_API_URL}/products/${product.product_id}`);
 
-      // Mostrar una notificación de éxito
-      toast.success('Producto eliminado exitosamente');
-}
+        // Actualizar el estado para reflejar la eliminación del producto
+        setProducts(products.filter(item => item.product_id !== product.product_id));
+
+        // Mostrar una notificación de éxito
+        toast.success('Producto eliminado exitosamente');
+      }
     } catch (error) {
       console.error('Error al eliminar el producto client:', error);
     }
@@ -83,7 +75,7 @@ const ProductList = () => {
           <h2 className="text-3xl font-bold tracking-tight text-gray-900">Productos</h2>
 
           <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-8">
-            {products.map((product) => (
+            {currentProducts.map((product) => (
               <div key={product.product_id} className="group relative bg-white overflow-hidden rounded-lg shadow-md">
                 <div className="aspect-w-1 aspect-h-1">
                   <img
@@ -126,29 +118,18 @@ const ProductList = () => {
             ))}
           </div>
 
-          <div className="flex items-center justify-center gap-4">
-            <button
-              className={`flex items-center gap-2 rounded-full p-2 cursor-pointer ${currentPage === 1 ? 'bg-sky-300 shadow-md' : 'bg-white'}`}
-              onClick={prev}
-              disabled={currentPage === 1}
-            >
-              &#60; Anterior
-            </button>
-            <div className="flex items-center gap-2">
-              {Array.from({ length: 5 }, (_, index) => (
-                <div key={index} {...getItemProps(index + 1)}>
-                  {index + 1}
-                </div>
-              ))}
-            </div>
-            <button
-              className={`flex items-center gap-2 rounded-full p-2 cursor-pointer ${currentPage === 5 ? 'bg-sky-300 shadow-md' : 'bg-white'}`}
-              onClick={next}
-              disabled={currentPage === 5}
-            >
-              Siguiente &#62;
-            </button>
+          <div className="flex items-center justify-center gap-4 mt-4">
+            {Array.from({ length: Math.ceil(products.length / productsPerPage) }, (_, index) => (
+              <button
+                key={index}
+                onClick={() => paginate(index + 1)}
+                className={`mx-1 px-3 py-1 rounded ${currentPage === index + 1 ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-700'} transition-colors duration-300 hover:bg-blue-600 hover:text-white`}
+              >
+                {index + 1}
+              </button>
+            ))}
           </div>
+          
         </div>
       </div>
     </>

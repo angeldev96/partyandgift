@@ -262,7 +262,7 @@ app.post('/register/product', async (req, res) => {
 
 // Ruta para obtener la lista de productos
 const ITEMS_PER_PAGE = 5;
-app.get('/product_list', async (req, res) => {
+app.get('/page_product_list', async (req, res) => {
   const page = req.query.page ? parseInt(req.query.page, 10) : 1;
 
   try {
@@ -274,18 +274,18 @@ app.get('/product_list', async (req, res) => {
   }
 });
 
-
+// Ruta para obtener la lista de productos
 app.get('/product_list', async (req, res) => {
-  const page = req.query.page ? parseInt(req.query.page, 10) : 1;
-
   try {
-    const products = await db.obtenerProductosPorPagina(page, ITEMS_PER_PAGE);
+    const products = await db.obtenerTodosLosProductos();
     res.json(products);
   } catch (error) {
     console.error('Error al obtener la lista de productos:', error);
     res.status(500).send('Error al obtener la lista de productos');
   }
 });
+
+
 
 
 // Ruta para registrar la direccion de pedido

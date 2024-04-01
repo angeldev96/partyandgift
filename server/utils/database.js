@@ -135,6 +135,18 @@ const obtenerProductosPorPagina = async (pagina, productosPorPagina) => {
   }
 };
 
+// Función para obtener todos los productos sin paginación
+const obtenerTodosLosProductos = async () => {
+  try {
+    const query = `SELECT * FROM productos ORDER BY product_id`;
+    const { rows } = await pool.query(query);
+    return rows;
+  } catch (error) {
+    console.error('Error al obtener la lista de todos los productos:', error);
+    throw error;
+  }
+};
+
 // Función para obtener productos por categoria
 const obtenerProductosPorCategoria = async (categoria) => {
   try {
@@ -352,6 +364,7 @@ module.exports = {
   crearTablaProductos,
   insertarProducto,
   obtenerProductosPorPagina,
+  obtenerTodosLosProductos,
   createDefaultAdmin,
   obtenerProductoPorId,
   actualizarProducto,
