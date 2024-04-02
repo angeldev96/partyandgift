@@ -22,6 +22,22 @@ export default function Carrito() {
     navigate('/address-form');
   };
 
+  const handleRemoveItem = async (itemId) => {
+    try {
+      const token = localStorage.getItem('token');
+      await axios.delete(`${import.meta.env.VITE_API_URL}/cart/${itemId}`, {
+        headers: {
+          Authorization: token,
+        },
+      });
+      setCartItems(cartItems.filter((item) => item.item_id !== itemId));
+    } catch (error) {
+      console.error('Error al eliminar el producto del carrito:', error);
+    }
+  };
+  
+
+
 
 
   const calculateTotals = () => {

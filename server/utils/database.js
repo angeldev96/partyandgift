@@ -318,6 +318,7 @@ const guardarDireccionUsuario = async (userId, direccion) => {
 };
 
 
+
 // database.js
 const obtenerDireccionUsuario = async (userId) => {
   try {
@@ -352,6 +353,32 @@ const actualizarDireccionUsuario = async (userId, direccion) => {
   }
 };
 
+// Función para eliminar un producto del carrito
+const eliminarDelCarrito = async (userId, itemId) => {
+  try {
+    // Verifica si el carrito existe para el usuario
+    const cartQuery = 'SELECT cart_id FROM cart WHERE user_id = $1';
+    const { rows: cartRows } = await pool.query(cartQuery, [userId]);
+
+    if (cartRows.length === 0) {
+      throw new Error('El carrito no existe para este usuario');
+    }
+
+    const cartId = cartRows[0].cart_id;
+
+    // Elimina el producto del carrito
+    const deleteQuery = 'DELETE FROM cart_items WHERE cart_id = $1 AND item_id = $2';
+    await pool.query(deleteQuery, [cartId, itemId]);
+  } catch (error) {
+    console.error('Error al eliminar el producto del carrito:', error);
+    throw error;
+  }
+};
+
+
+
+
+
 module.exports = {
   getUserByEmail,
   getEmpleadoByEmail,
@@ -377,4 +404,5 @@ module.exports = {
   actualizarDireccionUsuario,
   obtenerProductosPorCategoria,
   obtenerProductosRecientes,
+  eliminarDelCarrito
 };

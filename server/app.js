@@ -329,6 +329,20 @@ app.get('/cart', verifyToken, async (req, res) => {
   }
 });
 
+app.delete('/cart/:itemId', verifyToken, async (req, res) => {
+  const itemId = req.params.itemId;
+  const userId = req.userId;
+
+  try {
+    await db.eliminarDelCarrito(userId, itemId);
+    res.status(200).send('Producto eliminado del carrito exitosamente');
+  } catch (error) {
+    console.error('Error al eliminar el producto del carrito:', error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
+
+
 app.post('/addresses', verifyToken, async (req, res) => {
   const userId = req.userId;
   const direccion = req.body;
