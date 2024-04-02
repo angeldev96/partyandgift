@@ -35,7 +35,31 @@ export default function Carrito() {
       console.error('Error al eliminar el producto del carrito:', error);
     }
   };
-  
+
+  const handleQuantityChange = async (itemId, newQuantity) => {
+    try {
+      const token = localStorage.getItem('token');
+      await axios.put(
+        `${import.meta.env.VITE_API_URL}/cart/${itemId}`,
+        { quantity: newQuantity },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+
+      setCartItems(
+        cartItems.map((item) =>
+          item.item_id === itemId ? { ...item, quantity: newQuantity } : item
+        )
+      );
+    } catch (error) {
+      console.error('Error al actualizar la cantidad del producto:', error);
+    }
+  };
+
+
 
 
 
@@ -131,15 +155,15 @@ export default function Carrito() {
                         <label htmlFor={`quantity-${item.item_id}`} className="sr-only">
                           Quantity, {item.name}
                         </label>
-                        <select
+                        <input
+                          type="number"
                           id={`quantity-${item.item_id}`}
                           name={`quantity-${item.item_id}`}
                           value={item.quantity}
                           onChange={(e) => handleQuantityChange(item.item_id, parseInt(e.target.value))}
+                          min="1"
                           className="max-w-full rounded-md border border-gray-300 py-1.5 text-left text-base font-medium leading-5 text-gray-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
-                        >
-                          {/* Opciones de cantidad */}
-                        </select>
+                        />
 
                         <div className="absolute right-0 top-0">
                           <button
@@ -152,6 +176,9 @@ export default function Carrito() {
                           </button>
                         </div>
                       </div>
+
+
+
                     </div>
                   </div>
                 </li>
@@ -203,20 +230,20 @@ export default function Carrito() {
             <section className="mt-8">
               <h2 className="text-lg font-medium text-gray-900">Dirección de envío</h2>
               {cartItems.length > 0 && cartItems[0].address_line1 ? (
-               <div className="mt-4">
-               <p><strong>Dirección 1:</strong> {cartItems[0].address_line1}</p>
-               {cartItems[0].address_line2 && <p><strong>Dirección 2:</strong> {cartItems[0].address_line2}</p>}
-               <p><strong>Ciudad:</strong> {cartItems[0].city}</p>
-               <p><strong>Código Postal:</strong> {cartItems[0].postal_code}</p>
-               <p><strong>Teléfono:</strong> {cartItems[0].phone}</p>
-               <button
-                 type="button"
-                 className="mt-2 text-sm font-medium text-indigo-600 hover:text-indigo-500"
-                 onClick={handleEditAddress}
-               >
-                 Editar dirección
-               </button>
-             </div>
+                <div className="mt-4">
+                  <p><strong>Dirección 1:</strong> {cartItems[0].address_line1}</p>
+                  {cartItems[0].address_line2 && <p><strong>Dirección 2:</strong> {cartItems[0].address_line2}</p>}
+                  <p><strong>Ciudad:</strong> {cartItems[0].city}</p>
+                  <p><strong>Código Postal:</strong> {cartItems[0].postal_code}</p>
+                  <p><strong>Teléfono:</strong> {cartItems[0].phone}</p>
+                  <button
+                    type="button"
+                    className="mt-2 text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                    onClick={handleEditAddress}
+                  >
+                    Editar dirección
+                  </button>
+                </div>
               ) : (
                 <div className="mt-4">
                   <p>No se ha agregado una dirección de envío.</p>

@@ -376,6 +376,30 @@ const eliminarDelCarrito = async (userId, itemId) => {
 };
 
 
+// Función para actualizar la cantidad de un producto en el carrito
+const actualizarCantidadEnCarrito = async (userId, itemId, newQuantity) => {
+  try {
+    // Verifica si el carrito existe para el usuario
+    const cartQuery = 'SELECT cart_id FROM cart WHERE user_id = $1';
+    const { rows: cartRows } = await pool.query(cartQuery, [userId]);
+
+    if (cartRows.length === 0) {
+      throw new Error('El carrito no existe para este usuario');
+    }
+
+    const cartId = cartRows[0].cart_id;
+
+    // Actualiza la cantidad del producto en el carrito
+    const updateQuery = 'UPDATE cart_items SET quantity = $1 WHERE cart_id = $2 AND item_id = $3';
+    await pool.query(updateQuery, [newQuantity, cartId, itemId]);
+  } catch (error) {
+    console.error('Error al actualizar la cantidad del producto en el carrito:', error);
+    throw error;
+  }
+};
+
+
+
 
 
 
@@ -404,5 +428,6 @@ module.exports = {
   actualizarDireccionUsuario,
   obtenerProductosPorCategoria,
   obtenerProductosRecientes,
-  eliminarDelCarrito
+  eliminarDelCarrito,
+  actualizarCantidadEnCarrito,
 };

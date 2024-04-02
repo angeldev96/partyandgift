@@ -342,6 +342,20 @@ app.delete('/cart/:itemId', verifyToken, async (req, res) => {
   }
 });
 
+app.put('/cart/:itemId', verifyToken, async (req, res) => {
+  const itemId = req.params.itemId;
+  const { quantity } = req.body;
+  const userId = req.userId;
+
+  try {
+    await db.actualizarCantidadEnCarrito(userId, itemId, quantity);
+    res.status(200).send('Cantidad del producto actualizada exitosamente');
+  } catch (error) {
+    console.error('Error al actualizar la cantidad del producto en el carrito:', error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
+
 
 app.post('/addresses', verifyToken, async (req, res) => {
   const userId = req.userId;
