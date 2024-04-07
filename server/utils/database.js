@@ -320,20 +320,18 @@ const guardarDireccionUsuario = async (userId, direccion) => {
 
 
 // database.js
-const obtenerDireccionUsuario = async (userId) => {
+// Función para obtener la dirección del usuario
+async function obtenerDireccionUsuario(userId) {
   try {
-    const query = `
-      SELECT address_line1, address_line2, city, postal_code, phone
-      FROM addresses
-      WHERE user_id = $1;
-    `;
-    const result = await pool.query(query, [userId]);
-    return result.rows[0] || null; // Devuelve null si no se encuentra una dirección
+    const query = 'SELECT * FROM addresses WHERE user_id = $1';
+    const { rows } = await pool.query(query, [userId]);
+    return rows[0] || null; // Devuelve la dirección del usuario o null si no se encuentra
   } catch (error) {
     console.error('Error al obtener la dirección del usuario:', error);
     throw error;
   }
-};
+}
+
 
 const actualizarDireccionUsuario = async (userId, direccion) => {
   try {
@@ -398,6 +396,41 @@ const actualizarCantidadEnCarrito = async (userId, itemId, newQuantity) => {
   }
 };
 
+// Función para eliminar el carrito de un usuario
+async function eliminarCarritoUsuario(userId) {
+  try {
+    const query = 'DELETE FROM cart_items WHERE cart_id = (SELECT cart_id FROM cart WHERE user_id = $1)';
+    await pool.query(query, [userId]);
+  } catch (error) {
+    console.error('Error al eliminar el carrito del usuario:', error);
+    throw error;
+  }
+}
+
+// Función para crear una nueva orden
+// Función para crear una nueva orden
+async function crearOrden(userId) {
+  try {
+    // Obtener los productos del carrito del usuario
+    const cart = await obtenerCarritoPorUsuario(userId);
+
+    // Obtener la dirección del usuario
+    const address = await obtenerDireccionUsuario(userId);
+
+    // Crear una nueva orden en la tabla "Orders"
+    const query = 'INSERT INTO orders (user_id, cart_id, address_id, total, created_at) VALUES ($1, (SELECT cart_id FROM cart WHERE user_id = $1), $2, $3, NOW()) RETURNING *';
+    const total = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+    const values = [userId, address ? address.id : null, total];
+    const { rows } = await pool.query(query, values);
+    return rows[0];
+  } catch (error) {
+    console.error('Error al crear la orden:', error);
+    throw error;
+  }
+}
+
+
+
 
 
 
@@ -430,4 +463,6 @@ module.exports = {
   obtenerProductosRecientes,
   eliminarDelCarrito,
   actualizarCantidadEnCarrito,
+  eliminarCarritoUsuario,
+  crearOrden
 };

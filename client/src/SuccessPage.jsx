@@ -1,6 +1,32 @@
-import { Link } from 'react-router-dom';
+// import { useEffect } from 'react';
+// import { useNavigate, Link } from 'react-router-dom';
+import {  Link } from 'react-router-dom';
+
+// import axios from 'axios';
 
 const SuccessPage = () => {
+//   const navigate = useNavigate();
+
+//   useEffect(() => {
+//     const handlePageLoad = async () => {
+//       try {
+//         // Obtener el token de autenticación del usuario
+//         const token = localStorage.getItem('token');
+
+//         // Enviar una solicitud al servidor para limpiar el carrito y registrar la orden
+//         await axios.get(`${import.meta.env.VITE_API_URL}/success`, {
+//           headers: {
+//             Authorization: token,
+//           },
+//         });
+//       } catch (error) {
+//         console.error('Error al procesar la orden:', error);
+//       }
+//     };
+
+//     handlePageLoad();
+//   }, [navigate]);
+
   return (
     <main className="grid min-h-full place-items-center bg-white px-6 py-24 sm:py-32 lg:px-8">
       <div className="text-center">

@@ -114,7 +114,6 @@ const AddressForm = () => {
                     placeholder="Número de Telefono"
                     type="tel"
                     id="phone"
-                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                     required
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
