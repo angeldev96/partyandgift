@@ -19,16 +19,32 @@ export default function Carrito() {
   const navigate = useNavigate();
 
   const handleCheckout = async () => {
+    // Calcula el total de impuestos primero
+    const { tax } = calculateTotals();
+  
+    // Mapea los items del carrito a line_items y agrega el impuesto como un producto extra
     const line_items = cartItems.map(item => ({
       price_data: {
-        currency: 'usd',
+        currency: 'hnl',
         product_data: {
           name: item.name,
         },
-        unit_amount: item.price * 100, // El precio debe estar en centavos
+        unit_amount: item.price * 100, // Asegúrate de que el precio esté en centavos
       },
       quantity: item.quantity,
     }));
+  
+    // Agrega el impuesto como un "producto" adicional
+    line_items.push({
+      price_data: {
+        currency: 'hnl',
+        product_data: {
+          name: "Impuesto",
+        },
+        unit_amount: Math.round(tax * 100), // Asegúrate de que el impuesto esté en centavos
+      },
+      quantity: 1,
+    });
   
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/create-checkout-session`, { line_items });
@@ -39,6 +55,8 @@ export default function Carrito() {
       console.error('Error al crear la sesión de Checkout:', error);
     }
   };
+  
+  
   
   
 
