@@ -396,7 +396,7 @@ app.put('/edit_address', verifyToken, async (req, res) => {
   }
 });
 
-const YOUR_DOMAIN = 'http://localhost:5173'; // Reemplaza con la URL de tu aplicación
+const YOUR_DOMAIN = 'https://partyandgift.vercel.app'; // Reemplaza con la URL de tu aplicación
 
 // Endpoint para crear la sesión de Checkout en Stripe
 app.post('/create-checkout-session', async (req, res) => {
