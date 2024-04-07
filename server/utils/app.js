@@ -396,7 +396,7 @@ app.put('/edit_address', verifyToken, async (req, res) => {
   }
 });
 
-const YOUR_DOMAIN = 'https://partyandgift.vercel.app'; // Reemplaza con la URL de tu aplicación
+const YOUR_DOMAIN = 'http://localhost:5173'; // Reemplaza con la URL de tu aplicación
 
 // Endpoint para crear la sesión de Checkout en Stripe
 app.post('/create-checkout-session', async (req, res) => {
@@ -417,28 +417,6 @@ app.post('/create-checkout-session', async (req, res) => {
     res.status(500).send('Error interno del servidor');
   }
 });
-
-app.get('/success', verifyToken, async (req, res) => {
-  try {
-    // Obtener el ID del usuario del token de autenticación
-    const userId = req.userId;
-
-    // 1. Limpiar el carrito del usuario
-    await db.eliminarCarritoUsuario(userId);
-
-    // 2. Registrar la orden en la tabla "Orders"
-    const order = await db.crearOrden(userId);
-
-    // Enviar una respuesta JSON
-    res.status(200).json({ message: 'Pago exitoso' });
-  } catch (error) {
-    console.error('Error al procesar la orden:', error);
-    res.status(500).send('Error al procesar la orden');
-  }
-});
-
-
-
 
 app.listen(3001, async () => {
   console.log('Server is running on port 3001');

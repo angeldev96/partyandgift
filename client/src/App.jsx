@@ -45,6 +45,8 @@ import UnAuthorized from './UnAuthorized';
 import EditAddressForm from './EditAddressForm';
 import Ubicacion from './Ubicacion';
 import Descuentos from './Descuentos';
+import CancelPage from './CancelPage';
+import SuccessPage from './SuccessPage';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -100,6 +102,8 @@ function App() {
           <Route path="/account" element={<AccountComponent/>} />
           <Route path="/ubicacion" element={<Ubicacion />} />
           <Route path="/descuentos" element={<Descuentos />} />
+          <Route path="/cancel" element={<CancelPage />} />
+          <Route path="/success" element={<SuccessPage />} />
 
 
           
