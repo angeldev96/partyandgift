@@ -2,6 +2,11 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { QuestionMarkCircleIcon, XMarkIcon as XMarkIconMini } from '@heroicons/react/20/solid'
 import axios from 'axios'
+import { loadStripe } from '@stripe/stripe-js'; // Asegúrate de importar loadStripe
+
+
+const stripePromise = loadStripe('pk_test_51P0kZtL1xMfPwf6dxkOetgaYCWY2SNh3c3G9qY5KchoDmy5GtnCmqsWjNPVakxccJfPdM6O9yFSu5ZmQSBDnVTkx00ME56T6Ew');
+
 
 
 
@@ -12,6 +17,32 @@ export default function Carrito() {
   const [showHeader, setShowHeader] = useState(true);
   const [cartItems, setCartItems] = useState([]);
   const navigate = useNavigate();
+
+  const handleCheckout = async () => {
+    const line_items = cartItems.map(item => ({
+      price_data: {
+        currency: 'usd',
+        product_data: {
+          name: item.name,
+        },
+        unit_amount: item.price * 100, // El precio debe estar en centavos
+      },
+      quantity: item.quantity,
+    }));
+  
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/create-checkout-session`, { line_items });
+      const sessionId = response.data.id;
+      const stripe = await stripePromise;
+      stripe.redirectToCheckout({ sessionId });
+    } catch (error) {
+      console.error('Error al crear la sesión de Checkout:', error);
+    }
+  };
+  
+  
+
+
 
 
   const handleEditAddress = () => {
@@ -218,9 +249,9 @@ export default function Carrito() {
 
 
             <div className="mt-6">
-              <button
-                type="submit"
-                className="w-full rounded-md border border-transparent bg-indigo-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
+              <button type="button" role="link" onClick={handleCheckout}
+                              className="w-full rounded-md border border-transparent bg-indigo-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
+
               >
                 Proceder al pago
               </button>
@@ -273,4 +304,3 @@ export default function Carrito() {
     </div>
   )
 }
-

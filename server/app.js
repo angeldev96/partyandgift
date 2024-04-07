@@ -5,6 +5,8 @@ const bcrypt = require('bcrypt');
 const db = require('./utils/database');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
+const stripe = require('stripe')('sk_test_51P0kZtL1xMfPwf6dWCmv8wAoaHc4o01CBOAMWhBz1rm4vk4NDLoJN0Zpf6wGRgRB1LPREQ61OEdA9LoiUkZhf3MR00VJ4sno7M');
+
 
 // Crear una instancia de Express
 const app = express();
@@ -390,6 +392,28 @@ app.put('/edit_address', verifyToken, async (req, res) => {
     res.status(200).json(direccionActualizada);
   } catch (error) {
     console.error('Error al actualizar la dirección del usuario:', error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
+
+const YOUR_DOMAIN = 'http://localhost:5173'; // Reemplaza con la URL de tu aplicación
+
+// Endpoint para crear la sesión de Checkout en Stripe
+app.post('/create-checkout-session', async (req, res) => {
+  const { line_items } = req.body;
+
+  try {
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items,
+      mode: 'payment',
+      success_url: `${YOUR_DOMAIN}/success`,
+      cancel_url: `${YOUR_DOMAIN}/cancel`,
+    });
+
+    res.json({ id: session.id });
+  } catch (error) {
+    console.error('Error al crear la sesión de Checkout:', error);
     res.status(500).send('Error interno del servidor');
   }
 });
