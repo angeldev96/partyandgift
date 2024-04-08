@@ -429,6 +429,86 @@ async function crearOrden(userId) {
   }
 }
 
+// Función para obtener el historial de órdenes de un usuario
+async function obtenerOrdenesUsuario(userId) {
+  try {
+    const query = `
+      SELECT
+        o.order_id,
+        o.created_at,
+        CAST(o.total AS DECIMAL(10,2)) AS total,
+        o.status
+      FROM orders o
+      WHERE o.user_id = $1
+      ORDER BY o.created_at DESC
+    `;
+    const { rows } = await pool.query(query, [userId]);
+    return rows;
+  } catch (error) {
+    console.error('Error al obtener el historial de órdenes:', error);
+    throw error;
+  }
+}
+
+
+
+// Función para obtener los detalles de una orden
+async function obtenerDetallesOrden(userId, orderId) {
+  try {
+    const query = `
+      SELECT
+        o.order_id,
+        o.created_at,
+        o.total,
+        o.status,
+        ci.quantity,
+        p.name,
+        p.price,
+        p.image_url
+      FROM orders o
+      JOIN cart_items ci ON o.cart_id = ci.cart_id
+      JOIN productos p ON ci.product_id = p.product_id
+      WHERE o.user_id = $1 AND o.order_id = $2
+    `;
+    const { rows } = await pool.query(query, [userId, orderId]);
+
+    if (rows.length === 0) {
+      return null;
+    }
+
+    // Agrupar los detalles de la orden por producto
+    const orderDetails = rows.reduce((acc, row) => {
+      const existingProduct = acc.find((item) => item.name === row.name);
+      if (existingProduct) {
+        existingProduct.quantity += row.quantity;
+      } else {
+        acc.push({
+          name: row.name,
+          price: row.price,
+          quantity: row.quantity,
+          image_url: row.image_url
+        });
+      }
+      return acc;
+    }, []);
+
+    return {
+      id: rows[0].order_id,
+      created_at: rows[0].created_at,
+      total: rows[0].total,
+      status: rows[0].status,
+      products: orderDetails
+    };
+  } catch (error) {
+    console.error('Error al obtener los detalles de la orden:', error);
+    throw error;
+  }
+}
+
+
+
+
+
 
 
 
@@ -464,5 +544,7 @@ module.exports = {
   eliminarDelCarrito,
   actualizarCantidadEnCarrito,
   eliminarCarritoUsuario,
-  crearOrden
+  crearOrden,
+  obtenerOrdenesUsuario,
+  obtenerDetallesOrden,
 };
