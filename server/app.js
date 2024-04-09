@@ -423,11 +423,13 @@ app.get('/success', verifyToken, async (req, res) => {
     // Obtener el ID del usuario del token de autenticación
     const userId = req.userId;
 
+        // 2. Registrar la orden en la tabla "Orders"
+        const order = await db.crearOrden(userId);
+
     // 1. Limpiar el carrito del usuario
     await db.eliminarCarritoUsuario(userId);
 
-    // 2. Registrar la orden en la tabla "Orders"
-    const order = await db.crearOrden(userId);
+
 
     // Enviar una respuesta JSON
     res.status(200).json({ message: 'Pago exitoso' });

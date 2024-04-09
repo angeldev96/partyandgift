@@ -407,27 +407,59 @@ async function eliminarCarritoUsuario(userId) {
   }
 }
 
-// Función para crear una nueva orden
+const obtenerCarritoPorUsuarioStripe = async (userId) => {
+  try {
+    const query = `
+      SELECT ci.item_id, ci.quantity, ci.price
+      FROM cart_items ci
+      JOIN cart c ON ci.cart_id = c.cart_id
+      WHERE c.user_id = $1
+    `;
+    const { rows } = await pool.query(query, [userId]);
+    return rows;
+  } catch (error) {
+    console.error('Error al obtener el carrito por usuario:', error);
+    throw error;
+  }
+};
+
+
 // Función para crear una nueva orden
 async function crearOrden(userId) {
   try {
     // Obtener los productos del carrito del usuario
-    const cart = await obtenerCarritoPorUsuario(userId);
+    const cartItems = await obtenerCarritoPorUsuarioStripe(userId);
+    if(cartItems.length === 0) {
+      console.log('El carrito está vacío'); 
+    }
+    console.log(cartItems);
+
 
     // Obtener la dirección del usuario
     const address = await obtenerDireccionUsuario(userId);
 
+    // Calcular el subtotal y el total con impuestos
+    const subtotal = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+    const tax = subtotal * 0.12;
+    const total = subtotal + tax;
+
+    console.log('Subtotal de la orden:', subtotal);
+    console.log('Impuesto (12%):', tax);
+    console.log('Total de la orden:', total);
+
     // Crear una nueva orden en la tabla "Orders"
     const query = 'INSERT INTO orders (user_id, cart_id, address_id, total, created_at) VALUES ($1, (SELECT cart_id FROM cart WHERE user_id = $1), $2, $3, NOW()) RETURNING *';
-    const total = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
     const values = [userId, address ? address.id : null, total];
     const { rows } = await pool.query(query, values);
+
     return rows[0];
   } catch (error) {
     console.error('Error al crear la orden:', error);
     throw error;
   }
 }
+
+
 
 // Función para obtener el historial de órdenes de un usuario
 async function obtenerOrdenesUsuario(userId) {
