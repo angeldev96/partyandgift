@@ -423,17 +423,36 @@ app.get('/success', verifyToken, async (req, res) => {
     // Obtener el ID del usuario del token de autenticación
     const userId = req.userId;
 
+        // 2. Registrar la orden en la tabla "Orders"
+        const order = await db.crearOrden(userId);
+
     // 1. Limpiar el carrito del usuario
     await db.eliminarCarritoUsuario(userId);
 
-    // 2. Registrar la orden en la tabla "Orders"
-    const order = await db.crearOrden(userId);
+
 
     // Enviar una respuesta JSON
     res.status(200).json({ message: 'Pago exitoso' });
   } catch (error) {
     console.error('Error al procesar la orden:', error);
     res.status(500).send('Error al procesar la orden');
+  }
+});
+
+
+// Ruta para obtener el historial de órdenes del usuario
+app.get('/orders', verifyToken, async (req, res) => {
+  try {
+    // Obtener el ID del usuario del token de autenticación
+    const userId = req.userId;
+
+    // Obtener el historial de órdenes del usuario
+    const orders = await db.obtenerOrdenesUsuario(userId);
+
+    res.json(orders);
+  } catch (error) {
+    console.error('Error al obtener el historial de órdenes:', error);
+    res.status(500).send('Error al obtener el historial de órdenes');
   }
 });
 
