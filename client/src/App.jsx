@@ -47,6 +47,7 @@ import Ubicacion from './Ubicacion';
 import Descuentos from './Descuentos';
 import CancelPage from './CancelPage';
 import SuccessPage from './SuccessPage';
+import OrderHistory from './OrderHistory';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -121,6 +122,7 @@ function App() {
             <Route path="/account" element={<AccountComponent/>} />
             <Route path="/address-form" element={<AddressForm />} />
             <Route path="/edit-address-form" element={<EditAddressForm />} />
+            <Route path="/order-history" element={<OrderHistory />} />
           </Route>
         </Routes>
         <Footer />
