@@ -537,7 +537,15 @@ async function obtenerDetallesOrden(userId, orderId) {
   }
 }
 
-
+async function obtenerCartItems() {
+  try {
+    const cartItems = await db.query('SELECT * FROM cart_items');
+    return cartItems;
+  } catch (error) {
+    console.error('Error al obtener los datos de la tabla cart_items:', error);
+    throw error;
+  }
+}
 
 
 
@@ -579,4 +587,5 @@ module.exports = {
   crearOrden,
   obtenerOrdenesUsuario,
   obtenerDetallesOrden,
+  obtenerCartItems,
 };

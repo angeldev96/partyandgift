@@ -456,7 +456,15 @@ app.get('/orders', verifyToken, async (req, res) => {
   }
 });
 
-
+app.get('/api/cart_items', async (req, res) => {
+  try {
+    const cartItems = await db.query('SELECT * FROM cart_items');
+    res.json(cartItems);
+  } catch (error) {
+    console.error('Error al obtener los datos de la tabla cart_items:', error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
 
 
 app.listen(3001, async () => {

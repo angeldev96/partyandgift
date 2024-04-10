@@ -9,6 +9,7 @@ import Events from './components/Events';
 import HelpCenter from './components/HelpCenter';
 import AddressForm from './AddressForm';
 import Carrito from './Carrito';
+import ProductSales from './ProductSales';
 import Arrangements from './Arrangements';
 import Gift_boxes from './Gift_boxes';
 // import Sweet_boxes from './Sweet_boxes'; 
@@ -82,6 +83,7 @@ function App() {
           <Route path="/Spoons_forks" element={<Spoons_forks />} />
           <Route path="/Toys" element={<Toys />} />
           <Route path="/Caps" element={<Caps />} />
+          <Route path="/productsales" element={<ProductSales />} />
           <Route path="/Birthday_numbers" element={<Birthday_numbers />} />
           <Route path="/Gift_wrap" element={<Gift_wrap />} />
           <Route path="/Teddies" element={<Teddies />} />
@@ -115,6 +117,7 @@ function App() {
             <Route path="/form-products" element={<FormProducts />} />
             <Route path="/product_edit/:productId" element={<EditProduct />} />
             <Route path="/order_address" element={<OrderAddress />} />
+           
 
           </Route>
           <Route element={<ProtectedRoute allowedRoles={['user']} />}>
