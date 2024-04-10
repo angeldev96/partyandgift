@@ -540,12 +540,13 @@ async function obtenerDetallesOrden(userId, orderId) {
 async function obtenerSales() {
   try {
     const orders = await db.query('SELECT * FROM orders');
-    return orders;
+    return orders.rows; // Devuelve solo los datos de las órdenes
   } catch (error) {
     console.error('Error al obtener los datos de la tabla orders:', error);
     throw error;
   }
 }
+
 
 
 

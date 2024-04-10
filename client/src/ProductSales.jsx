@@ -7,7 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-function ProductSales() {
+export default function ProductSales() {
   const [sales, setSales] = useState([]);
 
   useEffect(() => {
@@ -30,13 +30,13 @@ function ProductSales() {
         <TableBody>
           {sales.map((sale) => (
             <TableRow
-              key={sale.id}
+              key={sale.order_id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {sale.product_name}
+                {sale.user_id}
               </TableCell>
-              <TableCell align="right">{sale.user_id}</TableCell>
+              <TableCell align="right">{sale.address_id}</TableCell>
               <TableCell align="right">{sale.cart_id}</TableCell>
               <TableCell align="right">{sale.total}</TableCell>
             </TableRow>
@@ -47,4 +47,3 @@ function ProductSales() {
   );
 }
 
-export default ProductSales;

@@ -9,7 +9,7 @@ import Events from './components/Events';
 import HelpCenter from './components/HelpCenter';
 import AddressForm from './AddressForm';
 import Carrito from './Carrito';
-import ProductSales from './ProductSales';
+
 import Arrangements from './Arrangements';
 import Gift_boxes from './Gift_boxes';
 // import Sweet_boxes from './Sweet_boxes'; 
@@ -49,6 +49,7 @@ import Descuentos from './Descuentos';
 import CancelPage from './CancelPage';
 import SuccessPage from './SuccessPage';
 import OrderHistory from './OrderHistory';
+import ProductSales from './ProductSales';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -83,7 +84,7 @@ function App() {
           <Route path="/Spoons_forks" element={<Spoons_forks />} />
           <Route path="/Toys" element={<Toys />} />
           <Route path="/Caps" element={<Caps />} />
-          <Route path="/ProductSales" element={<ProductSales />} />
+          <Route path="/productsales" element={<ProductSales />} />
           <Route path="/Birthday_numbers" element={<Birthday_numbers />} />
           <Route path="/Gift_wrap" element={<Gift_wrap />} />
           <Route path="/Teddies" element={<Teddies />} />

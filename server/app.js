@@ -458,13 +458,14 @@ app.get('/orders', verifyToken, async (req, res) => {
 
 app.get('/api/orders', async (req, res) => {
   try {
-    const orders = await db.query('SELECT * FROM orders');
-    res.json(orders);
+    const orders = await db.obtenerDetallesOrden();
+    res.json(orders.rows); // Envía solo los datos de las órdenes (array de objetos)
   } catch (error) {
     console.error('Error al obtener los datos de la tabla orders:', error);
     res.status(500).send('Error interno del servidor');
   }
 });
+
 
 
 app.listen(3001, async () => {
