@@ -36,7 +36,7 @@ function Navbar({ isLoggedIn, handleLogout }) {
                         <HiOutlineCollection className="inline-block mr-1 h-7 w-7" /> Catalogo
                     </Link>
                     <Link to="/productsales" className="hidden lg:block lg:text-sm lg:font-semibold lg:leading-6 lg:text-gray-900">
-                        <HiOutlineCollection className="inline-block mr-1 h-7 w-7" /> Catalogo
+                        <HiOutlineCollection className="inline-block mr-1 h-7 w-7" /> Product Sa
                     </Link>
                     <div
                         className="relative inline-block text-left"

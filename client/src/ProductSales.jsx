@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Table } from '@mui/material';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -11,7 +11,7 @@ function ProductSales() {
   const [sales, setSales] = useState([]);
 
   useEffect(() => {
-    fetch('/api/cart_items')
+    fetch('/api/orders')
      .then(response => response.json())
      .then(data => setSales(data));
   }, []);
@@ -22,8 +22,8 @@ function ProductSales() {
         <TableHead>
           <TableRow>
             <TableCell>Producto</TableCell>
-            <TableCell align="right">Cantidad</TableCell>
-            <TableCell align="right">Precio</TableCell>
+            <TableCell align="right">Usuario</TableCell>
+            <TableCell align="right">Carrito</TableCell>
             <TableCell align="right">Total</TableCell>
           </TableRow>
         </TableHead>
@@ -36,8 +36,8 @@ function ProductSales() {
               <TableCell component="th" scope="row">
                 {sale.product_name}
               </TableCell>
-              <TableCell align="right">{sale.quantity}</TableCell>
-              <TableCell align="right">{sale.price}</TableCell>
+              <TableCell align="right">{sale.user_id}</TableCell>
+              <TableCell align="right">{sale.cart_id}</TableCell>
               <TableCell align="right">{sale.total}</TableCell>
             </TableRow>
           ))}

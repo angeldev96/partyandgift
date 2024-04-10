@@ -10,9 +10,9 @@ const pool = new Pool({
   database: process.env.DB_NAME,
   password: process.env.DB_PASSWORD,
   port: process.env.DB_PORT,
-  ssl: {
-    rejectUnauthorized: true
-  }
+  //ssl: {
+    //rejectUnauthorized: true
+  //}
 });
 
 // Prueba de conexión directa
@@ -537,12 +537,12 @@ async function obtenerDetallesOrden(userId, orderId) {
   }
 }
 
-async function obtenerCartItems() {
+async function obtenerSales() {
   try {
-    const cartItems = await db.query('SELECT * FROM cart_items');
-    return cartItems;
+    const orders = await db.query('SELECT * FROM orders');
+    return orders;
   } catch (error) {
-    console.error('Error al obtener los datos de la tabla cart_items:', error);
+    console.error('Error al obtener los datos de la tabla orders:', error);
     throw error;
   }
 }
@@ -587,5 +587,5 @@ module.exports = {
   crearOrden,
   obtenerOrdenesUsuario,
   obtenerDetallesOrden,
-  obtenerCartItems,
+  obtenerSales,
 };

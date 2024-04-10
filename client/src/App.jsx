@@ -83,7 +83,7 @@ function App() {
           <Route path="/Spoons_forks" element={<Spoons_forks />} />
           <Route path="/Toys" element={<Toys />} />
           <Route path="/Caps" element={<Caps />} />
-          <Route path="/productsales" element={<ProductSales />} />
+          <Route path="/ProductSales" element={<ProductSales />} />
           <Route path="/Birthday_numbers" element={<Birthday_numbers />} />
           <Route path="/Gift_wrap" element={<Gift_wrap />} />
           <Route path="/Teddies" element={<Teddies />} />

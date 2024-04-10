@@ -456,12 +456,12 @@ app.get('/orders', verifyToken, async (req, res) => {
   }
 });
 
-app.get('/api/cart_items', async (req, res) => {
+app.get('/api/orders', async (req, res) => {
   try {
-    const cartItems = await db.query('SELECT * FROM cart_items');
-    res.json(cartItems);
+    const orders = await db.query('SELECT * FROM orders');
+    res.json(orders);
   } catch (error) {
-    console.error('Error al obtener los datos de la tabla cart_items:', error);
+    console.error('Error al obtener los datos de la tabla orders:', error);
     res.status(500).send('Error interno del servidor');
   }
 });
