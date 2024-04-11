@@ -456,13 +456,13 @@ app.get('/orders', verifyToken, async (req, res) => {
   }
 });
 
-app.get('/api/orders', async (req, res) => {
+app.get('/ordersdetalles', async (req, res) => {
   try {
-    const orders = await db.obtenerDetallesOrden();
-    res.json(orders.rows); // Envía solo los datos de las órdenes (array de objetos)
+    const products = await db.obtenerOrdenesVentas();
+    res.json(products);
   } catch (error) {
-    console.error('Error al obtener los datos de la tabla orders:', error);
-    res.status(500).send('Error interno del servidor');
+    console.error('Error al obtener el historial de:', error);
+    res.status(500).send('Error al obtener el historial de');
   }
 });
 
