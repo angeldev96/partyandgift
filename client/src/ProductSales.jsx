@@ -10,7 +10,7 @@ const ProductSales = () => {
       try {
         
         // Enviar una solicitud al servidor para obtener el historial de órdenes
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/orderdetalles`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/ordersdetalles`);
         setOrders(response.data);
       } catch (error) {
         console.error('Error al obtener el historial de ventas:', error);
