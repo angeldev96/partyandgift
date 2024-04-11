@@ -9,7 +9,7 @@ function AccountComponent() {
   };
 
   const handleViewPurchaseHistory = () => {
-    // Implementar la lógica para ver el historial de compras
+    navigate('/order-history');
   };
 
   return (
