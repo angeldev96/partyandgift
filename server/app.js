@@ -466,7 +466,18 @@ app.get('/ordersdetalles', async (req, res) => {
   }
 });
 
+// Ruta para que el usuario elimine su cuenta
+app.delete('/login/:userId', verifyToken, async (req, res) => {
+  const userId = req.userId;
 
+  try {
+    await db.eliminarUsuario(userId);
+    res.status(200).send('Usuario eliminado de la pagina exitosamente');
+  } catch (error) {
+    console.error('Error al eliminar el usuario de la pagina:', error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
 
 app.listen(3001, async () => {
   console.log('Server is running on port 3001');
