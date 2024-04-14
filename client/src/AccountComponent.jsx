@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { CogIcon, ViewColumnsIcon } from '@heroicons/react/24/outline'
+import { CogIcon, ViewColumnsIcon, UserMinusIcon } from '@heroicons/react/24/outline'
 
 function AccountComponent() {
   let navigate = useNavigate();
@@ -10,6 +10,10 @@ function AccountComponent() {
 
   const handleViewPurchaseHistory = () => {
     navigate('/order-history');
+  };
+
+  const handleDeleteUser = () => {
+    navigate('/login');
   };
 
   return (
@@ -23,6 +27,10 @@ function AccountComponent() {
           <button onClick={handleViewPurchaseHistory} className="flex items-center text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 p-2 rounded mt-2 w-full">
             <ViewColumnsIcon className="h-5 w-5" />
             <span className="mx-4 font-medium">Ver historial de compras</span>
+          </button>
+          <button onClick={handleDeleteUser} className="flex items-center text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 p-2 rounded mt-2 w-full">
+            <UserMinusIcon className="h-5 w-5" />
+            <span className="mx-4 font-medium">Eliminar su cuenta</span>
           </button>
         </div>
       </div>
