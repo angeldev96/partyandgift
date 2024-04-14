@@ -608,7 +608,16 @@ async function obtenerDetallesOrdenSales() {
   }
 }
 
-
+// Función para eliminar un usuario por su ID
+const eliminarUsuario = async (userId) => {
+  try {
+    const query = 'DELETE FROM users WHERE user_id = $1';
+    await pool.query(query, [userId]);
+  } catch (error) {
+    console.error('Error al eliminar us usuario:', error);
+    throw error;
+  }
+};
 
 
 
@@ -651,4 +660,5 @@ module.exports = {
   obtenerDetallesOrden,
   obtenerDetallesOrdenSales,
   obtenerOrdenesVentas,
+  eliminarUsuario,
 };
