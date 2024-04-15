@@ -10,9 +10,9 @@ const pool = new Pool({
   database: process.env.DB_NAME,
   password: process.env.DB_PASSWORD,
   port: process.env.DB_PORT,
-  //ssl: {
-    //rejectUnauthorized: true
-  //}
+  // ssl: {
+  //   rejectUnauthorized: true
+  // }
 });
 
 // Prueba de conexión directa
@@ -619,6 +619,19 @@ const eliminarUsuario = async (userId) => {
   }
 };
 
+// Función para eliminar un usuario por ID
+const deleteUserById = async (userId) => {
+  try {
+    const query = 'DELETE FROM public.users WHERE id = $1';
+    const result = await pool.query(query, [userId]);
+    return result.rowCount; // Retorna el número de filas afectadas
+  } catch (error) {
+    console.error('Error al eliminar el usuario:', error);
+    throw error;
+  }
+};
+
+
 
 
 
@@ -661,4 +674,5 @@ module.exports = {
   obtenerDetallesOrdenSales,
   obtenerOrdenesVentas,
   eliminarUsuario,
+  deleteUserById,
 };

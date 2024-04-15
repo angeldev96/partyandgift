@@ -479,6 +479,23 @@ app.delete('/login/:userId', verifyToken, async (req, res) => {
   }
 });
 
+app.delete('/user/delete', verifyToken, async (req, res) => {
+  const userId = req.userId; // Asumiendo que verifyToken añade el userId al objeto req
+
+  try {
+    const deletedRows = await db.deleteUserById(userId);
+    if (deletedRows > 0) {
+      res.status(200).send('Cuenta de usuario eliminada exitosamente');
+    } else {
+      res.status(404).send('Usuario no encontrado');
+    }
+  } catch (error) {
+    console.error('Error al eliminar el usuario:', error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
+
+
 app.listen(3001, async () => {
   console.log('Server is running on port 3001');
   
