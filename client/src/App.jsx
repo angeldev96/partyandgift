@@ -9,6 +9,7 @@ import Events from './components/Events';
 import HelpCenter from './components/HelpCenter';
 import AddressForm from './AddressForm';
 import Carrito from './Carrito';
+
 import Arrangements from './Arrangements';
 import Gift_boxes from './Gift_boxes';
 // import Sweet_boxes from './Sweet_boxes'; 
@@ -48,6 +49,7 @@ import Descuentos from './Descuentos';
 import CancelPage from './CancelPage';
 import SuccessPage from './SuccessPage';
 import OrderHistory from './OrderHistory';
+import ProductSales from './ProductSales';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -82,6 +84,7 @@ function App() {
           <Route path="/Spoons_forks" element={<Spoons_forks />} />
           <Route path="/Toys" element={<Toys />} />
           <Route path="/Caps" element={<Caps />} />
+          <Route path="/productsales" element={<ProductSales />} />
           <Route path="/Birthday_numbers" element={<Birthday_numbers />} />
           <Route path="/Gift_wrap" element={<Gift_wrap />} />
           <Route path="/Teddies" element={<Teddies />} />
@@ -115,6 +118,7 @@ function App() {
             <Route path="/form-products" element={<FormProducts />} />
             <Route path="/product_edit/:productId" element={<EditProduct />} />
             <Route path="/order_address" element={<OrderAddress />} />
+           
 
           </Route>
           <Route element={<ProtectedRoute allowedRoles={['user']} />}>

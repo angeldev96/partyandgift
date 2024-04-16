@@ -32,7 +32,7 @@ const items = [
         description: '',
         icon: Bars3Icon,
         background: 'bg-blue-500',
-        route: '/management-panel'
+        route: '/ProductSales'
     },
     {
         title: 'Registrar Empleado',

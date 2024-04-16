@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGift, faCamera, faStar } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
@@ -65,10 +65,17 @@ const ProductCategories = () => {
                         <h2 className="text-3xl font-bold text-gray-900 text-center mt-8">{selectedCategory.name} Productos</h2>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
                             {products.map((product) => (
-                                <div key={product.id} className="text-center">
-                                    <img src={product.image} alt={product.name} className="w-full h-40 object-cover rounded-lg shadow-md" />
-                                    <p className="mt-2 font-semibold">{product.name}</p>
-                                    <p className="text-sm text-gray-600">{product.price}</p>
+                                <div key={product.id} className="text-center bg-white rounded-lg shadow-md">
+                                    <img
+                                        src={product.image_url}
+                                        alt={product.name}
+                                        className="w-full h-52 object-cover rounded-t-lg"
+                                    />
+                                    <div className="p-4">
+                                        <p className="font-semibold">{product.name}</p>
+                                        <p className="text-sm text-gray-600 mt-2">{product.description}</p>
+                                        <p className="text-sm text-gray-600">Disponibles: {product.stock}</p>
+                                    </div>
                                 </div>
                             ))}
                         </div>

@@ -456,7 +456,44 @@ app.get('/orders', verifyToken, async (req, res) => {
   }
 });
 
+app.get('/ordersdetalles', async (req, res) => {
+  try {
+    const products = await db.obtenerOrdenesVentas();
+    res.json(products);
+  } catch (error) {
+    console.error('Error al obtener el historial de:', error);
+    res.status(500).send('Error al obtener el historial de');
+  }
+});
 
+// Ruta para que el usuario elimine su cuenta
+app.delete('/login/:userId', verifyToken, async (req, res) => {
+  const userId = req.userId;
+
+  try {
+    await db.eliminarUsuario(userId);
+    res.status(200).send('Usuario eliminado de la pagina exitosamente');
+  } catch (error) {
+    console.error('Error al eliminar el usuario de la pagina:', error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
+
+app.delete('/user/delete', verifyToken, async (req, res) => {
+  const userId = req.userId; // Asumiendo que verifyToken añade el userId al objeto req
+
+  try {
+    const deletedRows = await db.deleteUserById(userId);
+    if (deletedRows > 0) {
+      res.status(200).send('Cuenta de usuario eliminada exitosamente');
+    } else {
+      res.status(404).send('Usuario no encontrado');
+    }
+  } catch (error) {
+    console.error('Error al eliminar el usuario:', error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
 
 
 app.listen(3001, async () => {

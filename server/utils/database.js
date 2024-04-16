@@ -482,6 +482,25 @@ async function obtenerOrdenesUsuario(userId) {
   }
 }
 
+const obtenerOrdenesVentas = async () => {
+  try {
+    const query = `
+      SELECT
+        o.order_id,
+        o.created_at,
+        CAST(o.total AS DECIMAL(10,2)) AS total,
+        o.status
+      FROM orders o
+      ORDER BY o.created_at DESC
+    `;
+    const { rows } = await pool.query(query);
+    return rows;
+  } catch (error) {
+    console.error('Error al obtener el historial de órdenes:', error);
+    throw error;
+  }
+}
+
 
 
 // Función para obtener los detalles de una orden
@@ -537,7 +556,80 @@ async function obtenerDetallesOrden(userId, orderId) {
   }
 }
 
+async function obtenerDetallesOrdenSales() {
+  try {
+    const query = `
+      SELECT
+        o.order_id,
+        o.created_at,
+        o.total,
+        o.status,
+        ci.quantity,
+        p.name,
+        p.price,
+        p.image_url
+      FROM orders o
+      JOIN cart_items ci ON o.cart_id = ci.cart_id
+      JOIN productos p ON ci.product_id = p.product_id
+     
+    `;
+    const { rows } = await pool.query(query);
 
+    if (rows.length === 0) {
+      return null;
+    }
+
+    // Agrupar los detalles de la orden por producto
+    const orderDetails = rows.reduce((acc, row) => {
+      const existingProduct = acc.find((item) => item.name === row.name);
+      if (existingProduct) {
+        existingProduct.quantity += row.quantity;
+      } else {
+        acc.push({
+          name: row.name,
+          price: row.price,
+          quantity: row.quantity,
+          image_url: row.image_url
+        });
+      }
+      return acc;
+    }, []);
+
+    return {
+      id: rows[0].order_id,
+      created_at: rows[0].created_at,
+      total: rows[0].total,
+      status: rows[0].status,
+      products: orderDetails
+    };
+  } catch (error) {
+    console.error('Error al obtener los detalles de la orden:', error);
+    throw error;
+  }
+}
+
+// Función para eliminar un usuario por su ID
+const eliminarUsuario = async (userId) => {
+  try {
+    const query = 'DELETE FROM users WHERE user_id = $1';
+    await pool.query(query, [userId]);
+  } catch (error) {
+    console.error('Error al eliminar us usuario:', error);
+    throw error;
+  }
+};
+
+// Función para eliminar un usuario por ID
+const deleteUserById = async (userId) => {
+  try {
+    const query = 'DELETE FROM public.users WHERE id = $1';
+    const result = await pool.query(query, [userId]);
+    return result.rowCount; // Retorna el número de filas afectadas
+  } catch (error) {
+    console.error('Error al eliminar el usuario:', error);
+    throw error;
+  }
+};
 
 
 
@@ -579,4 +671,8 @@ module.exports = {
   crearOrden,
   obtenerOrdenesUsuario,
   obtenerDetallesOrden,
+  obtenerDetallesOrdenSales,
+  obtenerOrdenesVentas,
+  eliminarUsuario,
+  deleteUserById,
 };

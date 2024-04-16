@@ -14,7 +14,7 @@ import {
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 5;
+  const productsPerPage = 8;
   const navigate = useNavigate(); // Inicializar useNavigate
 
   const indexOfLastProduct = currentPage * productsPerPage;
@@ -74,9 +74,9 @@ const ProductList = () => {
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900">Productos</h2>
 
-          <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-8">
+          <div className="mt-6 mb-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-8">
             {currentProducts.map((product) => (
-              <div key={product.product_id} className="group relative bg-white overflow-hidden rounded-lg shadow-md">
+              <div key={product.product_id} className="group relative bg-white rounded-lg shadow-md overflow-hidden max-w-sm">
                 <div className="aspect-w-1 aspect-h-1">
                   <img
                     src={product.image_url}
@@ -84,26 +84,15 @@ const ProductList = () => {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="mt-4 flex justify-between">
-                  <div>
-                    <h3 className="text-sm text-gray-700">
-                      <a href="#">
-                        <span aria-hidden="true" className="absolute inset-0" />
-                        {product.title}
-                      </a>
-                    </h3>
-                    <p className="mt-1 text-sm text-gray-500">{product.quantity}</p>
-                  </div>
-                </div>
                 <div className="p-4">
-                  <h3 className="text-lg font-semibold text-gray-900">{product.name}</h3>
-                  <p className="text-gray-500 mt-2">{product.description}</p>
-                  <p className="text-gray-500 mt-2">Precio: ${Number(product.price).toFixed(2)}</p>
-                  <p className="text-gray-500 mt-2">Cantidad disponible: {product.stock}</p>
+                  <h3 className="text-gray-800 font-semibold">{product.name}</h3>
+                  <p className="text-gray-600 mt-2">{product.description}</p>
+                  <p className="text-gray-600 mt-2">Precio: L{Number(product.price).toFixed(2)}</p>
+                  <p className="text-gray-600 mt-2">Cantidad disponible: {product.stock}</p>
                 </div>
 
                 {/* Icon Actions */}
-                <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100">
+                <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 flex">
                   <button onClick={() => handleEdit(product)}>
                     <PencilSquareIcon className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
                   </button>
@@ -118,18 +107,35 @@ const ProductList = () => {
             ))}
           </div>
 
-          <div className="flex items-center justify-center gap-4 mt-4">
-            {Array.from({ length: Math.ceil(products.length / productsPerPage) }, (_, index) => (
-              <button
-                key={index}
-                onClick={() => paginate(index + 1)}
-                className={`mx-1 px-3 py-1 rounded ${currentPage === index + 1 ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-700'} transition-colors duration-300 hover:bg-blue-600 hover:text-white`}
-              >
-                {index + 1}
-              </button>
-            ))}
+          <div className="flex items-center justify-center gap-8">
+            <button
+              className="relative h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-lg border border-gray-900 text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85]"
+              onClick={() => currentPage > 1 && paginate(currentPage - 1)}
+              type="button">
+              <span className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor"
+                  aria-hidden="true" className="w-4 h-4">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"></path>
+                </svg>
+              </span>
+            </button>
+            <p className="block font-sans text-base antialiased font-normal leading-relaxed text-gray-700">
+              Página <strong className="text-gray-900">{currentPage}</strong> de {' '}
+              <strong className="text-gray-900">{Math.ceil(products.length / productsPerPage)}</strong>
+            </p>
+            <button
+              className="relative h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-lg border border-gray-900 text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85]"
+              onClick={() => currentPage < Math.ceil(products.length / productsPerPage) && paginate(currentPage + 1)}
+              type="button">
+              <span className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor"
+                  aria-hidden="true" className="w-4 h-4">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
+                </svg>
+              </span>
+            </button>
           </div>
-          
+
         </div>
       </div>
     </>
