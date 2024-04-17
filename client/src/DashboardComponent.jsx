@@ -51,7 +51,7 @@ export default function DashboardComponent() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/product_list`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/product-list`);
         setProducts(response.data);
       } catch (error) {
         console.error('Error al obtener la lista de productos:', error);
