@@ -26,7 +26,7 @@ const ProductList = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/product_list`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/product-list`);
         setProducts(response.data);
       } catch (error) {
         console.error('Error al obtener la lista de productos:', error);
@@ -35,9 +35,17 @@ const ProductList = () => {
     fetchProducts();
   }, [currentPage]);
 
+  useEffect(() => {
+    products.forEach((product) => {
+      if (product.stock < 5) {
+        toast.warning(`${product.name} tiene menos de 5 unidades disponibles`);
+      }
+    });
+  }, [products]);
+
   const handleEdit = (product) => {
     // TODO: Implement edit functionality
-    navigate(`/product_edit/${product.product_id}`);
+    navigate(`/product-edit/${product.product_id}`);
   };
 
   const handleDelete = async (product) => {
@@ -103,9 +111,15 @@ const ProductList = () => {
                     <ArchiveBoxIcon className="h-5 w-5 text-gray-400 group-hover:text-blue-500" aria-hidden="true" />
                   </button>
                 </div>
+                {product.stock < 5 && (
+                  <div className="bg-red-100 text-red-600 p-2 mt-2 rounded-md">¡Atención! Quedan pocas unidades disponibles</div>
+                )}
+
               </div>
             ))}
           </div>
+
+
 
           <div className="flex items-center justify-center gap-8">
             <button
