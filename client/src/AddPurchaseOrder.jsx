@@ -70,7 +70,7 @@ const AddPurchaseOrder = () => {
     };
 
     return (
-        < div className="m-4 p-4 bg-gray-200 rounded-lg shadow-lg" >
+        <div className="m-4 p-4 bg-gray-200 rounded-lg shadow-lg">
             <h2 className="text-lg font-bold mb-4">Agregar Orden de Compra</h2>
 
             <form className="space-y-4" onSubmit={handleSubmit}>
@@ -128,7 +128,7 @@ const AddPurchaseOrder = () => {
 
                 <button type="submit" className="bg-green-500 text-white rounded-md p-2 mt-4">Agregar Orden</button>
             </form>
-        </div >
+        </div>
     );
 };
 
