@@ -261,6 +261,18 @@ const obtenerProductosPorCategoria = async (categoria) => {
   }
 };
 
+// Función para obtener productos con stock menor que 10
+const obtenerProductosConStockMenorQue10 = async () => {
+  try {
+    const query = 'SELECT * FROM productos WHERE stock < 10';
+    const { rows } = await pool.query(query);
+    return rows;
+  } catch (error) {
+    console.error('Error al obtener la lista de productos con stock menor que 10:', error);
+    throw error;
+  }
+};
+
 // Función para obtener los productos más recientes
 const obtenerProductosRecientes = async (limit) => {
   try {
@@ -781,6 +793,7 @@ module.exports = {
   actualizarDireccionUsuario,
   obtenerProductosPorCategoria,
   obtenerProductosRecientes,
+  obtenerProductosConStockMenorQue10,
   eliminarDelCarrito,
   actualizarCantidadEnCarrito,
   eliminarCarritoUsuario,

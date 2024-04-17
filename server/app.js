@@ -402,6 +402,17 @@ app.get('/product-list', async (req, res) => {
   }
 });
 
+// Ruta para obtener la lista de productos con stock menor que 10
+app.get('/low-stock-products', async (req, res) => {
+  try {
+    const lowStockProducts = await db.obtenerProductosConStockMenorQue10();
+    res.json(lowStockProducts);
+  } catch (error) {
+    console.error('Error al obtener la lista de productos con stock menor que 10:', error);
+    res.status(500).send('Error al obtener la lista de productos con stock menor que 10');
+  }
+});
+
 // Ruta para registrar la direccion de pedido
 app.post('/order_address', async (req, res) => {
   const { nombre, apellido, direccion, ciudad, email, telefono, id_orders } = req.body;

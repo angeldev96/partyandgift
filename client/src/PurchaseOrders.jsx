@@ -27,29 +27,29 @@ const PurchaseOrders = () => {
     }, []);
 
     return (
-        <div className="m-4 p-4 bg-gray-200">
-            <h2 className="text-lg font-bold mb-4">Órdenes de Compra</h2>
+        <div className="m-4 p-4 bg-gray-200 rounded-lg shadow-lg">
+            <h2 className="text-xl font-bold mb-4">Órdenes de Compra</h2>
 
-            <Link to="/new-order">Agregar Orden</Link>
+            <Link to="/new-order" className="bg-blue-500 text-white px-4 py-2 rounded-md mb-4 inline-block">Agregar Orden</Link>
 
-            <table className="mt-4 border">
+            <table className="border-collapse w-full">
                 <thead>
                     <tr>
-                        <th>Proveedor</th>
-                        <th>Productos</th>
-                        <th>Fecha</th>
-                        <th>Acciones</th>
+                        <th className="px-4 py-2 bg-gray-300">Proveedor</th>
+                        <th className="px-4 py-2 bg-gray-300">Productos</th>
+                        <th className="px-4 py-2 bg-gray-300">Fecha</th>
+                        <th className="px-4 py-2 bg-gray-300">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {ordenes.map(orden => (
-                        <tr key={orden.id}>
-                            <td>{orden.provider_id}</td>
-                            <td>{orden.products.map(prod => `${prod.product_id} - ${prod.quantity}`).join(', ')}</td>
-                            <td>{orden.date}</td>
-                            <td>
-                                <Link to={`/edit-order/${orden.id}`}>Editar</Link>
-                                <button onClick={() => eliminarOrden(orden.id)}>Eliminar</button>
+                        <tr key={orden.id} className="border-b">
+                            <td className="px-4 py-2">{orden.provider_id}</td>
+                            <td className="px-4 py-2">{orden.products.map(prod => `${prod.product_id} - ${prod.quantity}`).join(', ')}</td>
+                            <td className="px-4 py-2">{orden.date}</td>
+                            <td className="px-4 py-2">
+                                <Link to={`/edit-order/${orden.id}`} className="text-blue-500 mr-2">Editar</Link>
+                                <button onClick={() => eliminarOrden(orden.id)} className="text-red-500">Eliminar</button>
                             </td>
                         </tr>
                     ))}
