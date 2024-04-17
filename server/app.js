@@ -97,6 +97,87 @@ app.post('/login/empleado', async (req, res) => {
   }
 });
 
+//Ruta para obtener los proveedores
+app.get('/providers', async (req, res) => {
+  try {
+    const proveedores = await db.obtenerProveedores();
+    res.json(proveedores);
+  } catch (error) {
+    console.error('Error al obtener proveedores:', error);
+    res.status(500).send('Error al obtener proveedores');
+  }
+});
+
+//Ruta para agregar proveedores
+app.post('/providers', async (req, res) => {
+  const { nombre, email, telefono } = req.body;
+  try {
+    await db.insertarProveedor(nombre, email, telefono);
+    res.status(201).json({ message: 'Proveedor agregado correctamente' }); // Devolver un objeto JSON con el mensaje de éxito
+  } catch (error) {
+    console.error('Error al insertar proveedor:', error);
+    res.status(500).json({ message: 'Error al insertar proveedor' }); // Devolver un objeto JSON con el mensaje de error
+  }
+});
+
+// Ruta para obtener un proveedor por su ID
+app.get('/providers/:id', async (req, res) => {
+  const providerId = req.params.id;
+
+  try {
+    // Busca el proveedor en la base de datos por su ID
+    const provider = await db.obtenerProveedorPorId(providerId);
+
+    // Verifica si el proveedor existe
+    if (!provider) {
+      return res.status(404).send('Proveedor no encontrado');
+    }
+
+    // Si el proveedor existe, lo devuelve en la respuesta
+    res.status(200).json(provider);
+  } catch (error) {
+    console.error('Error al obtener el proveedor:', error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
+
+// Ruta para actualizar un proveedor por su ID
+app.put('/providers/:id', async (req, res) => {
+  const providerId = req.params.id;
+  const { name, email, phone } = req.body;
+
+  try {
+    // Verifica si el proveedor con el ID dado existe
+    const existingProvider = await db.obtenerProveedorPorId(providerId);
+    if (!existingProvider) {
+      return res.status(404).send('Proveedor no encontrado');
+    }
+
+    // Actualiza el proveedor en la base de datos
+    await db.actualizarProveedor(providerId, {
+      name: name || existingProvider.name,
+      email: email || existingProvider.email,
+      phone: phone || existingProvider.phone
+    });
+    res.status(200).send('Proveedor actualizado exitosamente');
+  } catch (error) {
+    console.error('Error al actualizar el proveedor:', error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
+
+// Ruta para eliminar un proveedor
+app.delete('/providers/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    await db.eliminarProveedor(id);
+    res.send(`Proveedor con id ${id} eliminado`);
+  } catch (error) {
+    res.status(500).send('Error al eliminar el proveedor');
+  }
+});
+
 // Ruta para obtener todas las categorías
 app.get('/categories', async (req, res) => {
   try {
@@ -153,16 +234,16 @@ app.delete('/products/:id', async (req, res) => {
 // Ruta para obtener un producto por su ID
 app.get('/products/:id', async (req, res) => {
   const productId = req.params.id;
-  
+
   try {
     // Busca el producto en la base de datos por su ID
     const product = await db.obtenerProductoPorId(productId);
-    
+
     // Verifica si el producto existe
     if (!product) {
       return res.status(404).send('Producto no encontrado');
     }
-    
+
     // Si el producto existe, lo devuelve en la respuesta
     res.status(200).json(product);
   } catch (error) {
@@ -240,11 +321,58 @@ app.post('/register/product', async (req, res) => {
 
   try {
     // Crea un nuevo producto en la base de datos
-    const producto = await insertarProducto(category_id, name, description, price, stock, image_url);
+    const producto = await db.insertarProducto(category_id, name, description, price, stock, image_url);
 
     res.status(201).json(producto); // Devuelve el producto creado
   } catch (error) {
     console.error('Error al crear el producto:', error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
+
+// Ruta para agregar una orden de compra
+app.post('/purchase-orders', async (req, res) => {
+  const { provider_id, products, date } = req.body;
+
+  try {
+    const orderIds = await db.insertaOrden(provider_id, products, date);
+    res.status(201).json(orderIds);
+  } catch (error) {
+    console.error('Error adding the order:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+// Ruta para obtener las ordenes de compra
+app.get('/purchase-orders', async (req, res) => {
+  try {
+    // Obtiene los 10 productos más recientes de la base de datos
+    const orders = await db.obtenerOrdenesCompra();
+
+    res.status(200).json(orders);
+  } catch (error) {
+    console.error('Error al obtener las ordenes de compra:', error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
+
+// Ruta para obtener una orden de compra por su ID
+app.get('/orders/:id', async (req, res) => {
+  const orderId = req.params.id;
+
+  try {
+    // Busca la orden en la base de datos por su ID
+    const order = await db.obtenerOrdenPorId(orderId);
+
+    // Verifica si la orden existe
+    if (!order) {
+      return res.status(404).send('Orden no encontrada');
+    }
+
+    // Si la orden existe, la devuelve en la respuesta
+    res.status(200).json(order);
+  } catch (error) {
+    console.error('Error al obtener la orden:', error);
     res.status(500).send('Error interno del servidor');
   }
 });
@@ -277,7 +405,7 @@ app.get('/page_product_list', async (req, res) => {
 });
 
 // Ruta para obtener la lista de productos
-app.get('/product_list', async (req, res) => {
+app.get('/product-list', async (req, res) => {
   try {
     const products = await db.obtenerTodosLosProductos();
     res.json(products);
@@ -287,13 +415,21 @@ app.get('/product_list', async (req, res) => {
   }
 });
 
-
-
+// Ruta para obtener la lista de productos con stock menor que 10
+app.get('/low-stock-products', async (req, res) => {
+  try {
+    const lowStockProducts = await db.obtenerProductosConStockMenorQue10();
+    res.json(lowStockProducts);
+  } catch (error) {
+    console.error('Error al obtener la lista de productos con stock menor que 10:', error);
+    res.status(500).send('Error al obtener la lista de productos con stock menor que 10');
+  }
+});
 
 // Ruta para registrar la direccion de pedido
 app.post('/order_address', async (req, res) => {
-  const { nombre, apellido, direccion, ciudad, email, telefono, id_orders} = req.body;
-  
+  const { nombre, apellido, direccion, ciudad, email, telefono, id_orders } = req.body;
+
   try {
     // Crea una nueva direccion para el pedido en la base de datos
     await db.createaddress(nombre, apellido, direccion, ciudad, email, telefono, id_orders);
@@ -423,8 +559,8 @@ app.get('/success', verifyToken, async (req, res) => {
     // Obtener el ID del usuario del token de autenticación
     const userId = req.userId;
 
-        // 2. Registrar la orden en la tabla "Orders"
-        const order = await db.crearOrden(userId);
+    // 2. Registrar la orden en la tabla "Orders"
+    const order = await db.crearOrden(userId);
 
     // 1. Limpiar el carrito del usuario
     await db.eliminarCarritoUsuario(userId);
@@ -498,7 +634,7 @@ app.delete('/user/delete', verifyToken, async (req, res) => {
 
 app.listen(3001, async () => {
   console.log('Server is running on port 3001');
-  
+
   // Create default admin user
   await db.createDefaultAdmin();
 

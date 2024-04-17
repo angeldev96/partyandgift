@@ -20,11 +20,11 @@ pool.connect()
   .then(() => console.log('Conexión exitosa a la base de datos'))
   .catch(err => console.error('Error al conectar a la base de datos:', err));
 
-  cloudinary.config({
-    cloud_name: 'dqy0f7skk',
-    api_key: '626754323673753',
-    api_secret: 'eZMydSf0i92LcK3EOdmgwMAEUbU'
-  });
+cloudinary.config({
+  cloud_name: 'dqy0f7skk',
+  api_key: '626754323673753',
+  api_secret: 'eZMydSf0i92LcK3EOdmgwMAEUbU'
+});
 
 // Función para obtener un usuario por correo electrónico
 const getUserByEmail = async (email) => {
@@ -86,6 +86,51 @@ async function updateUserPassword(userId, newPassword) {
   }
 }
 
+// Función para insertar un proveedor y crear la tabla si no existe
+async function insertarProveedor(nombre, email, telefono) {
+  const createTableQuery = "CREATE TABLE IF NOT EXISTS proveedores (id SERIAL PRIMARY KEY, name VARCHAR(255), email VARCHAR(255), phone VARCHAR(20))";
+  const insertQuery = `INSERT INTO proveedores (name, email, phone) VALUES ($1, $2, $3)`;
+
+  try {
+    await pool.query(createTableQuery);
+  } catch (error) {
+    console.error('Error al crear la tabla de proveedores:', error);
+  }
+
+  try {
+    await pool.query(insertQuery, [nombre, email, telefono]);
+  } catch (error) {
+    console.error('Error al insertar el proveedor:', error);
+  }
+}
+
+const obtenerProveedores = async () => {
+  const client = await pool.connect();
+  try {
+    const result = await client.query('SELECT * FROM proveedores');
+    return result.rows;
+  } finally {
+    client.release();
+  }
+}
+
+// Función para obtener un proveedor por su ID
+const obtenerProveedorPorId = async (idProveedor) => {
+  try {
+    const query = 'SELECT * FROM proveedores WHERE id = $1'; // Utiliza un parámetro de consulta para evitar SQL injection
+    const { rows } = await pool.query(query, [idProveedor]);
+    // Si no se encuentra ningún proveedor con el ID dado, retorna null
+    if (rows.length === 0) {
+      return null;
+    }
+    // Devuelve el primer proveedor encontrado (debería ser único ya que el ID es único)
+    return rows[0];
+  } catch (error) {
+    console.error('Error al obtener el proveedor por ID:', error);
+    throw error;
+  }
+};
+
 // Función para crear la tabla de categorías
 async function crearTablaCategorias() {
   const query = 'CREATE TABLE categorias (category_id SERIAL PRIMARY KEY, name VARCHAR(50) NOT NULL, description TEXT, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)';
@@ -110,17 +155,82 @@ const obtenerCategorias = async () => {
 
 // Función para crear la tabla de productos
 async function crearTablaProductos() {
-  const query = 'CREATE TABLE productos (product_id SERIAL PRIMARY KEY, category_id INTEGER REFERENCES categorias(category_id), name VARCHAR(100) NOT NULL, description TEXT, price NUMERIC(8,2) NOT NULL, stock INTEGER NOT NULL, image_url TEXT, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)';
+  const query = 'CREATE TABLE productos (product_id SERIAL PRIMARY KEY, category_id INTEGER REFERENCES categorias(category_id),name VARCHAR(100) NOT NULL, description TEXT, price NUMERIC(8,2) NOT NULL, stock INTEGER NOT NULL, image_url TEXT, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)';
   await pool.query(query);
 }
 
 // Función para crear un nuevo producto
 async function insertarProducto(category_id, name, description, price, stock, image_url) {
-  const query = 'INSERT INTO productos (category_id, name, description, price, stock, image_url) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *';
+  const query = 'INSERT INTO productos (category_id, provide_id, name, description, price, stock, image_url) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *';
   const values = [category_id, name, description, price, stock, image_url];
   const { rows } = await pool.query(query, values);
   return rows[0]; // Devuelve el primer registro insertado
 }
+
+// Función para agregar una orden de compra
+async function insertaOrden(provider_id, orderItems, date) {
+  try {
+    // Verificar si la tabla de orders existe, y si no existe, crearla
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS orders (
+        order_id SERIAL PRIMARY KEY,
+        provider_id INT NOT NULL,
+        products JSONB NOT NULL,
+        date DATE NOT NULL,
+        FOREIGN KEY (provider_id) REFERENCES proveedores(id)
+      );
+    `);
+
+    const client = await pool.connect();
+    try {
+      await client.query('BEGIN');
+      let orderIds = [];
+      for (const orderItem of orderItems) {
+        const { product_id, quantity } = orderItem;
+        const query = 'INSERT INTO orders (provider_id, products, date) VALUES ($1, $2, $3) RETURNING order_id';
+        const values = [provider_id, JSON.stringify(orderItem), date];
+        const result = await client.query(query, values);
+        orderIds.push(result.rows[0].order_id);
+      }
+      await client.query('COMMIT');
+      return orderIds;
+    } catch (error) {
+      await client.query('ROLLBACK');
+      throw error;
+    } finally {
+      client.release();
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+
+const obtenerOrdenPorId = async (idOrden) => {
+  try {
+    const query = 'SELECT * FROM orders WHERE id = $1'; // Utiliza un parámetro de consulta para evitar SQL injection
+    const { rows } = await pool.query(query, [idOrden]);
+    // Si no se encuentra ninguna orden con el ID dado, retorna null
+    if (rows.length === 0) {
+      return null;
+    }
+    // Devuelve la primera orden encontrada (debería ser única ya que el ID es único)
+    return rows[0];
+  } catch (error) {
+    console.error('Error al obtener la orden por ID:', error);
+    throw error;
+  }
+};
+
+const obtenerOrdenesCompra = async () => {
+  const client = await pool.connect();
+  try {
+    const result = await client.query('SELECT * FROM orders');
+    return result.rows;
+  } finally {
+    client.release();
+  }
+};
 
 // Función para obtener una página de productos paginados
 const obtenerProductosPorPagina = async (pagina, productosPorPagina) => {
@@ -159,7 +269,19 @@ const obtenerProductosPorCategoria = async (categoria) => {
   }
 };
 
-// Función para obtener los productos más recientes en PostgreSQL
+// Función para obtener productos con stock menor que 10
+const obtenerProductosConStockMenorQue10 = async () => {
+  try {
+    const query = 'SELECT * FROM productos WHERE stock < 10';
+    const { rows } = await pool.query(query);
+    return rows;
+  } catch (error) {
+    console.error('Error al obtener la lista de productos con stock menor que 10:', error);
+    throw error;
+  }
+};
+
+// Función para obtener los productos más recientes
 const obtenerProductosRecientes = async (limit) => {
   try {
     const query = `SELECT * FROM productos ORDER BY created_at DESC LIMIT ${limit}`;
@@ -184,6 +306,18 @@ const actualizarProducto = async (idProducto, camposActualizados) => {
   }
 };
 
+// Función para actualizar un proveedor por su ID
+const actualizarProveedor = async (idProveedor, camposActualizados) => {
+  const { name, email, phone } = camposActualizados;
+  try {
+    const query = 'UPDATE proveedores SET name = $1, email = $2, phone = $3 WHERE id = $4';
+    await pool.query(query, [name, email, phone, idProveedor]);
+  } catch (error) {
+    console.error('Error al actualizar el proveedor:', error);
+    throw error;
+  }
+};
+
 // Función para eliminar un producto por su ID
 const eliminarProducto = async (idProducto) => {
   try {
@@ -191,6 +325,17 @@ const eliminarProducto = async (idProducto) => {
     await pool.query(query, [idProducto]);
   } catch (error) {
     console.error('Error al eliminar el producto:', error);
+    throw error;
+  }
+};
+
+// Función para eliminar un proveedor por su ID
+const eliminarProveedor = async (idProveedor) => {
+  try {
+    const query = 'DELETE FROM proveedores WHERE id = $1';
+    await pool.query(query, [idProveedor]);
+  } catch (error) {
+    console.error('Error al eliminar el proveedor:', error);
     throw error;
   }
 };
@@ -297,7 +442,6 @@ const obtenerCarritoPorUsuario = async (userId) => {
   }
 };
 
-
 const guardarDireccionUsuario = async (userId, direccion) => {
   try {
     const { address_line1, address_line2, city, postal_code, phone } = direccion;
@@ -317,9 +461,6 @@ const guardarDireccionUsuario = async (userId, direccion) => {
   }
 };
 
-
-
-// database.js
 // Función para obtener la dirección del usuario
 async function obtenerDireccionUsuario(userId) {
   try {
@@ -429,8 +570,8 @@ async function crearOrden(userId) {
   try {
     // Obtener los productos del carrito del usuario
     const cartItems = await obtenerCarritoPorUsuarioStripe(userId);
-    if(cartItems.length === 0) {
-      console.log('El carrito está vacío'); 
+    if (cartItems.length === 0) {
+      console.log('El carrito está vacío');
     }
     console.log(cartItems);
 
@@ -458,8 +599,6 @@ async function crearOrden(userId) {
     throw error;
   }
 }
-
-
 
 // Función para obtener el historial de órdenes de un usuario
 async function obtenerOrdenesUsuario(userId) {
@@ -632,14 +771,6 @@ const deleteUserById = async (userId) => {
 };
 
 
-
-
-
-
-
-
-
-
 module.exports = {
   getUserByEmail,
   getEmpleadoByEmail,
@@ -649,6 +780,11 @@ module.exports = {
   crearTablaCategorias,
   insertarCategorias,
   obtenerCategorias,
+  insertarProveedor,
+  obtenerProveedores,
+  obtenerProveedorPorId,
+  actualizarProveedor,
+  eliminarProveedor,
   crearTablaProductos,
   insertarProducto,
   obtenerProductosPorPagina,
@@ -665,9 +801,13 @@ module.exports = {
   actualizarDireccionUsuario,
   obtenerProductosPorCategoria,
   obtenerProductosRecientes,
+  obtenerProductosConStockMenorQue10,
   eliminarDelCarrito,
   actualizarCantidadEnCarrito,
   eliminarCarritoUsuario,
+  insertaOrden,
+  obtenerOrdenesCompra,
+  obtenerOrdenPorId,
   crearOrden,
   obtenerOrdenesUsuario,
   obtenerDetallesOrden,
