@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const PurchaseOrders = () => {
     const [ordenes, setOrdenes] = useState([]);
 
     const eliminarOrden = async (id) => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/orders/${id}`, {
+            const response = await axios.delete(`${import.meta.env.VITE_API_URL}/purchase-orders/${id}`, {
                 method: 'DELETE'
             });
             if (response.ok) {
@@ -19,12 +20,16 @@ const PurchaseOrders = () => {
 
     useEffect(() => {
         const fetchOrdenes = async () => {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/orders`);
-            const data = await response.json();
-            setOrdenes(data);
+            try {
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/purchase-orders`);
+                setOrdenes(response.data);
+            } catch (error) {
+                console.error('Error al obtener las órdenes de compra:', error);
+            }
         };
         fetchOrdenes();
     }, []);
+
 
     return (
         <div className="m-4 p-4 bg-gray-200 rounded-lg shadow-lg">
@@ -45,7 +50,8 @@ const PurchaseOrders = () => {
                     {ordenes.map(orden => (
                         <tr key={orden.id} className="border-b">
                             <td className="px-4 py-2">{orden.provider_id}</td>
-                            <td className="px-4 py-2">{orden.products.map(prod => `${prod.product_id} - ${prod.quantity}`).join(', ')}</td>
+                            <td className="px-4 py-2">{Object.entries(orden.products).map(([productId, quantity]) => `${productId} - ${quantity}`).join(', ')
+                            }</td>
                             <td className="px-4 py-2">{orden.date}</td>
                             <td className="px-4 py-2">
                                 <Link to={`/edit-order/${orden.id}`} className="text-blue-500 mr-2">Editar</Link>

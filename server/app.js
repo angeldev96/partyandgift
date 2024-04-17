@@ -331,7 +331,7 @@ app.post('/register/product', async (req, res) => {
 });
 
 // Ruta para agregar una orden de compra
-app.post('/orders', async (req, res) => {
+app.post('/purchase-orders', async (req, res) => {
   const { provider_id, products, date } = req.body;
 
   try {
@@ -340,6 +340,19 @@ app.post('/orders', async (req, res) => {
   } catch (error) {
     console.error('Error adding the order:', error);
     res.status(500).send('Internal Server Error');
+  }
+});
+
+// Ruta para obtener las ordenes de compra
+app.get('/purchase-orders', async (req, res) => {
+  try {
+    // Obtiene los 10 productos más recientes de la base de datos
+    const orders = await db.obtenerOrdenesCompra();
+
+    res.status(200).json(orders);
+  } catch (error) {
+    console.error('Error al obtener las ordenes de compra:', error);
+    res.status(500).send('Error interno del servidor');
   }
 });
 

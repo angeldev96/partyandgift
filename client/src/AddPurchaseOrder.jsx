@@ -10,6 +10,27 @@ const AddPurchaseOrder = () => {
     const [cantidad, setCantidad] = useState('');
     const [ordenItems, setOrdenItems] = useState([]);
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!selectedProveedor) {
+            console.error('No se ha seleccionado ningún proveedor.');
+            return;
+        }
+        try {
+            const orderData = {
+                provider_id: selectedProveedor,
+                products: ordenItems,
+                date: new Date()
+            };
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/purchase-orders`, orderData);
+            console.log('Orden de compra agregada:', response.data);
+            // Resto del código...
+        } catch (error) {
+            console.error('Error al agregar la orden de compra:', error);
+            // Resto del código...
+        }
+    };
+
     const handleChangeCantidad = (productId, e) => {
         const cantidad = parseInt(e.target.value) || '';
         setCantidadesPorProducto({ ...cantidadesPorProducto, [productId]: cantidad });
@@ -62,11 +83,6 @@ const AddPurchaseOrder = () => {
     const handleSelectProduct = (productId) => {
         setSelectedProduct(productId);
         setCantidad(cantidadesPorProducto[productId] || ''); // Establecer la cantidad actual
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        // Lógica para enviar la orden de compra con los items a la API
     };
 
     return (

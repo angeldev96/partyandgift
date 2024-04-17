@@ -168,30 +168,27 @@ async function insertarProducto(category_id, name, description, price, stock, im
 }
 
 // Función para agregar una orden de compra
-async function insertaOrden(provider_id, products, date) {
+async function insertaOrden(provider_id, orderItems, date) {
   try {
     // Verificar si la tabla de orders existe, y si no existe, crearla
     await pool.query(`
-          CREATE TABLE IF NOT EXISTS orders (
-              order_id SERIAL PRIMARY KEY,
-              provider_id INT NOT NULL,
-              product_id INT NOT NULL,
-              quantity INT NOT NULL,
-              date DATE NOT NULL
-              FOREIGN KEY (provider_id) REFERENCES proveedores(id),
-              FOREIGN KEY (product_id) REFERENCES productos(product_id)
-          );
-      `);
+      CREATE TABLE IF NOT EXISTS orders (
+        order_id SERIAL PRIMARY KEY,
+        provider_id INT NOT NULL,
+        products JSONB NOT NULL,
+        date DATE NOT NULL,
+        FOREIGN KEY (provider_id) REFERENCES proveedores(id)
+      );
+    `);
 
-    // Crear una transacción para manejar el ingreso de múltiples productos en una orden
     const client = await pool.connect();
     try {
       await client.query('BEGIN');
       let orderIds = [];
-      for (const product of products) {
-        const { product_id, quantity } = product;
-        const query = 'INSERT INTO orders (provider_id, product_id, quantity, date) VALUES ($1, $2, $3, $4) RETURNING order_id';
-        const values = [provider_id, product_id, quantity, date];
+      for (const orderItem of orderItems) {
+        const { product_id, quantity } = orderItem;
+        const query = 'INSERT INTO orders (provider_id, products, date) VALUES ($1, $2, $3) RETURNING order_id';
+        const values = [provider_id, JSON.stringify(orderItem), date];
         const result = await client.query(query, values);
         orderIds.push(result.rows[0].order_id);
       }
@@ -208,6 +205,7 @@ async function insertaOrden(provider_id, products, date) {
   }
 }
 
+
 const obtenerOrdenPorId = async (idOrden) => {
   try {
     const query = 'SELECT * FROM orders WHERE id = $1'; // Utiliza un parámetro de consulta para evitar SQL injection
@@ -221,6 +219,16 @@ const obtenerOrdenPorId = async (idOrden) => {
   } catch (error) {
     console.error('Error al obtener la orden por ID:', error);
     throw error;
+  }
+};
+
+const obtenerOrdenesCompra = async () => {
+  const client = await pool.connect();
+  try {
+    const result = await client.query('SELECT * FROM orders');
+    return result.rows;
+  } finally {
+    client.release();
   }
 };
 
@@ -798,6 +806,7 @@ module.exports = {
   actualizarCantidadEnCarrito,
   eliminarCarritoUsuario,
   insertaOrden,
+  obtenerOrdenesCompra,
   obtenerOrdenPorId,
   crearOrden,
   obtenerOrdenesUsuario,
