@@ -14,7 +14,7 @@ const ProductListCategory = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        let url = `${import.meta.env.VITE_API_URL}/product_list?`;
+        let url = `${import.meta.env.VITE_API_URL}/product-list?`;
         if (categoria) {
           url += `&categoria=${categoria}`;
         }

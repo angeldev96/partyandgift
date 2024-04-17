@@ -9,6 +9,10 @@ import Events from './components/Events';
 import HelpCenter from './components/HelpCenter';
 import AddressForm from './AddressForm';
 import Carrito from './Carrito';
+import Proveedores from './Providers';
+import FormProviders from './AddProvider';
+import PurchaseOrders from './PurchaseOrders';
+import AddPurchaseOrder from './AddPurchaseOrder';
 
 import Arrangements from './Arrangements';
 import Gift_boxes from './Gift_boxes';
@@ -50,6 +54,7 @@ import CancelPage from './CancelPage';
 import SuccessPage from './SuccessPage';
 import OrderHistory from './OrderHistory';
 import ProductSales from './ProductSales';
+import EditProvider from './EditProvider';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -78,6 +83,7 @@ function App() {
           <Route path="/season" element={<Season />} />
           <Route path="/events" element={<Events />} />
           <Route path="/help-center" element={<HelpCenter />} />
+
           <Route path="/arrangements" element={<Arrangements />} />
           <Route path="/Gift_boxes" element={<Gift_boxes />} />
           {/* <Route path="/Sweet_boxes" element={<Sweet_boxes />} /> */}
@@ -103,27 +109,32 @@ function App() {
           <Route path="/login/empleado" element={<LoginEmployee setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/unauthorized" element={<UnAuthorized />} />
           <Route path="/dashboard" element={<DashboardComponent />} />
-          <Route path="/account" element={<AccountComponent/>} />
+          <Route path="/account" element={<AccountComponent />} />
           <Route path="/ubicacion" element={<Ubicacion />} />
           <Route path="/descuentos" element={<Descuentos />} />
           <Route path="/cancel" element={<CancelPage />} />
           <Route path="/success" element={<SuccessPage />} />
 
 
-          
+
           <Route element={<ProtectedRoute allowedRoles={['admin', 'empleado']} />}>
             <Route path="/management-panel" element={<ManagementPanel />} />
             <Route path="/products-list" element={<ProductList />} />
             <Route path="/register/empleado" element={<Register_Employee />} />
             <Route path="/form-products" element={<FormProducts />} />
-            <Route path="/product_edit/:productId" element={<EditProduct />} />
+            <Route path="/product-edit/:productId" element={<EditProduct />} />
+            <Route path="/providers" element={<Proveedores />} />
+            <Route path="/orders" element={<PurchaseOrders />} />
+            <Route path="/new-order" element={<AddPurchaseOrder />} />
+            <Route path="/add-provider" element={<FormProviders />} />
+            <Route path="/edit-provider/:providerId" element={<EditProvider />} />
             <Route path="/order_address" element={<OrderAddress />} />
-           
+
 
           </Route>
           <Route element={<ProtectedRoute allowedRoles={['user']} />}>
             <Route path="/carrito" element={<Carrito />} />
-            <Route path="/account" element={<AccountComponent/>} />
+            <Route path="/account" element={<AccountComponent />} />
             <Route path="/address-form" element={<AddressForm />} />
             <Route path="/edit-address-form" element={<EditAddressForm />} />
             <Route path="/order-history" element={<OrderHistory />} />

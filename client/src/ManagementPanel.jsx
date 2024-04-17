@@ -2,9 +2,6 @@ import { Bars3Icon } from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom'; // Importa el componente Link de React Router
 
 
-
-
-
 const items = [
     {
         title: 'Registrar Producto',
@@ -21,11 +18,11 @@ const items = [
         route: '/products-list'
     },
     {
-        title: 'Crear una lista de tareas',
+        title: 'Proveedores',
         description: '',
         icon: Bars3Icon,
         background: 'bg-green-500',
-        route: '/management-panel'
+        route: '/providers'
     },
     {
         title: 'Ver Resumen de Ventas',
@@ -40,6 +37,13 @@ const items = [
         icon: Bars3Icon,
         background: 'bg-indigo-500',
         route: '/register/empleado'
+    },
+    {
+        title: 'Ordenes de Compra',
+        description: '',
+        icon: Bars3Icon,
+        background: 'bg-purple-500',
+        route: '/orders'
     },
 
 ]
@@ -57,7 +61,7 @@ export default function ManagementPanel() {
                 {items.map((item, itemIdx) => (
                     <li key={itemIdx} className="flow-root">
                         <div className="relative -m-2 flex items-center space-x-4 rounded-xl p-2 focus-within:ring-2 focus-within:ring-indigo-500 hover:bg-gray-50">
-                            <Link to={item.route}> {/* Usa el componente Link y establece la ruta deseada */}
+                            <Link to={item.route}>
                                 <div
                                     className={classNames(
                                         item.background,
@@ -66,7 +70,7 @@ export default function ManagementPanel() {
                                 >
                                     <item.icon className="h-6 w-6 text-white" aria-hidden="true" />
                                 </div>
-                                <div>
+                                <div className="text-center"> {/* Agregar clase text-center para centrar el botón */}
                                     <h3 className="text-sm font-medium text-gray-900">
                                         <span className="absolute inset-0" aria-hidden="true" />
                                         <span>{item.title}</span>
