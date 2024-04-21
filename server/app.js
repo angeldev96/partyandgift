@@ -563,7 +563,7 @@ app.get('/success', verifyToken, async (req, res) => {
     const order = await db.crearOrden(userId);
 
     // 1. Limpiar el carrito del usuario
-    await db.eliminarCarritoUsuario(userId);
+    // await db.eliminarCarritoUsuario(userId);
 
 
 
