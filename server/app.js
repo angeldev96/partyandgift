@@ -562,9 +562,7 @@ app.get('/success', verifyToken, async (req, res) => {
     // 2. Registrar la orden en la tabla "Orders"
     const order = await db.crearOrden(userId);
 
-    // 1. Limpiar el carrito del usuario
-    await db.eliminarCarritoUsuario(userId);
-
+    
 
 
     // Enviar una respuesta JSON
