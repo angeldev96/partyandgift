@@ -172,13 +172,15 @@ async function insertarOrdenCompra(provider_id, orderItems, date) {
   try {
     // Verificar si la tabla de orders existe, y si no existe, crearla
     await pool.query(`
-      CREATE TABLE IF NOT EXISTS purchase_orders (
-        order_id SERIAL PRIMARY KEY,
-        provider_id INT NOT NULL,
-        products JSONB NOT NULL,
-        date DATE NOT NULL,
-        FOREIGN KEY (provider_id) REFERENCES proveedores(id)
-      );
+    CREATE TABLE IF NOT EXISTS purchase_orders (
+      order_id SERIAL PRIMARY KEY,
+      provider_id INT NOT NULL,
+      products JSONB NOT NULL,
+      date DATE NOT NULL,
+      created_at TIMESTAMP DEFAULT now() NOT NULL,
+      updated_at TIMESTAMP DEFAULT now(),
+      FOREIGN KEY (provider_id) REFERENCES proveedores(id)
+    );
     `);
 
     const client = await pool.connect();
@@ -187,7 +189,7 @@ async function insertarOrdenCompra(provider_id, orderItems, date) {
       let orderIds = [];
       for (const orderItem of orderItems) {
         const { product_id, quantity } = orderItem;
-        const query = 'INSERT INTO purchase_orders (provider_id, products, date) VALUES ($1, $2, $3) RETURNING order_id';
+        const query = 'INSERT INTO purchase_orders (provider_id, products, date, created_at, updated_at) VALUES ($1, $2, $3, now(), now()) RETURNING order_id';
         const values = [provider_id, JSON.stringify(orderItem), date];
         const result = await client.query(query, values);
         orderIds.push(result.rows[0].order_id);
