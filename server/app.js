@@ -335,7 +335,7 @@ app.post('/purchase-orders', async (req, res) => {
   const { provider_id, products, date } = req.body;
 
   try {
-    const orderIds = await db.insertaOrden(provider_id, products, date);
+    const orderIds = await db.insertarOrdenCompra(provider_id, products, date);
     res.status(201).json(orderIds);
   } catch (error) {
     console.error('Error adding the order:', error);
@@ -343,13 +343,17 @@ app.post('/purchase-orders', async (req, res) => {
   }
 });
 
-// Ruta para obtener las ordenes de compra
+// Ruta para obtener las Ordenes de Coompra
 app.get('/purchase-orders', async (req, res) => {
   try {
-    // Obtiene los 10 productos más recientes de la base de datos
+    // Obtiene las ordenes de compra de la base de datos
     const orders = await db.obtenerOrdenesCompra();
 
-    res.status(200).json(orders);
+    if (orders.length === 0) {
+      res.status(200).send('No existen órdenes de compra en este momento');
+    } else {
+      res.status(200).json(orders);
+    }
   } catch (error) {
     console.error('Error al obtener las ordenes de compra:', error);
     res.status(500).send('Error interno del servidor');

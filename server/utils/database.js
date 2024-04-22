@@ -222,11 +222,17 @@ const obtenerOrdenPorId = async (idOrden) => {
   }
 };
 
+//Función para obtener las Ordenes de Compra
 const obtenerOrdenesCompra = async () => {
   const client = await pool.connect();
   try {
-    const result = await client.query('SELECT * FROM orders');
+    const result = await client.query('SELECT * FROM purchase_orders');
     return result.rows;
+  } catch (error) {
+    if (error.code === '42P01') { // Error code for table not found
+      return []; // Devolver un arreglo vacío si la tabla no existe
+    }
+    throw error; // Si el error no es por la tabla no encontrada, lanzar el error
   } finally {
     client.release();
   }
