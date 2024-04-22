@@ -629,6 +629,17 @@ app.delete('/user/delete', verifyToken, async (req, res) => {
   }
 });
 
+app.get("/order-details/:orderId", verifyToken, async (req, res) => {
+  const orderId = parseInt(req.params.orderId);
+  try {
+    const { orderDetails, items } = await db.obtenerDetallesOrdenTmp(orderId);
+    res.status(200).json({ orderDetails, items });
+  } catch (error) {
+    console.error("Error al obtener detalles de la orden:", error);
+    res.status(500).send("Error interno del servidor");
+  }
+});
+
 
 app.listen(3001, async () => {
   console.log('Server is running on port 3001');

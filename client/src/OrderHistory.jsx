@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const OrderHistory = () => {
   const [orders, setOrders] = useState([]);
@@ -9,17 +9,20 @@ const OrderHistory = () => {
     const fetchOrderHistory = async () => {
       try {
         // Obtener el token de autenticación del usuario
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem("token");
 
         // Enviar una solicitud al servidor para obtener el historial de órdenes
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/orders`, {
-          headers: {
-            Authorization: token,
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_URL}/orders`,
+          {
+            headers: {
+              Authorization: token,
+            },
           },
-        });
+        );
         setOrders(response.data);
       } catch (error) {
-        console.error('Error al obtener el historial de órdenes:', error);
+        console.error("Error al obtener el historial de órdenes:", error);
       }
     };
 
@@ -30,8 +33,9 @@ const OrderHistory = () => {
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
-          <h1 className="text-base font-semibold leading-6 text-gray-900">Historial de Compras</h1>
-          
+          <h1 className="text-base font-semibold leading-6 text-gray-900">
+            Historial de Compras
+          </h1>
         </div>
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
           <button
@@ -72,7 +76,10 @@ const OrderHistory = () => {
                   >
                     Estado
                   </th>
-                  <th scope="col" className="relative whitespace-nowrap py-3.5 pl-3 pr-4 sm:pr-0">
+                  <th
+                    scope="col"
+                    className="relative whitespace-nowrap py-3.5 pl-3 pr-4 sm:pr-0"
+                  >
                     <span className="sr-only">Ver Detalles</span>
                   </th>
                 </tr>
@@ -94,10 +101,11 @@ const OrderHistory = () => {
                     </td>
                     <td className="relative whitespace-nowrap py-2 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                       <Link
-                        to={`/orders/${order.order_id}`}
+                        to={`/order-details/${order.order_id}`}
                         className="text-indigo-600 hover:text-indigo-900"
                       >
-                        Ver Detalles<span className="sr-only">, {order.order_id}</span>
+                        Ver Detalles
+                        <span className="sr-only">, {order.order_id}</span>
                       </Link>
                     </td>
                   </tr>

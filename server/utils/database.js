@@ -770,6 +770,45 @@ const deleteUserById = async (userId) => {
   }
 };
 
+async function obtenerDetallesOrdenTmp(orderId) {
+  try {
+    const orderQuery = `
+      SELECT
+        o.order_id,
+        o.total AS total_order,
+        o.status,
+        o.created_at
+      FROM orders o
+      WHERE o.order_id = $1
+    `;
+    const orderResult = await pool.query(orderQuery, [orderId]);
+    const orderDetails = orderResult.rows[0];
+
+    const itemsQuery = `
+    SELECT
+    ci.product_id,
+    ci.quantity,
+    ci.price,
+    p.name AS product_name
+  FROM cart_items ci
+  JOIN productos p ON p.product_id = ci.product_id
+  JOIN cart c ON c.cart_id = ci.cart_id
+  JOIN orders o ON o.cart_id = c.cart_id
+  WHERE o.order_id = $1
+    `;
+    const itemsResult = await pool.query(itemsQuery, [orderId]);
+    const items = itemsResult.rows;
+
+    return {
+      orderDetails,
+      items,
+    };
+  } catch (error) {
+    console.error("Error al obtener detalles de la orden:", error);
+    throw error;
+  }
+}
+
 
 module.exports = {
   getUserByEmail,
@@ -815,4 +854,5 @@ module.exports = {
   obtenerOrdenesVentas,
   eliminarUsuario,
   deleteUserById,
+  obtenerDetallesOrdenTmp,
 };

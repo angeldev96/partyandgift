@@ -55,6 +55,8 @@ import SuccessPage from './SuccessPage';
 import OrderHistory from './OrderHistory';
 import ProductSales from './ProductSales';
 import EditProvider from './EditProvider';
+import OrderDetails from "./OrderDetails";
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -114,6 +116,8 @@ function App() {
           <Route path="/descuentos" element={<Descuentos />} />
           <Route path="/cancel" element={<CancelPage />} />
           <Route path="/success" element={<SuccessPage />} />
+          <Route path="/order-details/:orderId" element={<OrderDetails />} />
+
 
 
 
