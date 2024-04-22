@@ -14,7 +14,7 @@ const PurchaseOrders = () => {
                 setOrdenes(ordenes.filter(orden => orden.id !== id));
             }
         } catch (error) {
-            console.error('Error al eliminar el pedido:', error);
+            console.error('Error al eliminar la orden:', error);
         }
     };
 
@@ -29,6 +29,9 @@ const PurchaseOrders = () => {
         };
         fetchOrdenes();
     }, []);
+
+    // Verificar si el estado 'ordenes' es un arreglo
+    const ordenesList = Array.isArray(ordenes) ? ordenes : [];
 
 
     return (
@@ -47,18 +50,23 @@ const PurchaseOrders = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {ordenes.map(orden => (
-                        <tr key={orden.id} className="border-b">
-                            <td className="px-4 py-2">{orden.provider_id}</td>
-                            <td className="px-4 py-2">{Object.entries(orden.products).map(([productId, quantity]) => `${productId} - ${quantity}`).join(', ')
-                            }</td>
-                            <td className="px-4 py-2">{orden.date}</td>
-                            <td className="px-4 py-2">
-                                <Link to={`/edit-order/${orden.id}`} className="text-blue-500 mr-2">Editar</Link>
-                                <button onClick={() => eliminarOrden(orden.id)} className="text-red-500">Eliminar</button>
-                            </td>
+                    {ordenesList.length === 0 ? (
+                        <tr>
+                            <td colSpan="4" className="px-4 py-2 text-center">Por el momento no hay órdenes de compra. <Link to="/new-order" className="text-blue-500">Agrega una nueva orden de compra</Link></td>
                         </tr>
-                    ))}
+                    ) : (
+                        ordenesList.map(orden => (
+                            <tr key={orden.id} className="border-b">
+                                <td className="px-4 py-2">{orden.provider_id}</td>
+                                <td className="px-4 py-2">{Object.entries(orden.products).map(([productId, quantity]) => `${productId} - ${quantity}`).join(', ')}</td>
+                                <td className="px-4 py-2">{orden.date}</td>
+                                <td className="px-4 py-2">
+                                    <Link to={`/edit-order/${orden.id}`} className="text-blue-500 mr-2">Editar</Link>
+                                    <button onClick={() => eliminarOrden(orden.id)} className="text-red-500">Eliminar</button>
+                                </td>
+                            </tr>
+                        ))
+                    )}
                 </tbody>
             </table>
         </div>

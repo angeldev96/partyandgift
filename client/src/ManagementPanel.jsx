@@ -43,7 +43,7 @@ const items = [
         description: '',
         icon: Bars3Icon,
         background: 'bg-purple-500',
-        route: '/orders'
+        route: '/purchase-orders'
     },
 
 ]
