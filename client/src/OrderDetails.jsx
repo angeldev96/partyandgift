@@ -43,7 +43,7 @@ const OrderDetails = () => {
     (acc, item) => acc + item.price * item.quantity,
     0,
   );
-  const taxRate = 0.16; // 16% de IVA
+  const taxRate = 0.12; // 16% de IVA
   const tax = subtotal * taxRate;
   const total = subtotal + tax;
 
@@ -73,16 +73,16 @@ const OrderDetails = () => {
               <tr key={item.product_id}>
                 <td>{item.product_name}</td>
                 <td>{item.quantity}</td>
-                <td>${item.price}</td>
-                <td>${item.price * item.quantity}</td>
+                <td>L.{item.price}</td>
+                <td>L.{item.price * item.quantity}</td>
               </tr>
             ))}
           </tbody>
         </table>
         <div>
-          <h3>Subtotal: ${subtotal}</h3>
-          <h3>Impuesto (16%): ${tax}</h3>
-          <h3>Total: ${total}</h3>
+          <h3>Subtotal: L.{subtotal}</h3>
+          <h3>Impuesto (12%): L.{tax.toFixed(2)}</h3>
+          <h3>Total: L.{total.toFixed(2)}</h3>
         </div>
       </div>
     </div>
