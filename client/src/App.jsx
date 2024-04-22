@@ -124,7 +124,7 @@ function App() {
             <Route path="/form-products" element={<FormProducts />} />
             <Route path="/product-edit/:productId" element={<EditProduct />} />
             <Route path="/providers" element={<Proveedores />} />
-            <Route path="/orders" element={<PurchaseOrders />} />
+            <Route path="/purchase-orders" element={<PurchaseOrders />} />
             <Route path="/new-order" element={<AddPurchaseOrder />} />
             <Route path="/add-provider" element={<FormProviders />} />
             <Route path="/edit-provider/:providerId" element={<EditProvider />} />

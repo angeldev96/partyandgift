@@ -168,11 +168,11 @@ async function insertarProducto(category_id, name, description, price, stock, im
 }
 
 // Función para agregar una orden de compra
-async function insertaOrden(provider_id, orderItems, date) {
+async function insertarOrdenCompra(provider_id, orderItems, date) {
   try {
     // Verificar si la tabla de orders existe, y si no existe, crearla
     await pool.query(`
-      CREATE TABLE IF NOT EXISTS orders (
+      CREATE TABLE IF NOT EXISTS purchase_orders (
         order_id SERIAL PRIMARY KEY,
         provider_id INT NOT NULL,
         products JSONB NOT NULL,
@@ -187,7 +187,7 @@ async function insertaOrden(provider_id, orderItems, date) {
       let orderIds = [];
       for (const orderItem of orderItems) {
         const { product_id, quantity } = orderItem;
-        const query = 'INSERT INTO orders (provider_id, products, date) VALUES ($1, $2, $3) RETURNING order_id';
+        const query = 'INSERT INTO purchase_orders (provider_id, products, date) VALUES ($1, $2, $3) RETURNING order_id';
         const values = [provider_id, JSON.stringify(orderItem), date];
         const result = await client.query(query, values);
         orderIds.push(result.rows[0].order_id);
@@ -805,7 +805,7 @@ module.exports = {
   eliminarDelCarrito,
   actualizarCantidadEnCarrito,
   eliminarCarritoUsuario,
-  insertaOrden,
+  insertarOrdenCompra,
   obtenerOrdenesCompra,
   obtenerOrdenPorId,
   crearOrden,
